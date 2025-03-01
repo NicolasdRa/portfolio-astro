@@ -1,0 +1,59 @@
+---
+
+
+import SEO from '../components/SEO.astro';
+import '../styles/global.css';
+import Navbar from '../components/Navbar/NavBar';
+// import { CustomCursorProvider } from '../context/CustomCursorContext';
+
+// import Footer from '../components/Footer';
+// import CustomCursor from '../components/CustomCursor';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+
+const { 
+  title, 
+  description = 'Developer portfolio showcasing projects and skills', 
+  image = '/images/social-image.jpg',
+  article = false
+} = Astro.props;
+
+// const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="canonical" href={canonicalURL} /> -->
+
+    <SEO 
+      title={title}
+      description={description}
+      image={image}
+      article={article}
+    />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- <CustomCursorProvider client:load> -->
+     <Navbar client:load  />
+      <!-- <CustomCursor client:load /> -->
+      <main>
+        hello
+        <!-- <slot /> -->
+      </main>
+      <!-- <Footer client:visible />
+    </CustomCursorProvider> -->
+  </body>
+</html>

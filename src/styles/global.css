@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --font-primary: "Source Code Pro", sans-serif;
+  --font-secondary: "Space Grotesk", sans-serif;
+  --font-tertiary: Oswald, sans-serif;
+
+  --color-primary: #ffebec;
+  --color-secondary: #fd9ba0;
+  --color-tertiary: #fc5e66;
+  --color-quaternary: #fb3640;
+  --color-quinary: #c92b33;
+  --color-senary: #972026;
+  --color-septenary: #f7f7f7;
+
+  --color-grey-1: #262626;
+  --color-grey-2: #515151;
+  --color-grey-3: #7d7d7d;
+  --color-grey-4: #a8a8a8;
+  --color-grey-5: #d4d4d4;
+
+  --color-black: #111111;
+  --color-white: #ffffff;
+  --color-background: #fafafa;
+}
+
+/* 1. Font Definition */
+@font-face {
+  font-family: "Source Code Pro";
+  src:
+    local("Source Code Pro"),
+    url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Code Pro Italic";
+  src:
+    local("Source Code Pro Italic"),
+    url("/fonts/SourceCodePro-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src:
+    local("Space Grotesk"),
+    url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src:
+    local("Oswald"),
+    url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Base Elements */
+
+body {
+  @apply text-primary text-base tracking-tight break-words hyphens-auto;
+}
+
+/* 3. Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-normal tracking-tighter break-words;
+}
+
+/* For Chrome, Edge, Safari and the last one for Firefox */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.5rem;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}

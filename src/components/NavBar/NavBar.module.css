@@ -1,0 +1,79 @@
+@reference "../../styles/global.css";
+
+.container {
+  @apply opacity-0;
+}
+
+.navbar {
+  @apply font-primary fixed top-0 z-50 flex h-32 w-full cursor-none items-center justify-between px-20 pr-44 pl-20 text-sm backdrop-blur-sm transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)];
+}
+
+.scrolledDown {
+  @apply -top-[100px] backdrop-blur-sm transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)];
+}
+
+.nav-logo img {
+  @apply h-6;
+}
+
+.toggle-btn {
+  @apply text-grey-1 border-transparent bg-transparent;
+}
+
+.nav-links {
+  @apply hidden;
+}
+
+@media screen and (max-width: 1024px) {
+  .navbar {
+    @apply justify-end p-20;
+  }
+
+  .toggle-btn {
+    @apply h-12;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .toggle-btn {
+    @apply h-10;
+  }
+
+  .navbar {
+    @apply px-12;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .toggle-btn {
+    @apply hidden;
+  }
+
+  .nav-links {
+    @apply flex cursor-none justify-end;
+  }
+
+  .nav-links li {
+    @apply text-grey-2 mr-20 py-2 font-medium capitalize transition-transform duration-450 ease-out will-change-transform backface-hidden;
+  }
+
+  .nav-links li:last-child {
+    @apply mr-8;
+  }
+
+  .nav-links li:hover {
+    @apply -translate-y-0.5 cursor-none transition-transform duration-125;
+  }
+
+  .nav-links li:active {
+    @apply text-quinary translate-y-0.5 transition-transform duration-125;
+  }
+
+  .link-number {
+    @apply text-quinary text-xl;
+  }
+
+  .nav-center {
+    @apply grid grid-cols-[auto_1fr] items-center;
+  }
+}

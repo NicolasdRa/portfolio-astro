@@ -1,0 +1,41 @@
+---
+// SEO.astro
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+
+const { 
+  title = 'Portfolio',
+  description = 'Developer portfolio showcasing projects and skills', 
+  image = '/images/social-image.jpg',
+  article = false 
+} = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://nicolasdirago.dev';
+const siteTitle = 'Developer Portfolio';
+const twitterUsername = '@yourhandle';
+
+const formattedTitle = `${title} | ${siteTitle}`;
+---
+
+<!-- SEO Meta Tags -->
+<title>{formattedTitle}</title>
+<meta name="description" content={description} />
+<meta name="image" content={`${siteUrl}${image}`} />
+
+<!-- Open Graph -->
+<meta property="og:url" content={siteUrl} />
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={`${siteUrl}${image}`} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content={twitterUsername} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={`${siteUrl}${image}`} />

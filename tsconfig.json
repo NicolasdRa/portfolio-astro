@@ -1,0 +1,51 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    "src/**/*",
+    "src/types/**/*",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.astro"
+  ],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": ["astro/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["src/lib/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@pages/*": ["src/pages/*"],
+      "@assets/*": ["src/assets/*"],
+      "@stores/*": ["src/stores/*"],
+      "@public/*": ["public/*"],
+      "@type/*": ["src/types/*"],
+      "@config": ["src/config"],
+      "hooks": ["src/hooks"],
+      "services": ["src/services"],
+      "@/*": ["./*"]
+    },
+    "typeRoots": ["./node_modules/", "./src/types"],
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "incremental": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}
