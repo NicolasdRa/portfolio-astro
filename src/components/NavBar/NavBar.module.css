@@ -5,75 +5,45 @@
 }
 
 .navbar {
-  @apply font-primary fixed top-0 z-50 flex h-32 w-full cursor-none items-center justify-between px-20 pr-44 pl-20 text-sm backdrop-blur-sm transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)];
+  @apply font-primary fixed top-0 z-50 flex h-32 w-full cursor-none items-center justify-between text-sm backdrop-blur-sm transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)] sm:px-12 lg:justify-between lg:pr-24 lg:pl-16;
 }
 
 .scrolledDown {
   @apply -top-[100px] backdrop-blur-sm transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)];
 }
 
-.nav-logo img {
+.navLogo img {
   @apply h-6;
 }
 
-.toggle-btn {
-  @apply text-grey-1 border-transparent bg-transparent;
+.toggleBtn {
+  @apply text-grey-1 border-transparent bg-transparent sm:h-10 lg:block lg:h-12 xl:hidden;
 }
 
-.nav-links {
-  @apply hidden;
+.navLinks {
+  @apply hidden xl:flex xl:cursor-none xl:justify-end;
 }
 
-@media screen and (max-width: 1024px) {
-  .navbar {
-    @apply justify-end p-20;
-  }
-
-  .toggle-btn {
-    @apply h-12;
-  }
+.navLinks li {
+  @apply xl:text-grey-2 xl:mr-20 xl:py-2 xl:font-medium xl:capitalize xl:transition-transform xl:duration-450 xl:ease-out xl:will-change-transform xl:backface-hidden;
 }
 
-@media screen and (max-width: 600px) {
-  .toggle-btn {
-    @apply h-10;
-  }
-
-  .navbar {
-    @apply px-12;
-  }
+.navLinks li:last-child {
+  @apply xl:mr-8;
 }
 
-@media screen and (min-width: 1024px) {
-  .toggle-btn {
-    @apply hidden;
-  }
+.navLinks li:hover {
+  @apply lg:text-senary xl:-translate-y-0.5 xl:cursor-none xl:transition-transform xl:duration-125;
+}
 
-  .nav-links {
-    @apply flex cursor-none justify-end;
-  }
+.navLinks li:active {
+  @apply lg:text-quinary xl:translate-y-0.5 xl:transition-transform xl:duration-125;
+}
 
-  .nav-links li {
-    @apply text-grey-2 mr-20 py-2 font-medium capitalize transition-transform duration-450 ease-out will-change-transform backface-hidden;
-  }
+.linkNumber {
+  @apply xl:text-quinary xl:text-xl;
+}
 
-  .nav-links li:last-child {
-    @apply mr-8;
-  }
-
-  .nav-links li:hover {
-    @apply -translate-y-0.5 cursor-none transition-transform duration-125;
-  }
-
-  .nav-links li:active {
-    @apply text-quinary translate-y-0.5 transition-transform duration-125;
-  }
-
-  .link-number {
-    @apply text-quinary text-xl;
-  }
-
-  .nav-center {
-    @apply grid grid-cols-[auto_1fr] items-center;
-  }
+.navCenter {
+  @apply xl:grid xl:grid-cols-[auto_1fr] xl:items-center;
 }

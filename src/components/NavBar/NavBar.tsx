@@ -1,10 +1,12 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { gsap } from "gsap";
 import logo from "../../assets/svg/logo.svg";
 import pageLinks from "../../constants/links";
 import styles from "./NavBar.module.css";
 import { AiOutlineMenu } from "react-icons/ai";
-// import { CustomCursorContext } from '../../context/CustomCursorContext';
+import { clsx } from "clsx";
+
+import { useUiStore } from "@stores/cursor.store";
 
 interface Props {
   // TODO: move to zustand
@@ -13,9 +15,9 @@ interface Props {
 
 const Navbar: React.FC<Props> = () => {
   const navRef = useRef<HTMLDivElement>(null);
-  const [scrolled, setScrolled] = useState("");
+  const [scrolled, setScrolled] = useState(false);
 
-  // const { setType } = useContext(CustomCursorContext);
+  const setCursorType = useUiStore((state) => state.setCursorType);
 
   // TODO: fix this function and event listener
   // const handleScroll = () => {
@@ -43,11 +45,11 @@ const Navbar: React.FC<Props> = () => {
       const currentScroll = window.pageYOffset;
 
       if (prevScroll < currentScroll) {
-        setScrolled("scrolledDown");
+        setScrolled(true);
       } else if (prevScroll > currentScroll) {
-        setScrolled("");
+        setScrolled(false);
       } else {
-        setScrolled("");
+        setScrolled(false);
       }
 
       prevScroll = currentScroll;
@@ -67,14 +69,16 @@ const Navbar: React.FC<Props> = () => {
   return (
     <header ref={navRef} className={styles.container}>
       <nav
-        className={`${styles.navbar} ${scrolled ? styles.scrolledDown : ""}`}
+        className={clsx(styles.navbar, {
+          [styles.scrolledDown]: scrolled === true,
+        })}
       >
-        <div className={styles["nav-logo"]}>
+        <div className={styles.navLogo}>
           <a
             href="/"
-            className={styles["nav-links"]}
-            // onMouseEnter={() => setType('hover')}
-            // onMouseLeave={() => setType('default')}
+            className={styles.navLinks}
+            onMouseEnter={() => setCursorType("hover")}
+            onMouseLeave={() => setCursorType("default")}
           >
             <img src={logo.src ?? ""} alt="web dev" />
           </a>
@@ -82,20 +86,20 @@ const Navbar: React.FC<Props> = () => {
         {/* TODO: Add toggle sidebar on click */}
         <button
           type="button"
-          className={styles["toggle-btn"]}
+          className={styles.toggleBtn}
           onClick={() => console.log("add sidebar toggle on click")}
         >
           <AiOutlineMenu />
         </button>
-        <ul className={styles["nav-links"]}>
+        <ul className={styles.navLinks}>
           {pageLinks.map((link: { id: number; url: string; text: string }) => (
             <li
               key={link.id}
-              // onMouseEnter={() => setType('hover')}
-              // onMouseLeave={() => setType('default')}
+              onMouseEnter={() => setCursorType("hover")}
+              onMouseLeave={() => setCursorType("default")}
             >
               <a href={link.url}>
-                <span className={styles["link-number"]}>0{link.id - 1}. </span>
+                <span className={styles.linkNumber}>0{link.id - 1}. </span>
                 {link.text}
               </a>
             </li>

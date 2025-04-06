@@ -34,8 +34,9 @@
       "@public/*": ["public/*"],
       "@type/*": ["src/types/*"],
       "@config": ["src/config"],
-      "hooks": ["src/hooks"],
-      "services": ["src/services"],
+      "@hooks": ["src/hooks"],
+      "@context": ["src/context"],
+      "@services": ["src/services"],
       "@/*": ["./*"]
     },
     "typeRoots": ["./node_modules/", "./src/types"],

@@ -1,0 +1,55 @@
+@reference "../../styles/global.css";
+
+.socialLinksWrapper {
+  @apply fixed top-10 right-16 z-50 m-auto opacity-0;
+}
+
+.socialLinks {
+  @apply mb-12 flex w-7 flex-col items-center justify-between;
+}
+
+.cvLink {
+  @apply bg-grey-1 text-primary w-8 rounded-full p-1.5 text-sm leading-none no-underline transition-all duration-300;
+}
+
+.cvLink:hover {
+  @apply bg-senary -translate-y-0.5 transition-all duration-300;
+}
+
+.cv:active {
+  @apply bg-senary translate-y-0.5 transition-transform duration-125;
+}
+
+.verticalLine {
+  @apply my-6 h-24 border-l border-gray-400;
+}
+
+.socialLink {
+  @apply mb-6 transform text-2xl text-gray-700 transition-transform duration-450 ease-out backface-hidden;
+}
+
+.socialLink:hover {
+  @apply text-senary -translate-y-0.5 transition-transform duration-125;
+}
+
+.socialLink:active {
+  @apply text-senary translate-y-0.5 transition-transform duration-125;
+}
+
+@media screen and (max-width: 1024px) {
+  .verticalLinks {
+    @apply hidden;
+  }
+}
+
+/* Custom utility classes that might need to be added to tailwind.config.js */
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .transition-transform-450 {
+    transition-duration: 450ms;
+  }
+}

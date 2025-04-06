@@ -1,0 +1,79 @@
+@reference "../../styles/global.css";
+
+.footer {
+  @apply flex w-screen flex-col items-center justify-center pb-12 text-center;
+}
+
+.logo img {
+  @apply mb-10 h-9;
+}
+
+.footerText {
+  @apply mb-6 text-lg font-normal text-current;
+}
+
+.highlight {
+  @apply text-senary;
+}
+
+.socialLinks {
+  @apply mx-auto my-12 flex justify-center;
+}
+
+.socialLink {
+  @apply mr-12 transition-transform duration-450 ease-out;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.socialLink a {
+  @apply h-8 text-gray-600; /* Adjust to match your grey2 color */
+}
+
+.socialLink:hover {
+  @apply text-senary -translate-y-0.5;
+  transition: transform 125ms;
+}
+
+.socialLink:last-child {
+  @apply mr-0;
+}
+
+.footer .socialLink {
+  @apply text-gray-500; /* Adjust to match your grey3 color */
+}
+
+.footer .socialLink:hover {
+  @apply text-senary;
+}
+
+.copyright {
+  @apply text-sm text-gray-500;
+}
+
+.copyright span {
+  @apply text-senary;
+}
+
+@media only screen and (min-width: 800px) {
+  .socialLinks {
+    @apply hidden;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    @apply hidden;
+  }
+
+  .footer {
+    @apply pb-8;
+  }
+}
+
+/* Add these to your global CSS or tailwind config */
+@layer utilities {
+  .duration-450 {
+    transition-duration: 450ms;
+  }
+}

@@ -1,0 +1,35 @@
+@reference "../../styles/global.css";
+
+.mainCursor,
+.secondaryCursor {
+  @apply pointer-events-none fixed z-[1000] max-lg:hidden lg:block;
+  transform: translate3d(0, 0, 0);
+}
+
+.mainCursor {
+  @apply ease-bezier-1 animate-fade-in transition-opacity duration-1000;
+}
+
+.mainCursorBackground {
+  @apply size-2.5 rounded-full bg-black;
+}
+
+.secondaryCursor {
+  @apply size-16 rounded-full;
+}
+
+.secondaryCursorBackground {
+  @apply ease-bezier-2 animate-scale-down relative size-full rounded-full border border-gray-300 transition-all duration-300;
+}
+
+.hover {
+  @apply animate-scale-up bg-senary border-0 opacity-10;
+}
+
+.hoverSocial {
+  @apply bg-senary border-0 opacity-10;
+}
+
+.hoverName {
+  @apply bg-senary animate-scale-up ease-bezier-2 border-0 opacity-20;
+}

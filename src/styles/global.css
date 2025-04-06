@@ -22,7 +22,41 @@
   --color-black: #111111;
   --color-white: #ffffff;
   --color-background: #fafafa;
+
+  --animate-scale-up: scaleUp 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+  --animate-scale-down: scaleDown 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+  --animate-fade-in: fadeIn 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+
+  --ease-bezier-1: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-bezier-2: cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 /* 1. Font Definition */
 @font-face {
