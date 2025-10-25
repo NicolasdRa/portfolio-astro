@@ -9,33 +9,17 @@ import ContactSection from '../components/Sections/ContactSection/ContactSection
 
 <Layout title="Home" showNavbar={true}>
 	<!-- Hero Section -->
-	<HeroSection client:load />
-
-	<!-- CSS Particles Background -->
-	<div class="particles-container">
-		{[...Array(30)].map((_, i) => (
-			<div
-				class="particle"
-				style={`
-					width: ${Math.random() * 6 + 2}px;
-					height: ${Math.random() * 6 + 2}px;
-					left: ${Math.random() * 100}%;
-					animation-delay: ${Math.random() * 6}s;
-					animation-duration: ${Math.random() * 3 + 6}s;
-				`}
-			/>
-		))}
-	</div>
+	<HeroSection client:only="react" />
 
 	<!-- About Section -->
-	<AboutSection client:load />
+	<AboutSection client:only="react" />
 
 	<!-- Work Section -->
-	<WorkSection client:load />
+	<WorkSection client:only="react" />
 
 	<!-- Projects Section -->
-	<ProjectsSection client:load />
+	<ProjectsSection client:only="react" />
 
 	<!-- Contact Section -->
-	<ContactSection client:load />
+	<ContactSection client:only="react" />
 </Layout>

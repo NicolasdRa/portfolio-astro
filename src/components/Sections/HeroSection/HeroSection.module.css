@@ -111,9 +111,17 @@
   position: absolute;
   top: 20%;
   left: 50%;
-  transform: translate(24%, 18%);
+  transform: translate(40%, 18%);
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   opacity: 0;
+  max-width: 400px;
+  max-height: 500px;
+  width: 30vw;
+  height: 40vh;
+}
+
+[data-theme='light'] .imageWrapper {
+  mix-blend-mode: multiply;
 }
 
 .active {

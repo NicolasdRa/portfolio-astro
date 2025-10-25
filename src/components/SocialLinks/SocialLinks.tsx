@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
+import { animate } from "animejs";
 
 import socialLinks from "../../constants/social_links";
 import cv from "/cv-nicolasdirago.pdf";
@@ -14,23 +14,14 @@ const SocialLinks: React.FC = () => {
 
   useEffect(() => {
     if (!linksRef.current) throw Error("divRef is not assigned");
-    gsap.from(linksRef.current, {
-      duration: 0.3,
-      scale: 0.5,
-      delay: 0.5,
-      y: -100,
-    });
-    gsap.to(linksRef.current, {
-      duration: 0.3,
-      opacity: 1,
-      delay: 0.5,
-      y: -100,
-    });
-    gsap.to(linksRef.current, {
-      duration: 1,
-      ease: "elastic.out(1, 0.3)",
-      y: +14,
-      delay: 0.5,
+
+    animate(linksRef.current, {
+      opacity: [0, 1],
+      scale: [0.5, 1],
+      translateY: [-100, 14],
+      duration: 1000,
+      delay: 500,
+      ease: 'outElastic(1, .3)',
     });
   }, []);
 

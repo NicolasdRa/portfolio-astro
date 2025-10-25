@@ -1,47 +1,53 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animate } from 'animejs';
 import styles from './AboutSection.module.css';
 import about from '../../../constants/about';
 
 const AboutSection: React.FC = () => {
-  gsap.registerPlugin(ScrollTrigger);
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLElement>(null);
   const stackWrapperRef = useRef<HTMLDivElement>(null);
   const stackFadeRef = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const INITIAL_ITEMS = 10;
 
   useEffect(() => {
     if (!contentRef.current) return;
 
     const element = contentRef.current;
+    const isDesktop = window.matchMedia('(min-width: 800px)').matches;
 
-    ScrollTrigger.matchMedia({
-      '(min-width: 800px)': function () {
-        gsap.fromTo(
-          element,
-          {
-            opacity: 0,
-            y: 120,
-          },
-          {
-            duration: 0.8,
-            ease: 'expo.out',
-            opacity: 1,
-            y: 0,
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 75%',
-              end: 'bottom 90%',
-              toggleActions: 'play none none reverse',
-            },
+    if (!isDesktop) return;
+
+    // Set initial state
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(120px)';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            animate(element, {
+              opacity: [0, 1],
+              translateY: [120, 0],
+              duration: 800,
+              ease: 'outExpo',
+            });
+            setHasAnimated(true);
           }
-        );
+        });
       },
-    });
-  }, []);
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -25% 0px',
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [hasAnimated]);
 
   useEffect(() => {
     if (!stackWrapperRef.current) return;
@@ -57,34 +63,34 @@ const AboutSection: React.FC = () => {
 
     if (showAll) {
       // Expand animation
-      gsap.to(stackWrapperRef.current, {
+      animate(stackWrapperRef.current, {
         maxHeight: 2000,
-        duration: 1,
-        ease: 'power3.inOut',
+        duration: 1000,
+        ease: 'inOutCubic',
       });
 
       // Fade out the overlay
       if (stackFadeRef.current) {
-        gsap.to(stackFadeRef.current, {
-          opacity: 0,
-          duration: 0.5,
-          ease: 'power2.inOut',
+        animate(stackFadeRef.current, {
+          opacity: [1, 0],
+          duration: 500,
+          ease: 'inOutQuad',
         });
       }
     } else {
       // Collapse animation
-      gsap.to(stackWrapperRef.current, {
+      animate(stackWrapperRef.current, {
         maxHeight: getCollapsedHeight(),
-        duration: 1,
-        ease: 'power3.inOut',
+        duration: 1000,
+        ease: 'inOutCubic',
       });
 
       // Fade in the overlay
       if (stackFadeRef.current) {
-        gsap.to(stackFadeRef.current, {
-          opacity: 1,
-          duration: 0.5,
-          ease: 'power2.inOut',
+        animate(stackFadeRef.current, {
+          opacity: [0, 1],
+          duration: 500,
+          ease: 'inOutQuad',
         });
       }
     }

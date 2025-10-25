@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { animate } from 'animejs';
 import styles from './CustomImage.module.css';
 
 interface CustomImageProps {
@@ -20,20 +20,13 @@ const CustomImage: React.FC<CustomImageProps> = ({
 
     const element = imageRef.current;
 
-    gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        scale: 0.9,
-      },
-      {
-        duration: 0.3,
-        delay: 0.1,
-        opacity: 1,
-        scale: 1,
-        ease: 'power2.out',
-      }
-    );
+    animate(element, {
+      opacity: [0, 1],
+      scale: [0.9, 1],
+      duration: 300,
+      delay: 100,
+      ease: 'outQuad',
+    });
   }, [isActive]);
 
   return (

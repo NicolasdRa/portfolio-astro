@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { gsap } from 'gsap';
+import { animate } from 'animejs';
 import { useUiStore } from '@stores/cursor.store';
 import styles from './ThemeToggle.module.css';
 
@@ -30,11 +30,11 @@ const ThemeToggle: React.FC = () => {
   useEffect(() => {
     if (!containerRef.current || !mounted) return;
 
-    // GSAP fade-in animation matching Gatsby
-    gsap.to(containerRef.current, {
-      duration: 0.3,
-      opacity: 1,
-      ease: 'power2.out'
+    // Anime.js fade-in animation matching Gatsby
+    animate(containerRef.current, {
+      opacity: [0, 1],
+      duration: 300,
+      ease: 'outQuad'
     });
   }, [mounted]);
 

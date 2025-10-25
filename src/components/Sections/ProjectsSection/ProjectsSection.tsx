@@ -1,11 +1,7 @@
 import React from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectList from '../../ProjectList/ProjectList';
 import CustomLink from '../../CustomLink/CustomLink';
 import styles from './ProjectsSection.module.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ProjectsSection: React.FC = () => {
   return (

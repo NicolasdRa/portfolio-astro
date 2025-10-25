@@ -81,16 +81,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
   </head>
   <body>
     <!-- Custom Cursor - Always visible on desktop -->
-    <CustomCursor client:load />
+    <CustomCursor client:only="react" transition:persist />
 
     <!-- Navigation - Conditionally rendered based on page -->
-    {showNavbar && <Navbar client:load />}
+    {showNavbar && <Navbar client:only="react" />}
 
     <!-- Social Links - Fixed position -->
-    <SocialLinks client:load />
+    <SocialLinks client:only="react" transition:persist />
 
     <!-- Theme Toggle - Fixed position -->
-    <ThemeToggle client:load />
+    <ThemeToggle client:only="react" transition:persist />
 
     <!-- Main Content -->
     <main>
@@ -98,7 +98,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     </main>
 
     <!-- Footer -->
-    <Footer client:load />
+    <Footer client:only="react" transition:persist />
 
     <!-- Global theme toggle script -->
     <script>
@@ -116,6 +116,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
       window.getTheme = function() {
         return document.documentElement.getAttribute('data-theme') || 'light';
       };
+
+      // Handle theme persistence during View Transitions
+      document.addEventListener('astro:before-swap', (ev) => {
+        // Get current theme before swap
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+
+        // Set theme on new document
+        ev.newDocument.documentElement.setAttribute('data-theme', currentTheme);
+      });
+
+      // Ensure theme is applied after page load
+      document.addEventListener('astro:page-load', () => {
+        const THEME_KEY = 'portfolio-theme-mode';
+        const storedTheme = localStorage.getItem(THEME_KEY);
+
+        if (storedTheme) {
+          document.documentElement.setAttribute('data-theme', storedTheme);
+        }
+      });
     </script>
   </body>
 </html>

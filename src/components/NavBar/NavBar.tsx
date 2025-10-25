@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
+import { animate } from "animejs";
 import logo from "../../assets/svg/logo.svg";
 import pageLinks from "../../constants/links";
 import styles from "./NavBar.module.css";
@@ -64,7 +64,11 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     if (!navRef.current) throw Error("divRef is not assigned");
 
-    gsap.to(navRef.current, { duration: 0.3, opacity: 1 });
+    animate(navRef.current, {
+      opacity: [0, 1],
+      duration: 300,
+      ease: 'linear'
+    });
   }, []);
 
   return (

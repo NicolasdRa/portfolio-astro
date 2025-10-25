@@ -46,27 +46,70 @@
   margin-bottom: 5rem;
 }
 
+.fieldWrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
 .formControl {
   display: block;
   width: 100%;
   max-width: 40rem;
   padding: 1rem 0;
   border: none;
-  border-bottom: 1px solid var(--color-gray-4);
-  margin-bottom: 3rem;
+  border-bottom: 2px solid var(--color-gray-4);
+  margin-bottom: 0.5rem;
   outline: none;
   text-transform: lowercase;
   background: transparent;
   color: var(--color-text-primary);
   font-family: var(--font-primary);
   font-size: 1.6rem;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .formControl::placeholder {
   font-family: var(--font-primary);
   text-transform: lowercase;
   color: var(--color-text-secondary);
+  transition: color 0.3s ease;
+}
+
+.formControl:focus {
+  border-bottom-color: var(--color-primary-3);
+}
+
+.formControl:focus::placeholder {
+  color: var(--color-gray-3);
+}
+
+.formControl.error {
+  border-bottom-color: var(--color-primary-3);
+}
+
+.errorMessage {
+  display: block;
+  color: var(--color-primary-3);
+  font-size: 1.2rem;
+  min-height: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: lowercase;
+  font-family: var(--font-primary);
+}
+
+/* Reserve space for error message even when empty */
+.fieldWrapper::after {
+  content: '';
+  display: block;
+  min-height: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Hide the spacer when error message is present */
+.fieldWrapper:has(.errorMessage)::after {
+  display: none;
 }
 
 .title {
@@ -86,13 +129,38 @@
   margin-right: 0.5rem;
 }
 
+@media only screen and (min-width: 961px) and (max-width: 1400px) {
+  .titles {
+    width: 30%;
+    margin: 0 2rem;
+  }
+
+  .form {
+    width: 70%;
+  }
+
+  .formControl {
+    max-width: 60rem;
+  }
+}
+
 @media only screen and (max-width: 960px) {
   .container {
     width: 75vw;
   }
 
+  .titles {
+    width: 25%;
+    margin: 0 1.5rem;
+  }
+
+  .form {
+    width: 75%;
+  }
+
   .formControl {
     width: 100%;
+    max-width: none;
   }
 }
 
@@ -102,12 +170,12 @@
   }
 
   .titles {
-    width: 40%;
-    margin: 0 2rem;
+    width: 30%;
+    margin: 0 1.5rem;
   }
 
   .form {
-    width: 60%;
+    width: 70%;
   }
 }
 

@@ -7,7 +7,7 @@ import CustomLink from '../components/CustomLink/CustomLink';
 	<main class="success-page">
 		<div class="container">
 			<h1>your message has been received</h1>
-			<CustomLink url="/" text="back home" type="internal" client:load />
+			<CustomLink url="/" text="back home" type="internal" client:only="react" />
 		</div>
 	</main>
 </Layout>
@@ -20,6 +20,8 @@ import CustomLink from '../components/CustomLink/CustomLink';
 		min-height: 100vh;
 		margin: 0 5vw;
 		animation: fadeIn 0.8s ease-out;
+		background-color: var(--color-background);
+		color: var(--color-text);
 	}
 
 	h1 {
@@ -27,6 +29,7 @@ import CustomLink from '../components/CustomLink/CustomLink';
 		font-size: 4rem;
 		font-weight: lighter;
 		margin-bottom: 5rem;
+		color: var(--color-gray-1);
 	}
 
 	.container {
