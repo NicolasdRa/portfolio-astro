@@ -6,63 +6,87 @@
   font-family: var(--font-primary);
   position: fixed;
   top: 0;
-  z-index: 50;
+  z-index: 200;
   display: flex;
   height: 8rem;
   width: 100%;
   cursor: none;
   align-items: center;
   justify-content: space-between;
-  backdrop-filter: blur(4px);
-  transition: var(--transition-base);
-  padding: 0 3rem;
+  background: var(--color-background);
+  backdrop-filter: blur(5px);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 0 11rem 0 5rem;
 }
 
-@media (min-width: 640px) {
+@media screen and (max-width: 1024px) {
+  .navbar {
+    padding: 5rem 4rem;
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 600px) {
   .navbar {
     padding: 0 3rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .navbar {
-    justify-content: space-between;
-    padding-right: 6rem;
-    padding-left: 4rem;
-  }
-}
-
 .scrolledDown {
   top: -100px;
-  backdrop-filter: blur(4px);
-  transition: var(--transition-base);
+  backdrop-filter: blur(5px);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .navLogo img {
-  height: 1.5rem;
+  height: 1.6rem;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+[data-theme="dark"] .navLogo img {
+  filter: invert(1) brightness(0.9);
+}
+
+.navLogo:hover img {
+  transform: scale(1.05);
 }
 
 .toggleBtn {
-  color: var(--color-gray-1);
+  background: transparent;
   border-color: transparent;
-  background-color: transparent;
-  height: 2.5rem;
+  border: none;
+  color: var(--color-gray-2);
+  cursor: none;
+  transition: color 0.3s ease;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (min-width: 640px) {
+.toggleBtn svg {
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toggleBtn:hover {
+  color: var(--color-primary-3);
+}
+
+@media screen and (max-width: 1024px) {
   .toggleBtn {
-    height: 2.5rem;
+    font-size: 3rem;
   }
 }
 
-@media (min-width: 1024px) {
+@media screen and (max-width: 600px) {
   .toggleBtn {
-    display: block;
-    height: 3rem;
+    font-size: 3rem;
   }
 }
 
-@media (min-width: 1280px) {
+@media screen and (min-width: 1024px) {
   .toggleBtn {
     display: none;
   }
@@ -72,7 +96,7 @@
   display: none;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .navLinks {
     display: flex;
     cursor: none;
@@ -84,35 +108,45 @@
   color: var(--color-gray-2);
   margin-right: 5rem;
   padding: 0.5rem 0;
+  font-size: 1.5rem;
   font-weight: 500;
   text-transform: capitalize;
-  transition: var(--transition-base);
+  transition: transform 450ms ease-out, color 0.3s ease;
   will-change: transform;
   backface-visibility: hidden;
+  position: relative;
 }
 
-@media (min-width: 1280px) {
-  .navLinks li:last-child {
-    margin-right: 2rem;
-  }
+.navLinks li a {
+  position: relative;
+  color: inherit;
+}
+
+.navLinks li a::after {
+  content: '';
+  position: absolute;
+  bottom: -0.3rem;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-primary-3);
+  transition: width 0.3s ease;
 }
 
 .navLinks li:hover {
   color: var(--color-primary-3);
   transform: translateY(-2px);
   cursor: none;
-  transition: var(--transition-fast);
+  transition: transform 125ms, color 0.15s ease;
 }
 
-.navLinks li:active {
-  color: var(--color-primary-4);
-  transform: translateY(2px);
-  transition: var(--transition-fast);
+.navLinks li:hover a::after {
+  width: 100%;
 }
 
 .linkNumber {
-  color: var(--color-primary-4);
-  font-size: 1.25rem;
+  color: var(--color-primary-3);
+  font-size: 1.8rem;
 }
 
 @media (min-width: 1280px) {

@@ -52,7 +52,7 @@
   max-width: 40rem;
   padding: 1rem 0;
   border: none;
-  border-bottom: 1px solid var(--color-grey-4);
+  border-bottom: 1px solid var(--color-gray-4);
   margin-bottom: 3rem;
   outline: none;
   text-transform: lowercase;
@@ -60,6 +60,7 @@
   color: var(--color-text-primary);
   font-family: var(--font-primary);
   font-size: 1.6rem;
+  transition: border-color 0.3s ease;
 }
 
 .formControl::placeholder {

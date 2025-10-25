@@ -98,6 +98,7 @@ const AboutSection: React.FC = () => {
         <div className={styles.titles}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>
+              <div className="title-line" />
               <span>01. </span>about
             </h2>
           </div>

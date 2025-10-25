@@ -13,7 +13,8 @@ const ProjectsSection: React.FC = () => {
       <div className={styles.content}>
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>
-            <span>03.</span>projects
+            <div className="title-line" />
+            <span>03. </span>projects
           </h2>
           <h3 className={styles.subtitle}>things i've built, things I'm working on</h3>
         </div>

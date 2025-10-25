@@ -53,34 +53,31 @@ const HeroSection: React.FC = () => {
 
         {/* Title and Details */}
         <div className={styles.title} ref={headingRef}>
-          <div className={styles.nameContainer}>
-            {name.map((item, index) => (
-              <div key={index} className={styles[`title${index + 1}`]}>
-                <AnimatedText
-                  text={item}
-                  index={index}
-                  setActiveIndex={setActiveIndex}
-                />
-              </div>
-            ))}
-          </div>
+          {name.map((item, index) => (
+            <div key={index} className={styles[`title${index + 1}`]}>
+              <AnimatedText
+                text={item}
+                index={index}
+                setActiveIndex={setActiveIndex}
+              />
+            </div>
+          ))}
 
           <div className={styles.details}>
             <div className={styles.description}>
-              senior <span className={styles.highlight}>frontend engineer</span> with backend capabilities.
+              senior <span>frontend engineer</span> with backend capabilities.
               building apps at{' '}
               <a
                 href="https://nuuk.de"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.link}
               >
-                <span className={styles.highlight}>nuuk gmbh</span>
+                <span>nuuk gmbh</span>
               </a>
               . <br />
               based in berlin.
             </div>
-            <CustomLink url="#contact" type="internal" text="get in touch" />
+            <CustomLink url="#contact" type="link" text="get in touch" />
           </div>
         </div>
       </div>

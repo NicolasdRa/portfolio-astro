@@ -46,6 +46,7 @@ const WorkSection: React.FC = () => {
         <div className={styles.titles}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>
+              <div className="title-line" />
               <span>02. </span>work
             </h2>
           </div>

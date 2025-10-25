@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { gsap } from 'gsap';
 import { useUiStore } from '@stores/cursor.store';
 import styles from './ThemeToggle.module.css';
 
@@ -29,15 +30,12 @@ const ThemeToggle: React.FC = () => {
   useEffect(() => {
     if (!containerRef.current || !mounted) return;
 
-    // Simple GSAP animation can be added here if needed
-    // For now, using CSS animations
-    const isMobile = window.innerWidth <= 1024;
-
-    if (isMobile) {
-      containerRef.current.style.animation = 'fadeIn 0.5s ease-out';
-    } else {
-      containerRef.current.style.animation = 'slideInFromRight 0.5s ease-out';
-    }
+    // GSAP fade-in animation matching Gatsby
+    gsap.to(containerRef.current, {
+      duration: 0.3,
+      opacity: 1,
+      ease: 'power2.out'
+    });
   }, [mounted]);
 
   const handleToggle = () => {

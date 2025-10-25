@@ -1,43 +1,8 @@
 .text {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
 }
 
 .animatedItem {
-  display: inline-block;
-  position: relative;
-  cursor: none;
-  transition: var(--transition-fast);
-  color: var(--color-text-primary);
-  font-family: var(--font-tertiary);
-  font-weight: 700;
-  font-size: clamp(4rem, 8vw, 9rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
-
-.animatedItem:hover {
-  color: var(--color-primary-3);
-  transform: scale(1.05);
-}
-
-.animatedItem::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0;
-  height: 4px;
-  background: var(--color-primary-3);
-  transition: width 0.3s ease;
-}
-
-.animatedItem:hover::after {
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .animatedItem {
-    font-size: clamp(3rem, 10vw, 5rem);
-  }
+  /* Minimal styling - inherit font from parent (HeroSection) */
 }

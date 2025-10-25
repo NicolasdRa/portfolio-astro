@@ -43,6 +43,7 @@ const ContactSection: React.FC = () => {
         <div className={styles.titles}>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>
+              <div className="title-line" />
               <span>04. </span>contact
             </h2>
           </div>
