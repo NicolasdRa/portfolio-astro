@@ -1,23 +1,24 @@
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import logo from "../../assets/svg/logo.svg";
 import pageLinks from "../../constants/links";
 import styles from "./NavBar.module.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import { clsx } from "clsx";
+import Sidebar from "../Sidebar/Sidebar";
 
 import { useUiStore } from "@stores/cursor.store";
 
-interface Props {
-  // TODO: move to zustand
-  // toggleSideBar: () => void;
-}
-
-const Navbar: React.FC<Props> = () => {
+const Navbar: React.FC = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const setCursorType = useUiStore((state) => state.setCursorType);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   // TODO: fix this function and event listener
   // const handleScroll = () => {
@@ -83,11 +84,13 @@ const Navbar: React.FC<Props> = () => {
             <img src={logo.src ?? ""} alt="web dev" />
           </a>
         </div>
-        {/* TODO: Add toggle sidebar on click */}
         <button
           type="button"
           className={styles.toggleBtn}
-          onClick={() => console.log("add sidebar toggle on click")}
+          onClick={toggleSidebar}
+          onMouseEnter={() => setCursorType("hover")}
+          onMouseLeave={() => setCursorType("default")}
+          aria-label="Open menu"
         >
           <AiOutlineMenu />
         </button>
@@ -106,6 +109,7 @@ const Navbar: React.FC<Props> = () => {
           ))}
         </ul>
       </nav>
+      <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
     </header>
   );
 };

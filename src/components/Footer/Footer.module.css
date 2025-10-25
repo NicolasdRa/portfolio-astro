@@ -1,79 +1,87 @@
-@reference "../../styles/global.css";
-
 .footer {
-  @apply flex w-screen flex-col items-center justify-center pb-12 text-center;
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3rem;
+  text-align: center;
 }
 
 .logo img {
-  @apply mb-10 h-9;
+  margin-bottom: 2.5rem;
+  height: 2.25rem;
 }
 
 .footerText {
-  @apply mb-6 text-lg font-normal text-current;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
 }
 
 .highlight {
-  @apply text-senary;
+  color: var(--color-primary-3);
 }
 
 .socialLinks {
-  @apply mx-auto my-12 flex justify-center;
+  margin: 3rem auto;
+  display: flex;
+  justify-content: center;
 }
 
 .socialLink {
-  @apply mr-12 transition-transform duration-450 ease-out;
+  margin-right: 3rem;
+  transition: var(--transition-base);
   backface-visibility: hidden;
   will-change: transform;
 }
 
 .socialLink a {
-  @apply h-8 text-gray-600; /* Adjust to match your grey2 color */
+  height: 2rem;
+  color: var(--color-gray-2);
+  font-size: 1.5rem;
 }
 
 .socialLink:hover {
-  @apply text-senary -translate-y-0.5;
-  transition: transform 125ms;
+  color: var(--color-primary-3);
+  transform: translateY(-2px);
+  transition: var(--transition-fast);
 }
 
 .socialLink:last-child {
-  @apply mr-0;
+  margin-right: 0;
 }
 
 .footer .socialLink {
-  @apply text-gray-500; /* Adjust to match your grey3 color */
+  color: var(--color-gray-3);
 }
 
 .footer .socialLink:hover {
-  @apply text-senary;
+  color: var(--color-primary-3);
 }
 
 .copyright {
-  @apply text-sm text-gray-500;
+  font-size: 0.875rem;
+  color: var(--color-gray-3);
 }
 
 .copyright span {
-  @apply text-senary;
+  color: var(--color-primary-3);
 }
 
 @media only screen and (min-width: 800px) {
   .socialLinks {
-    @apply hidden;
+    display: none;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .logo {
-    @apply hidden;
+    display: none;
   }
 
   .footer {
-    @apply pb-8;
-  }
-}
-
-/* Add these to your global CSS or tailwind config */
-@layer utilities {
-  .duration-450 {
-    transition-duration: 450ms;
+    padding-bottom: 2rem;
   }
 }

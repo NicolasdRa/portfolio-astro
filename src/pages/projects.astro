@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectList from '../components/ProjectList/ProjectList';
+import CustomLink from '../components/CustomLink/CustomLink';
+---
+
+<Layout title="Projects" showNavbar={true}>
+	<main class="projects-page">
+		<div class="content">
+			<h1>more projects</h1>
+			<ProjectList featured={false} client:load />
+			<CustomLink url="/" text="back home" type="internal" client:load />
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.projects-page {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		padding-top: 8vw;
+		margin: 0 auto;
+		animation: fadeIn 0.8s ease-out;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		max-width: 80vw;
+		margin-bottom: 8rem;
+	}
+
+	h1 {
+		font-family: var(--font-secondary);
+		font-size: 3.5rem;
+		font-weight: normal;
+		margin-bottom: 3rem;
+		max-width: 65vw;
+		text-align: center;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+</style>

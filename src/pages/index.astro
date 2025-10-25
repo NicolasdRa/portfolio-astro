@@ -1,11 +1,41 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import HeroSection from '../components/Sections/HeroSection/HeroSection';
+import AboutSection from '../components/Sections/AboutSection/AboutSection';
+import WorkSection from '../components/Sections/WorkSection/WorkSection';
+import ProjectsSection from '../components/Sections/ProjectsSection/ProjectsSection';
+import ContactSection from '../components/Sections/ContactSection/ContactSection';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Home" showNavbar={true}>
+	<!-- Hero Section -->
+	<HeroSection client:load />
+
+	<!-- CSS Particles Background -->
+	<div class="particles-container">
+		{[...Array(30)].map((_, i) => (
+			<div
+				class="particle"
+				style={`
+					width: ${Math.random() * 6 + 2}px;
+					height: ${Math.random() * 6 + 2}px;
+					left: ${Math.random() * 100}%;
+					animation-delay: ${Math.random() * 6}s;
+					animation-duration: ${Math.random() * 3 + 6}s;
+				`}
+			/>
+		))}
+	</div>
+
+	<!-- About Section -->
+	<AboutSection client:load />
+
+	<!-- Work Section -->
+	<WorkSection client:load />
+
+	<!-- Projects Section -->
+	<ProjectsSection client:load />
+
+	<!-- Contact Section -->
+	<ContactSection client:load />
 </Layout>

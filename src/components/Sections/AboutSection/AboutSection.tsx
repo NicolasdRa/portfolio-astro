@@ -1,0 +1,141 @@
+import React, { useRef, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import styles from './AboutSection.module.css';
+import about from '../../../constants/about';
+
+const AboutSection: React.FC = () => {
+  gsap.registerPlugin(ScrollTrigger);
+  const contentRef = useRef(null);
+  const stackWrapperRef = useRef<HTMLDivElement>(null);
+  const stackFadeRef = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
+  const INITIAL_ITEMS = 10;
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    const element = contentRef.current;
+
+    ScrollTrigger.matchMedia({
+      '(min-width: 800px)': function () {
+        gsap.fromTo(
+          element,
+          {
+            opacity: 0,
+            y: 120,
+          },
+          {
+            duration: 0.8,
+            ease: 'expo.out',
+            opacity: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 75%',
+              end: 'bottom 90%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!stackWrapperRef.current) return;
+
+    // Get responsive collapsed height based on screen size
+    const getCollapsedHeight = () => {
+      const width = window.innerWidth;
+      if (width <= 600) return 300;
+      if (width <= 768) return 200;
+      if (width <= 960) return 180;
+      return 120;
+    };
+
+    if (showAll) {
+      // Expand animation
+      gsap.to(stackWrapperRef.current, {
+        maxHeight: 2000,
+        duration: 1,
+        ease: 'power3.inOut',
+      });
+
+      // Fade out the overlay
+      if (stackFadeRef.current) {
+        gsap.to(stackFadeRef.current, {
+          opacity: 0,
+          duration: 0.5,
+          ease: 'power2.inOut',
+        });
+      }
+    } else {
+      // Collapse animation
+      gsap.to(stackWrapperRef.current, {
+        maxHeight: getCollapsedHeight(),
+        duration: 1,
+        ease: 'power3.inOut',
+      });
+
+      // Fade in the overlay
+      if (stackFadeRef.current) {
+        gsap.to(stackFadeRef.current, {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.inOut',
+        });
+      }
+    }
+  }, [showAll]);
+
+  const { stack } = about;
+
+  return (
+    <section id="about" className={styles.container} ref={contentRef}>
+      <div className={styles.content}>
+        <div className={styles.titles}>
+          <div className={styles.titleContainer}>
+            <h2 className={styles.title}>
+              <span>01. </span>about
+            </h2>
+          </div>
+          <h3>profile, skills & stack</h3>
+        </div>
+
+        <div className={styles.text}>
+          <p className={styles.profile}>{about.text}</p>
+          <div
+            ref={stackWrapperRef}
+            className={`${styles.stackWrapper} ${showAll ? styles.expanded : ''}`}
+          >
+            <div className={styles.stackGrid}>
+              {stack.map((item) => (
+                <p key={uuidv4()} className={styles.stackItem}>
+                  {item}
+                </p>
+              ))}
+            </div>
+            <div
+              ref={stackFadeRef}
+              className={styles.stackFade}
+              style={{ opacity: showAll ? 0 : 1 }}
+            />
+          </div>
+          {stack.length > INITIAL_ITEMS && (
+            <button
+              className={styles.viewAllBtn}
+              onClick={() => setShowAll(!showAll)}
+              type="button"
+            >
+              {showAll ? 'show less' : 'view more'}
+            </button>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AboutSection;

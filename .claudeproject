@@ -1,0 +1,984 @@
+# Portfolio Migration: Gatsby → Astro + React
+
+## Project Overview
+This is a **senior frontend engineer's portfolio** being migrated from Gatsby 5.13 to Astro 5.4 with React 19 for client-side reactivity. The portfolio showcases full-stack development skills with a focus on frontend excellence, UX/UI design, smooth animations, and modern web technologies.
+
+**Developer:** Nicolás Di Rago
+**Location:** Berlin, Germany
+**Role:** Full-stack Web Developer (Frontend-focused), Freelancer
+**Original Stack:** Gatsby + React + TypeScript + Styled-Components + GSAP
+**Target Stack:** Astro + React + TypeScript + Tailwind CSS (or CSS Modules) + GSAP
+
+---
+
+## Migration Status
+
+### ✅ **Completed Features (Astro Project)**
+
+#### **Core Infrastructure**
+- [x] Astro 5.4.1 project setup with React 19 integration
+- [x] TypeScript configuration with strict mode and path aliases
+- [x] Tailwind CSS v4 integration with Vite plugin
+- [x] ESLint + Prettier with Astro, React, and TypeScript support
+- [x] GSAP 3.12.7 animation library installed
+- [x] Zustand 5.0.3 for client-side state management
+- [x] Custom theme configuration (red/burgundy color palette)
+- [x] Custom fonts setup (Source Code Pro, Space Grotesk, Oswald)
+- [x] Responsive breakpoint system
+
+#### **Layout & Navigation**
+- [x] **Layout.astro** - Main layout wrapper with SEO integration
+- [x] **SEO.astro** - Open Graph + Twitter Card meta tags
+- [x] **NavBar.tsx** - Fixed header with scroll-based hide/show animation
+  - Location: `src/components/NavBar/NavBar.tsx:1`
+  - Features: GSAP scroll detection, custom cursor hover states
+  - Links: About, Work, Projects, Contact
+  - Mobile toggle button structure (not yet functional)
+- [x] **Footer.tsx** - Social links, logo, copyright with dynamic year
+  - Location: `src/components/Footer/Footer.tsx:1`
+
+#### **Interactive UI Components**
+- [x] **CustomCursor.tsx** - Dual-ring cursor system
+  - Location: `src/components/CustomCursor/CustomCursor.tsx:1`
+  - Features: 4 cursor states (default, hover, hover-social, hover-name)
+  - Smooth animation with RAF and easing
+  - Responsive (hidden on mobile < 1024px)
+- [x] **SocialLinks.tsx** - Fixed vertical sidebar with social links
+  - Location: `src/components/SocialLinks/SocialLinks.tsx:1`
+  - Features: GSAP entrance animations, CV download link
+  - Platforms: GitHub, CodersRank, LinkedIn, Xing
+- [x] **cursor.store.ts** - Zustand store for cursor state management
+  - Location: `src/stores/cursor.store.ts:1`
+
+#### **Sections (Partial)**
+- [x] **HeroSection.tsx** - Main hero section (partial implementation)
+  - Location: `src/components/Sections/HeroSection/HeroSection.tsx:1`
+  - Status: Structure in place, missing child components
+  - Known issues: References undefined `CustomImage`, `AnimatedText`, `CustomLink` components
+- [x] **HeroSectionBackWithManyImages.tsx** - Alternative hero variant
+  - Location: `src/components/Sections/HeroSection/HeroSectionBackWithManyImages.tsx:1`
+
+#### **Constants/Data**
+- [x] Constants folder structure established
+  - `social_links.tsx` - Social media links (4 platforms)
+  - `links.ts` - Navigation links
+  - `projects.tsx` - 7 featured projects with metadata
+  - `about.ts`, `jobs.ts`, `services.tsx`, `heroData.ts` (files exist)
+
+#### **Hooks**
+- [x] Custom hooks folder established
+  - `useMousePosition.ts` - Mouse position tracking
+  - `usePreviousValue.ts` - Previous value storage
+  - `useGetImageSize.ts` - Image dimension retrieval
+  - `useSiteMetadata.ts` - Site metadata access
+
+#### **Assets**
+- [x] Hero images (6 grayscale portraits) imported
+- [x] Project screenshots organized in `assets/images/projects/`
+- [x] SVG assets folder
+- [x] CV PDF in public folder
+- [x] Favicon.svg
+
+#### **Build Configuration**
+- [x] Astro config optimizations (CSS code splitting, responsive images)
+- [x] Vite build optimizations (React chunk separation)
+
+---
+
+### 🚧 **In Progress / Incomplete**
+
+#### **Missing Components**
+- [ ] **AnimatedText.tsx** - Text animation component for hero name segments
+- [ ] **CustomImage.tsx** - Image component with GSAP animations
+- [ ] **CustomLink.tsx** - Polymorphic link component (link/button/gatsby-link)
+
+#### **Incomplete Sections**
+- [ ] **HeroSection** - Complete implementation with:
+  - [ ] Image carousel integration
+  - [ ] Animated multi-part name display
+  - [ ] Hover-activated image switching
+  - [ ] Professional description
+  - [ ] CTA button
+- [ ] **AboutSection** - Not started
+- [ ] **WorkSection** - Not started
+- [ ] **ProjectsSection** - Not started
+- [ ] **ContactSection** - Not started
+
+#### **Missing Features**
+- [ ] Mobile sidebar navigation (toggle functionality)
+- [ ] Theme toggle (light/dark mode)
+- [ ] Scroll-triggered animations for sections
+- [ ] Expandable tech stack in About section
+- [ ] Project list/grid with filtering
+- [ ] Contact form with Netlify integration
+- [ ] 404 page
+- [ ] Success page (form submission)
+- [ ] Projects detail pages
+
+---
+
+### 📋 **Features to Migrate from Gatsby**
+
+#### **Section Components**
+
+**1. HeroSection**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/Sections/HeroSection/HeroSection.tsx`
+- **Features:**
+  - Multi-word name animation (nicolás, di, rago) with individual styling
+  - Interactive image carousel (6 grayscale portraits)
+  - Hover-triggered image display synced with name segments
+  - Professional description with highlighted spans
+  - "Get in touch" CTA button
+  - GSAP entrance animation with opacity fade-in
+- **Dependencies:** CustomImage, AnimatedText, CustomLink components
+- **Styling:** CSS Modules with Tailwind utilities
+
+**2. AboutSection**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/Sections/AboutSection/AboutSection.tsx`
+- **Features:**
+  - Profile text: "i make things for the web from concept to production..."
+  - Tech stack display in 3-column responsive grid
+  - Expandable stack list (shows first 10, expands on click)
+  - Scroll-triggered fade-in animation
+  - "View more" button with gradient overlay effect
+  - Responsive layout (3 cols → 2 cols → 1 col)
+- **Data Source:** `constants/about.ts` (48+ technologies)
+
+**3. WorkSection**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/Sections/WorkSection/WorkSection.tsx`
+- **Features:**
+  - Professional work history (5 companies)
+  - Company name, dates, position, task descriptions
+  - CV download link (PDF)
+  - Scroll-triggered entrance animation
+- **Data Source:** `constants/jobs.ts`
+- **Companies:**
+  - Nuuk GmbH (current)
+  - supertemplates UG (co-founder)
+  - civilisten gmbH
+  - EO technologies
+  - energenious gmbH
+
+**4. ProjectsSection**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/Sections/ProjectsSection/ProjectsSection.tsx`
+- **Features:**
+  - Featured projects showcase
+  - Project cards with images, titles, summaries
+  - Technology stack tags
+  - GitHub and live demo links
+  - "Featured" badges
+  - Scroll-triggered cascade animations
+- **Data Source:** `constants/projects.tsx` (13+ projects)
+- **Project Categories:**
+  - Personal (BakeWind, Swellnomads, School Management)
+  - Nuuk GmbH (9 company projects)
+  - Energenious projects
+  - Freelance work
+
+**5. ContactSection**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/Sections/ContactSection/ContactSection.tsx`
+- **Features:**
+  - Netlify form integration
+  - Form fields: name, email, message
+  - Form submission to `/success` page
+  - Netlify honeypot spam protection
+  - Custom styling with validation states
+
+#### **Utility Components**
+
+**AnimatedText Component**
+- **Purpose:** Animates individual text characters/words in hero section
+- **Features:**
+  - Triggers image carousel on hover
+  - Character-by-character animation
+  - Integrates with cursor state management
+  - GSAP stagger animations
+
+**CustomImage Component**
+- **Purpose:** Optimized image component with animations
+- **Features:**
+  - GSAP fade-in/scale animations
+  - Active/inactive states
+  - Smooth transitions (0.4s cubic-bezier)
+  - Grayscale filter support
+- **Migration Note:** Replace `gatsby-plugin-image` with Astro's built-in `<Image />` component
+
+**CustomLink Component**
+- **Purpose:** Polymorphic link component
+- **Types:**
+  - `link` - Regular anchor tag
+  - `button` - Button element
+  - `gatsby-link` - Internal Gatsby Link (migrate to Astro `<a>` or custom)
+- **Features:**
+  - Custom cursor hover states
+  - Accessible ARIA attributes
+  - Type-safe props
+
+**ProjectItem Component**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/ProjectItem/ProjectItem.tsx`
+- **Features:**
+  - Project card with image thumbnail
+  - Title, summary, description
+  - Technology stack tags
+  - GitHub and website links
+  - Featured badge
+  - Status tags (In Development, Company)
+
+**ProjectList Component**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/ProjectList/ProjectList.tsx`
+- **Features:**
+  - Maps project data to ProjectItem components
+  - GSAP staggered scroll animations
+  - Responsive grid layout
+
+**Sidebar Component**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/Sidebar/Sidebar.tsx`
+- **Features:**
+  - Mobile navigation menu
+  - Social links integration
+  - Theme toggle button
+  - Slide-in animation
+  - Overlay backdrop
+- **State:** Controlled by navbar toggle button
+
+**ThemeToggle Component**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/components/ThemeToggle/ThemeToggle.tsx`
+- **Features:**
+  - Light/dark mode toggle button
+  - Fixed position (bottom right)
+  - GSAP elastic spring animation
+  - localStorage persistence
+  - System preference detection
+  - Theme context integration
+
+#### **Context & State Management**
+
+**ThemeContext**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/context/ThemeContext.tsx`
+- **Features:**
+  - Light/dark theme management
+  - localStorage persistence with "portfolio-theme-mode" key
+  - System preference detection (`prefers-color-scheme`)
+  - Theme provider wrapping entire app
+- **Migration Strategy:**
+  - Consider Zustand store for client-side theme state
+  - Use Astro's ViewTransitions API for smooth theme switching
+  - Or continue with React Context for client components
+
+**CustomCursorContext**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/context/CustomCursorContext.ts`
+- **Features:**
+  - Cursor type state management
+  - Types: 'default' | 'hover' | 'hover-social' | 'hover-name'
+- **Migration Status:** ✅ Already migrated to Zustand (`cursor.store.ts`)
+
+#### **Styling System**
+
+**Styled-Components → Tailwind/CSS Modules**
+- **Source Theme:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/style/themes.ts`
+- **Migration Strategy:**
+  - Option 1: Continue styled-components (add `@astrojs/styled-components`)
+  - Option 2: Migrate to Tailwind CSS with CSS variables for theming
+  - Option 3: Use CSS Modules (current approach)
+- **Theme Structure:**
+  - Color palette: Red/burgundy with grey neutrals
+  - Fonts: Source Code Pro (primary), Space Grotesk (secondary), Oswald (tertiary)
+  - Breakpoints: 400px, 600px, 768px, 960px, 1024px, 1280px, 1920px
+  - Animations, shadows, border radius, transitions
+
+**Global Styles**
+- **Source:** `/Users/nuuk/Documents/apps/portfolio/gatsby/src/style/GlobalStyle.ts`
+- **Features:**
+  - Normalize.css import
+  - Custom scrollbar styling
+  - Font smoothing and antialiasing
+  - Accessibility focus styles
+  - Motion preferences respect (`prefers-reduced-motion`)
+  - Custom cursor hidden (except on touch devices)
+- **Migration Status:** Partially implemented in `src/styles/global.css`
+
+#### **Animation Patterns**
+
+**GSAP Animations to Migrate:**
+
+1. **Entry Animations**
+   - Pattern: `gsap.fromTo()` with opacity and y-transform
+   - Easing: "expo.out" for smooth deceleration
+   - Duration: 0.8s typical
+
+2. **Scroll-Triggered Animations**
+   ```typescript
+   ScrollTrigger.matchMedia({
+     '(min-width: 800px)': function() {
+       gsap.fromTo(element, {
+         opacity: 0,
+         y: 50
+       }, {
+         opacity: 1,
+         y: 0,
+         scrollTrigger: {
+           trigger: element,
+           start: 'top 75%',
+           toggleActions: 'play none none reverse'
+         }
+       })
+     }
+   })
+   ```
+
+3. **Custom Cursor Animations**
+   - ✅ Already migrated
+   - Two-ring cursor with transform3d GPU acceleration
+   - RAF for smooth 60fps motion
+   - Secondary cursor with 0.15 lerp easing
+
+4. **Theme Toggle Animation**
+   - Desktop: `elastic.out` spring effect from right
+   - Mobile: Simple fade-in
+   - Duration: 0.5s-1s
+
+5. **Component-Specific Animations**
+   - Hero: Images fade/scale on active state
+   - About: Stack items expand/collapse with max-height
+   - Projects: Staggered cascade animations
+   - Nav: Scroll-dependent position changes
+
+**Particles Background**
+- **Library:** `particles-bg` v2.5.5
+- **Features:**
+  - Custom config with specific num, radius, life, velocity, gravity
+  - Theme-aware colors (light grey in dark mode)
+- **Migration Note:** May need SSR adjustment for Astro
+
+---
+
+## Technical Architecture
+
+### **File Structure**
+
+```
+/Users/nuuk/Documents/apps/portfolio/astro/
+├── src/
+│   ├── components/
+│   │   ├── CustomCursor/           ✅ Complete
+│   │   │   ├── CustomCursor.tsx
+│   │   │   └── CustomCursor.module.css
+│   │   ├── Footer/                 ✅ Complete
+│   │   │   ├── Footer.tsx
+│   │   │   └── Footer.module.css
+│   │   ├── NavBar/                 ✅ Complete (needs mobile toggle)
+│   │   │   ├── NavBar.tsx
+│   │   │   └── NavBar.module.css
+│   │   ├── SocialLinks/            ✅ Complete
+│   │   │   ├── SocialLinks.tsx
+│   │   │   └── SocialLinks.module.css
+│   │   ├── Sections/
+│   │   │   ├── HeroSection/        🚧 Partial (needs child components)
+│   │   │   │   ├── HeroSection.tsx
+│   │   │   │   ├── HeroSectionBackWithManyImages.tsx
+│   │   │   │   └── Hero.module.css
+│   │   │   ├── AboutSection/       ❌ Not started
+│   │   │   ├── WorkSection/        ❌ Not started
+│   │   │   ├── ProjectsSection/    ❌ Not started
+│   │   │   └── ContactSection/     ❌ Not started
+│   │   ├── AnimatedText/           ❌ Missing (critical for HeroSection)
+│   │   ├── CustomImage/            ❌ Missing (critical for HeroSection)
+│   │   ├── CustomLink/             ❌ Missing (used across sections)
+│   │   ├── ProjectItem/            ❌ Missing (for ProjectsSection)
+│   │   ├── ProjectList/            ❌ Missing (for ProjectsSection)
+│   │   ├── Sidebar/                ❌ Missing (mobile navigation)
+│   │   ├── ThemeToggle/            ❌ Missing (light/dark mode)
+│   │   ├── SEO.astro               ✅ Complete
+│   │   └── Welcome.astro           ✅ Complete (starter template)
+│   ├── layouts/
+│   │   └── Layout.astro            ✅ Complete
+│   ├── pages/
+│   │   └── index.astro             ✅ Complete (needs section integration)
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── hero/               ✅ 6 images imported
+│   │   │   └── projects/           ✅ Project screenshots ready
+│   │   └── svg/                    ✅ SVG assets organized
+│   ├── constants/
+│   │   ├── social_links.tsx        ✅ Complete (4 platforms)
+│   │   ├── links.ts                ✅ Complete (navigation)
+│   │   ├── projects.tsx            ✅ Complete (7+ projects)
+│   │   ├── about.ts                🚧 File exists (needs verification)
+│   │   ├── jobs.ts                 🚧 File exists (needs verification)
+│   │   ├── services.tsx            🚧 File exists (needs verification)
+│   │   └── heroData.ts             🚧 File exists (needs verification)
+│   ├── hooks/
+│   │   ├── useMousePosition.ts     ✅ Complete
+│   │   ├── usePreviousValue.ts     ✅ Complete
+│   │   ├── useGetImageSize.ts      ✅ Complete
+│   │   └── useSiteMetadata.ts      ✅ Complete
+│   ├── stores/
+│   │   ├── cursor.store.ts         ✅ Complete (Zustand)
+│   │   └── theme.store.ts          ❌ Missing (needs creation)
+│   ├── context/
+│   │   └── cursor context files    ✅ Complete
+│   └── styles/
+│       └── global.css              ✅ Complete (Tailwind + custom theme)
+├── public/
+│   ├── fonts/                      ✅ 4 variable fonts
+│   ├── svg/                        ✅ SVG assets
+│   ├── cv-nicolasdirago.pdf        ✅ CV ready
+│   └── favicon.svg                 ✅ Favicon set
+├── astro.config.mjs                ✅ Optimized
+├── tsconfig.json                   ✅ Strict mode + path aliases
+├── tailwind.config.mjs             ✅ Configured for v4
+├── eslint.config.js                ✅ Astro + React + TS
+├── .prettierrc.mjs                 ✅ Astro + Tailwind
+└── package.json                    ✅ Dependencies ready
+```
+
+### **TypeScript Path Aliases**
+
+```typescript
+{
+  "@components/*": "./src/components/*",
+  "@layouts/*": "./src/layouts/*",
+  "@pages/*": "./src/pages/*",
+  "@styles/*": "./src/styles/*",
+  "@assets/*": "./src/assets/*",
+  "@stores/*": "./src/stores/*",
+  "@hooks": "./src/hooks",
+  "@context": "./src/context",
+  "@lib/*": "./src/lib/*",
+  "@utils/*": "./src/utils/*",
+  "@public/*": "./public/*",
+  "@type/*": "./src/types/*",
+  "@services": "./src/services"
+}
+```
+
+### **Theme Configuration**
+
+**Color Palette (Red/Burgundy Theme):**
+```css
+--primary: #ffebec       /* Light pink */
+--secondary: #fd9ba0     /* Pink */
+--tertiary: #fc5e66      /* Coral red */
+--quaternary: #fb3640    /* Red */
+--quinary: #c92b33       /* Dark red */
+--senary: #972026        /* Burgundy (highlight color) */
+
+--grey1: #fafafa         /* Background */
+--grey2: #f0f0f0
+--grey3: #e0e0e0
+--grey4: #d0d0d0
+--grey5: #c0c0c0
+
+--white: #ffffff
+--black: #000000
+```
+
+**Typography:**
+- **Primary:** Source Code Pro (variable font)
+- **Secondary:** Space Grotesk (variable font)
+- **Tertiary:** Oswald (variable font)
+
+**Breakpoints:**
+- xs: 400px
+- sm: 600px
+- tablet: 768px
+- md: 960px
+- mdLg: 1024px
+- lg: 1280px
+- xl: 1920px
+
+### **Dependencies**
+
+**Current (Astro Project):**
+```json
+{
+  "astro": "^5.4.1",
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0",
+  "@astrojs/react": "^4.2.1",
+  "@astrojs/mdx": "^4.1.0",
+  "tailwindcss": "^4.0.9",
+  "@tailwindcss/vite": "^4.0.9",
+  "gsap": "^3.12.7",
+  "zustand": "^5.0.3",
+  "react-icons": "^5.5.0",
+  "clsx": "^2.1.1",
+  "astro-feather": "^1.0.0"
+}
+```
+
+**Additional Dependencies Needed:**
+```json
+{
+  "uuid": "^9.0.1",                          // For key generation (or use crypto.randomUUID)
+  "@react-hook/mouse-position": "^4.1.3",    // Optional, already have custom hook
+  "particles-bg": "^2.5.5"                   // Background particles (if needed)
+}
+```
+
+**Optional (Styled-Components Migration):**
+```json
+{
+  "@astrojs/styled-components": "^2.0.0",
+  "styled-components": "^6.1.8"
+}
+```
+
+---
+
+## Migration Strategy
+
+### **Phase 1: Critical Components** 🎯
+
+**Priority: HIGH** - These components are required for HeroSection to function
+
+1. **AnimatedText Component**
+   - Create: `src/components/AnimatedText/AnimatedText.tsx`
+   - Purpose: Animates individual text segments in hero
+   - Features:
+     - Character-by-character GSAP animation
+     - Hover detection to trigger image carousel
+     - Integration with `setCursorType` from Zustand store
+   - Source reference: Gatsby project structure analysis
+
+2. **CustomImage Component**
+   - Create: `src/components/CustomImage/CustomImage.tsx`
+   - Purpose: Image wrapper with GSAP animations
+   - Features:
+     - Replace `gatsby-plugin-image` with Astro's `<Image />`
+     - GSAP fade-in/scale animations
+     - Active/inactive states
+     - Grayscale filter support
+   - Migration note: Use Astro's built-in image optimization
+
+3. **CustomLink Component**
+   - Create: `src/components/CustomLink/CustomLink.tsx`
+   - Purpose: Polymorphic link/button component
+   - Types: `link`, `button`, `internal` (replace gatsby-link)
+   - Features:
+     - Custom cursor hover states
+     - Type-safe props
+     - ARIA attributes
+
+### **Phase 2: Section Components** 📄
+
+**Priority: HIGH** - Core content sections
+
+4. **Complete HeroSection**
+   - Fix: `src/components/Sections/HeroSection/HeroSection.tsx:1`
+   - Dependencies: AnimatedText, CustomImage, CustomLink
+   - Test: Image carousel, hover interactions, animations
+
+5. **AboutSection**
+   - Create: `src/components/Sections/AboutSection/AboutSection.tsx`
+   - Features: Profile text, expandable tech stack grid
+   - Data: Verify and use `constants/about.ts`
+   - Animation: Scroll-triggered fade-in with GSAP ScrollTrigger
+
+6. **WorkSection**
+   - Create: `src/components/Sections/WorkSection/WorkSection.tsx`
+   - Features: Job history, CV download link
+   - Data: Verify and use `constants/jobs.ts`
+   - Animation: Scroll-triggered entrance
+
+7. **ProjectsSection**
+   - Create: `src/components/Sections/ProjectsSection/ProjectsSection.tsx`
+   - Dependencies: ProjectList, ProjectItem components (Phase 3)
+   - Features: Featured projects showcase
+   - Data: Use `constants/projects.tsx`
+
+8. **ContactSection**
+   - Create: `src/components/Sections/ContactSection/ContactSection.tsx`
+   - Features: Netlify form integration
+   - Form fields: name, email, message
+   - Redirect: Create `/success` page
+
+### **Phase 3: Supporting Components** 🧩
+
+**Priority: MEDIUM** - Required for complete functionality
+
+9. **ProjectItem Component**
+   - Create: `src/components/ProjectItem/ProjectItem.tsx`
+   - Purpose: Individual project card
+   - Features: Image, title, tags, links, badges
+
+10. **ProjectList Component**
+    - Create: `src/components/ProjectList/ProjectList.tsx`
+    - Purpose: Maps projects with animations
+    - Features: GSAP staggered scroll animations
+
+11. **Sidebar Component**
+    - Create: `src/components/Sidebar/Sidebar.tsx`
+    - Purpose: Mobile navigation menu
+    - Features: Slide-in animation, social links, theme toggle
+    - Integration: Connect to NavBar toggle button
+
+12. **ThemeToggle Component**
+    - Create: `src/components/ThemeToggle/ThemeToggle.tsx`
+    - Features: Light/dark mode toggle
+    - Storage: localStorage persistence
+    - Animation: GSAP elastic spring effect
+
+### **Phase 4: State & Context** 🔄
+
+**Priority: MEDIUM** - Theme management system
+
+13. **Theme Store (Zustand)**
+    - Create: `src/stores/theme.store.ts`
+    - Features:
+      - Light/dark mode state
+      - localStorage sync
+      - System preference detection
+    - Alternative: Use React Context for theme (migrate ThemeContext.tsx)
+
+14. **Theme Integration**
+    - Update: `src/layouts/Layout.astro`
+    - Apply: Theme classes to body/html
+    - CSS Variables: Add to `src/styles/global.css`
+
+### **Phase 5: Additional Pages** 📃
+
+**Priority: LOW** - Supporting pages
+
+15. **404 Page**
+    - Create: `src/pages/404.astro`
+    - Design: Custom error page with navigation
+
+16. **Success Page**
+    - Create: `src/pages/success.astro`
+    - Purpose: Form submission confirmation
+
+17. **Projects Page** (Optional)
+    - Create: `src/pages/projects.astro`
+    - Purpose: Full projects listing
+    - Features: All projects (not just featured)
+
+### **Phase 6: Enhancements** ✨
+
+**Priority: LOW** - Nice-to-have features
+
+18. **Particles Background**
+    - Install: `particles-bg` package
+    - Integrate: Add to HeroSection or Layout
+    - SSR: Handle client-only rendering
+
+19. **Advanced Animations**
+    - Fine-tune: All GSAP ScrollTrigger animations
+    - Performance: Optimize for 60fps
+    - Responsive: Adjust for mobile devices
+
+20. **SEO Optimization**
+    - Meta tags: Verify all pages have proper SEO
+    - Sitemap: Generate with Astro
+    - Open Graph: Test social sharing
+
+---
+
+## Key Migration Considerations
+
+### **Astro-Specific Patterns**
+
+1. **Client-Side Components**
+   - All React components need `client:*` directive in Astro files
+   - Use `client:load` for interactive components (cursor, navbar)
+   - Use `client:visible` for below-fold sections (performance)
+   - Use `client:only="react"` for components that can't SSR
+
+2. **Image Optimization**
+   - Replace `gatsby-plugin-image` with Astro's `<Image />` component
+   - Import: `import { Image } from 'astro:assets'`
+   - Features: Automatic WebP conversion, responsive srcset
+   - No GraphQL queries needed - direct imports
+
+3. **No GraphQL**
+   - Data comes from direct imports or file reading
+   - Constants files work as-is
+   - For dynamic data, use `Astro.glob()` or import directly
+
+4. **CSS Modules Support**
+   - Continue using `.module.css` files
+   - Import in React components as usual
+   - Tailwind utilities available alongside
+
+5. **ViewTransitions**
+   - Consider using Astro's ViewTransitions API
+   - Smooth page transitions without client-side router
+   - Theme transitions can use `transition:persist`
+
+### **Styling Migration Options**
+
+**Option 1: Continue CSS Modules (Current)**
+- ✅ Already in use for current components
+- ✅ No additional dependencies
+- ✅ Scoped styles, type-safe
+- ❌ More verbose than Tailwind
+- ❌ Theme switching requires CSS variables
+
+**Option 2: Full Tailwind Migration**
+- ✅ Utility-first approach, faster development
+- ✅ Built-in responsive design
+- ✅ Already configured in project
+- ❌ Need to migrate all styled-components
+- ❌ Less semantic class names
+
+**Option 3: Styled-Components**
+- ✅ Familiar to original Gatsby codebase
+- ✅ Theme integration built-in
+- ✅ Component-scoped styles
+- ❌ Requires additional Astro integration
+- ❌ Larger bundle size
+- ❌ SSR complexity with Astro
+
+**Recommendation:** Continue with CSS Modules + Tailwind utilities for consistency with current implementation. Add CSS variables for theme switching.
+
+### **Animation Performance**
+
+1. **GSAP ScrollTrigger**
+   - Use `ScrollTrigger.matchMedia()` for responsive animations
+   - Cleanup: Always use `useEffect` return for cleanup
+   - Performance: Use `will-change` CSS for animated elements
+
+2. **Custom Cursor**
+   - ✅ Already optimized with RAF
+   - GPU acceleration with `transform3d`
+   - Only render on hover-capable devices
+
+3. **Particles Background**
+   - Consider performance impact
+   - Use `client:idle` or `client:visible` for lazy loading
+   - Reduce particle count on mobile
+
+### **Form Handling**
+
+1. **Netlify Forms**
+   - Works identically in Astro as in Gatsby
+   - Add `data-netlify="true"` attribute
+   - Honeypot: `<input type="hidden" name="bot-field" />`
+   - Form name: `contact-portfolio`
+
+2. **Success Page Redirect**
+   - Create `/success` page in Astro
+   - Form action: `action="/success"`
+   - No special configuration needed
+
+### **TypeScript**
+
+1. **Strict Mode**
+   - ✅ Already enabled in tsconfig
+   - ✅ Path aliases configured
+   - Ensure all migrated components are typed
+
+2. **Component Props**
+   - Use `interface` for component props
+   - Export props types for reusability
+   - Avoid `any` types
+
+### **Accessibility**
+
+1. **Keyboard Navigation**
+   - Ensure custom cursor doesn't break keyboard nav
+   - ARIA labels on all interactive elements
+   - Focus styles visible
+
+2. **Motion Preferences**
+   - Respect `prefers-reduced-motion`
+   - Disable animations if user prefers
+   - Already implemented in global styles
+
+3. **Color Contrast**
+   - Verify WCAG AA compliance
+   - Test theme colors for accessibility
+   - Ensure text is readable in both themes
+
+---
+
+## Development Workflow
+
+### **Testing Strategy**
+
+1. **Component Development**
+   - Build components in isolation first
+   - Test with both light and dark themes
+   - Verify responsive behavior at all breakpoints
+
+2. **Animation Testing**
+   - Test scroll animations at different scroll speeds
+   - Verify RAF performance (should be 60fps)
+   - Test on mobile devices
+
+3. **Cross-Browser Testing**
+   - Chrome, Firefox, Safari, Edge
+   - Mobile Safari, Chrome Mobile
+   - Test custom cursor on different devices
+
+### **Git Workflow**
+
+1. **Branch Strategy**
+   - Feature branches for each phase
+   - Example: `feature/animated-text-component`
+   - Merge to `main` after testing
+
+2. **Commit Messages**
+   - Conventional commits format
+   - Examples:
+     - `feat: add AnimatedText component`
+     - `fix: resolve hero section image carousel`
+     - `refactor: migrate to Tailwind CSS`
+
+### **Code Quality**
+
+1. **ESLint**
+   - ✅ Already configured
+   - Run before commits: `npm run lint`
+   - Fix: `npm run fix` (if script exists)
+
+2. **Prettier**
+   - ✅ Already configured
+   - Format on save recommended
+   - Astro + Tailwind plugins active
+
+3. **TypeScript**
+   - Run type check: `tsc --noEmit`
+   - Fix type errors before pushing
+
+---
+
+## Performance Targets
+
+### **Lighthouse Scores** (Goal)
+- Performance: 95+
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
+
+### **Core Web Vitals**
+- LCP (Largest Contentful Paint): < 2.5s
+- FID (First Input Delay): < 100ms
+- CLS (Cumulative Layout Shift): < 0.1
+
+### **Optimization Strategies**
+1. Lazy load below-fold sections with `client:visible`
+2. Use Astro's built-in image optimization
+3. Minimize JavaScript bundle size
+4. Code split React components
+5. Use CSS containment for animations
+6. Defer non-critical animations
+
+---
+
+## Deployment
+
+### **Build**
+```bash
+npm run build
+# Output: ./dist/
+```
+
+### **Preview**
+```bash
+npm run preview
+```
+
+### **Deployment Target**
+- Likely: Netlify (based on form integration)
+- Alternative: Vercel, Cloudflare Pages
+
+### **Environment Variables**
+- Site URL: Configure in `astro.config.mjs`
+- Form endpoint: Netlify auto-configures
+
+---
+
+## Resources
+
+### **Source Projects**
+- **Gatsby Portfolio:** `/Users/nuuk/Documents/apps/portfolio/gatsby/`
+- **Astro Portfolio:** `/Users/nuuk/Documents/apps/portfolio/astro/`
+
+### **Key Files to Reference**
+
+**Gatsby (Source):**
+- Layout: `gatsby/src/components/Layout/Layout.tsx`
+- Theme: `gatsby/src/style/themes.ts`
+- HeroSection: `gatsby/src/components/Sections/HeroSection/HeroSection.tsx`
+- AboutSection: `gatsby/src/components/Sections/AboutSection/AboutSection.tsx`
+- WorkSection: `gatsby/src/components/Sections/WorkSection/WorkSection.tsx`
+- ProjectsSection: `gatsby/src/components/Sections/ProjectsSection/ProjectsSection.tsx`
+- ContactSection: `gatsby/src/components/Sections/ContactSection/ContactSection.tsx`
+
+**Astro (Target):**
+- Current components: `astro/src/components/`
+- Constants: `astro/src/constants/`
+- Stores: `astro/src/stores/`
+
+### **Documentation**
+- Astro Docs: https://docs.astro.build
+- GSAP Docs: https://greensock.com/docs/
+- Tailwind CSS: https://tailwindcss.com/docs
+- Zustand: https://github.com/pmndrs/zustand
+
+---
+
+## Next Steps (Recommended Order)
+
+1. **Immediate (Phase 1):**
+   - [ ] Create AnimatedText component
+   - [ ] Create CustomImage component
+   - [ ] Create CustomLink component
+   - [ ] Test and complete HeroSection
+
+2. **Short-term (Phase 2):**
+   - [ ] Verify constant data files (about.ts, jobs.ts, etc.)
+   - [ ] Build AboutSection
+   - [ ] Build WorkSection
+   - [ ] Build ProjectsSection components
+   - [ ] Build ContactSection
+
+3. **Medium-term (Phase 3 & 4):**
+   - [ ] Create Sidebar component
+   - [ ] Create ThemeToggle component
+   - [ ] Implement theme store/context
+   - [ ] Connect mobile navigation
+
+4. **Long-term (Phase 5 & 6):**
+   - [ ] Create additional pages (404, success)
+   - [ ] Add particles background
+   - [ ] Performance optimization
+   - [ ] Final testing and deployment
+
+---
+
+## Notes & Observations
+
+### **Current Strengths**
+- ✅ Solid foundation with modern tech stack
+- ✅ Excellent TypeScript configuration
+- ✅ Custom cursor system fully functional
+- ✅ GSAP animations working well
+- ✅ Responsive design patterns established
+
+### **Known Issues**
+- ⚠️ HeroSection references undefined components
+- ⚠️ Mobile navigation toggle not functional
+- ⚠️ No theme switching capability yet
+- ⚠️ Most content sections missing
+
+### **Design Philosophy**
+- Code-first aesthetic (monospace fonts, developer branding)
+- Smooth, professional animations (no jank)
+- Custom cursor for premium feel
+- Red/burgundy color scheme for bold personality
+- Minimal, modern design focusing on work showcase
+
+### **Developer Preferences**
+- TypeScript strict mode
+- Path aliases for clean imports
+- Component-scoped styling
+- Animation-first approach
+- Accessibility-conscious
+
+---
+
+**Last Updated:** 2025-10-25
+**Project Status:** 🚧 In active migration (≈30% complete)
+**Next Milestone:** Complete Phase 1 critical components

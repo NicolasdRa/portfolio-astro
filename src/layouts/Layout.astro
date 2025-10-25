@@ -1,31 +1,32 @@
 ---
-import Navbar from "@components/NavBar/NavBar";
+import { ViewTransitions } from 'astro:transitions';
 import SEO from "../components/SEO.astro";
 import "../styles/global.css";
 
+// Import React components
+import Navbar from "@components/NavBar/NavBar";
 import SocialLinks from "@components/SocialLinks/SocialLinks";
-import CustomCursorManager from "../context/cursor/cursorManager";
 import CustomCursor from "@components/CustomCursor/CustomCursor";
 import Footer from "@components/Footer/Footer";
-
-// import Footer from '../components/Footer';
-// import CustomCursor from '../components/CustomCursor';
+import ThemeToggle from "@components/ThemeToggle/ThemeToggle";
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   article?: boolean;
+  showNavbar?: boolean;
 }
 
 const {
   title,
-  description = "Developer portfolio showcasing projects and skills",
+  description = "Nicolás di Rago - Full-stack Web Developer",
   image = "/images/social-image.jpg",
   article = false,
+  showNavbar = true,
 } = Astro.props;
 
-// const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasdirago.com');
 ---
 
 <!doctype html>
@@ -33,7 +34,31 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="canonical" href={canonicalURL} /> -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Theme initialization script - prevents flash -->
+    <script is:inline>
+      (function() {
+        const THEME_KEY = 'portfolio-theme-mode';
+        const storedTheme = localStorage.getItem(THEME_KEY);
+        let theme = 'light';
+
+        if (storedTheme === 'dark' || storedTheme === 'light') {
+          theme = storedTheme;
+        } else {
+          // Check system preference
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          theme = prefersDark ? 'dark' : 'light';
+        }
+
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Store the detected theme if it wasn't already stored
+        if (!storedTheme) {
+          localStorage.setItem(THEME_KEY, theme);
+        }
+      })();
+    </script>
 
     <SEO
       title={title}
@@ -42,21 +67,55 @@ const {
       article={article}
     />
 
-    <!-- Fonts -->
+    <ViewTransitions />
+
+    <!-- Preload fonts for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load fonts from @fontsource instead if installed, otherwise use Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300..900&family=Space+Grotesk:wght@300..700&family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <Navbar client:only="react" />
-    <CustomCursor client:only="react" />
+    <!-- Custom Cursor - Always visible on desktop -->
+    <CustomCursor client:load />
+
+    <!-- Navigation - Conditionally rendered based on page -->
+    {showNavbar && <Navbar client:load />}
+
+    <!-- Social Links - Fixed position -->
+    <SocialLinks client:load />
+
+    <!-- Theme Toggle - Fixed position -->
+    <ThemeToggle client:load />
+
+    <!-- Main Content -->
     <main>
-      <SocialLinks client:only="react" />
-      <!-- <slot /> -->
+      <slot />
     </main>
-    <Footer client:only="react" />
+
+    <!-- Footer -->
+    <Footer client:load />
+
+    <!-- Global theme toggle script -->
+    <script>
+      // Make theme utilities available globally
+      window.toggleTheme = function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('portfolio-theme-mode', newTheme);
+
+        // Dispatch custom event for components to react to theme change
+        window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+      };
+
+      window.getTheme = function() {
+        return document.documentElement.getAttribute('data-theme') || 'light';
+      };
+    </script>
   </body>
 </html>

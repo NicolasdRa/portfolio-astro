@@ -1,0 +1,161 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  width: 100%;
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  height: 450px;
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.imageWrapper.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.imageWrapper.inactive {
+  opacity: 0;
+  z-index: 1;
+}
+
+.title {
+  opacity: 0;
+}
+
+.nameContainer {
+  margin-bottom: 3rem;
+}
+
+.title1,
+.title2,
+.title3 {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.title1 {
+  margin-right: 1.5rem;
+}
+
+.title2 {
+  margin-right: 1.5rem;
+}
+
+.details {
+  margin-top: 3rem;
+}
+
+.description {
+  font-family: var(--font-primary);
+  font-size: 1.8rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.highlight {
+  color: var(--color-primary-3);
+  font-weight: 500;
+}
+
+.link {
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.link:hover .highlight {
+  color: var(--color-primary-4);
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .media {
+    height: 350px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .nameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .title1,
+  .title2,
+  .title3 {
+    margin-right: 0;
+    display: block;
+  }
+
+  .description {
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+    min-height: 100vh;
+  }
+
+  .media {
+    height: 250px;
+    max-width: 300px;
+  }
+
+  .description {
+    font-size: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .nameContainer {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .media {
+    height: 200px;
+    max-width: 250px;
+  }
+
+  .description {
+    font-size: 1.4rem;
+  }
+}

@@ -1,35 +1,81 @@
-@reference "../../styles/global.css";
-
 .mainCursor,
 .secondaryCursor {
-  @apply pointer-events-none fixed z-[1000] max-lg:hidden lg:block;
+  pointer-events: none;
+  position: fixed;
+  z-index: 1000;
   transform: translate3d(0, 0, 0);
 }
 
+@media (max-width: 1024px) {
+  .mainCursor,
+  .secondaryCursor {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mainCursor,
+  .secondaryCursor {
+    display: block;
+  }
+}
+
 .mainCursor {
-  @apply ease-bezier-1 animate-fade-in transition-opacity duration-1000;
+  animation: fadeIn 1s var(--ease-bezier-1);
+  transition: opacity 1s var(--ease-bezier-1);
 }
 
 .mainCursorBackground {
-  @apply size-2.5 rounded-full bg-black;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--cursor-main);
+  mix-blend-mode: var(--cursor-blend-mode);
 }
 
 .secondaryCursor {
-  @apply size-16 rounded-full;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .secondaryCursorBackground {
-  @apply ease-bezier-2 animate-scale-down relative size-full rounded-full border border-gray-300 transition-all duration-300;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray-3);
+  transition: var(--transition-base);
+  animation: scaleDown 0.3s var(--ease-bezier-2);
 }
 
 .hover {
-  @apply animate-scale-up bg-senary border-0 opacity-10;
+  animation: scaleUp 0.3s var(--ease-bezier-2);
+  background-color: var(--cursor-secondary);
+  border: 0;
+  opacity: 0.3;
 }
 
 .hoverSocial {
-  @apply bg-senary border-0 opacity-10;
+  background-color: var(--cursor-secondary);
+  border: 0;
+  opacity: 0.3;
 }
 
 .hoverName {
-  @apply bg-senary animate-scale-up ease-bezier-2 border-0 opacity-20;
+  background-color: var(--cursor-secondary);
+  animation: scaleUp 0.3s var(--ease-bezier-2);
+  border: 0;
+  opacity: 0.4;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .mainCursorBackground {
+  box-shadow: 0 0 20px var(--cursor-main);
+}
+
+[data-theme="dark"] .hover,
+[data-theme="dark"] .hoverSocial,
+[data-theme="dark"] .hoverName {
+  box-shadow: 0 0 30px var(--cursor-secondary);
 }
