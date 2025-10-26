@@ -182,6 +182,7 @@
 @media only screen and (max-width: 600px) {
   .container h3 {
     font-size: 2.5rem;
+    text-align: left;
   }
 
   .container {

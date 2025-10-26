@@ -198,6 +198,7 @@
 
   .container h3 {
     font-size: 2.5rem;
+    text-align: left;
   }
 
   .content {
@@ -223,7 +224,7 @@
   }
 
   .stackWrapper {
-    max-height: 300px;
+    max-height: 180px;
   }
 
   .stackWrapper.expanded {

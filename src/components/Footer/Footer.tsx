@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             setCursorType("default");
           }}
         >
-          <img src={`/public/svg/logo.svg`} alt="web dev" />
+          <img src="/svg/logo.svg" alt="web dev" />
         </a>
       </div>
       <h4 className={styles.copyright}>

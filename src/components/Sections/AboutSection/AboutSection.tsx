@@ -55,7 +55,7 @@ const AboutSection: React.FC = () => {
     // Get responsive collapsed height based on screen size
     const getCollapsedHeight = () => {
       const width = window.innerWidth;
-      if (width <= 600) return 300;
+      if (width <= 600) return 180;
       if (width <= 768) return 200;
       if (width <= 960) return 180;
       return 120;
