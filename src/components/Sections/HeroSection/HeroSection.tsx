@@ -5,16 +5,13 @@ import CustomImage from "../../CustomImage/CustomImage";
 import CustomLink from "../../CustomLink/CustomLink";
 import styles from "./HeroSection.module.css";
 
-// Import hero images - Astro automatically optimizes these
-import bici from "../../../assets/images/hero/bici.jpg";
-import door from "../../../assets/images/hero/door.jpg";
-import lucia from "../../../assets/images/hero/lucia.jpg";
+// Import hero image - WebP format for optimal performance
+import bici from "../../../assets/images/hero/bici.webp";
 
 const HeroSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const headingRef = useRef<HTMLDivElement>(null);
 
-  const images = [bici, door, lucia];
   const name = ["nicolás", "di", "rago"];
 
   useEffect(() => {
@@ -35,22 +32,13 @@ const HeroSection: React.FC = () => {
       <div className={styles.content}>
         {/* Image Gallery */}
         <div className={styles.media}>
-          {images.map((image, index) => {
-            const isActive = index === activeIndex;
-
-            return (
-              <div
-                key={index}
-                className={`${styles.imageWrapper} ${isActive ? styles.active : styles.inactive}`}
-              >
-                <CustomImage
-                  isActive={isActive}
-                  src={image.src}
-                  alt={name[index]}
-                />
-              </div>
-            );
-          })}
+          <div className={`${styles.imageWrapper} ${activeIndex >= 0 ? styles.active : styles.inactive}`}>
+            <CustomImage
+              isActive={activeIndex >= 0}
+              src={bici.src}
+              alt="nicolás di rago"
+            />
+          </div>
         </div>
 
         {/* Title and Details */}

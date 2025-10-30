@@ -1,9 +1,9 @@
-import bike from '../assets/images/hero/bici.jpg';
-import portrait from '../assets/images/hero/retrato.jpg';
-import tango from '../assets/images/hero/tango.jpg';
-import surf from '../assets/images/hero/surf.jpg';
-import lucia from '../assets/images/hero/lucia.jpg';
-import door from '../assets/images/hero/door.jpg';
+import bike from '../assets/images/hero/bici.webp';
+import portrait from '../assets/images/hero/retrato.webp';
+import tango from '../assets/images/hero/tango.webp';
+import surf from '../assets/images/hero/surf.webp';
+import lucia from '../assets/images/hero/lucia.webp';
+import door from '../assets/images/hero/door.webp';
 
 export const data = [
   { char: 'd', title: 'bike', url: bike },

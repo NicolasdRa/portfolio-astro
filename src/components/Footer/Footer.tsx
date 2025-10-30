@@ -1,4 +1,5 @@
 import socialLinks from "../../constants/social_links";
+import logo from "../../assets/svg/logo.svg";
 
 import styles from "./Footer.module.css";
 import { useUiStore } from "@stores/cursor.store";
@@ -27,7 +28,7 @@ const Footer: React.FC = () => {
             setCursorType("default");
           }}
         >
-          <img src="/svg/logo.svg" alt="web dev" />
+          <img src={logo.src} alt="web dev" />
         </a>
       </div>
       <h4 className={styles.copyright}>
