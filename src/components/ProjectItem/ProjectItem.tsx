@@ -36,11 +36,20 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
 
   // Get image source from the Astro image object or string
   const imageSrc = typeof image === 'string' ? image : image.src;
+  const imageWidth = typeof image === 'string' ? undefined : image.width;
+  const imageHeight = typeof image === 'string' ? undefined : image.height;
 
   return (
     <div className={styles.container}>
       <div className={styles.projectBlock}>
-        <img src={imageSrc} alt={title} className={styles.image} />
+        <img
+          src={imageSrc}
+          alt={title}
+          className={styles.image}
+          width={imageWidth}
+          height={imageHeight}
+          loading="lazy"
+        />
         <div className={styles.info}>
           {featured && <span className={styles.featured}>featured</span>}
           <h4>{title}</h4>

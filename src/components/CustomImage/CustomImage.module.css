@@ -23,6 +23,7 @@
   object-fit: cover;
   filter: grayscale(100%);
   transition: filter 0.3s ease;
+  aspect-ratio: 1 / 1; /* Preserve aspect ratio to prevent layout shifts */
 }
 
 .imageContainer.active .image {

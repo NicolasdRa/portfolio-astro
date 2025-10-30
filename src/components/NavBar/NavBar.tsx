@@ -85,7 +85,11 @@ const Navbar: React.FC = () => {
             onMouseEnter={() => setCursorType("hover")}
             onMouseLeave={() => setCursorType("default")}
           >
-            <img src={logo.src ?? ""} alt="web dev" />
+            <img
+              src={logo.src ?? ""}
+              alt="web dev"
+              loading="eager"
+            />
           </a>
         </div>
         <button

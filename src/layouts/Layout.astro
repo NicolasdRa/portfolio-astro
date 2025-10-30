@@ -79,16 +79,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <ViewTransitions />
 
     <!-- Performance Hints -->
-    <!-- Preconnect to external domains -->
+    <!-- Preconnect to external domains for faster resource loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
+    <!-- Prefetch critical navigation pages -->
+    <link rel="prefetch" href="/about" />
+    <link rel="prefetch" href="/projects" />
+
     <!-- Preload critical assets -->
     <link rel="preload" href={image} as="image" type="image/webp" />
 
     <!-- Load fonts from @fontsource instead if installed, otherwise use Google Fonts -->
+    <!-- Using display=swap to prevent layout shifts during font loading -->
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300..900&family=Space+Grotesk:wght@300..700&family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"

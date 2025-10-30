@@ -12,7 +12,12 @@ const Footer: React.FC = () => {
       <ul className={styles.socialLinks}>
         {socialLinks.map((link) => (
           <li key={link.id} className={styles.socialLink}>
-            <a href={link.url} target="_blank" rel="noreferrer">
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={link.name}
+            >
               {link.icon}
             </a>
           </li>
@@ -21,6 +26,7 @@ const Footer: React.FC = () => {
       <div className={styles.logo}>
         <a
           href="#hero"
+          aria-label="Back to top"
           onMouseEnter={() => {
             setCursorType("hover");
           }}
@@ -28,7 +34,11 @@ const Footer: React.FC = () => {
             setCursorType("default");
           }}
         >
-          <img src={logo.src} alt="web dev" />
+          <img
+            src={logo.src}
+            alt="web dev"
+            loading="lazy"
+          />
         </a>
       </div>
       <h4 className={styles.copyright}>

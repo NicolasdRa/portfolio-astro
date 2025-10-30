@@ -37,6 +37,8 @@ const HeroSection: React.FC = () => {
               isActive={activeIndex >= 0}
               src={bici.src}
               alt="nicolás di rago"
+              width={960}
+              height={960}
             />
           </div>
         </div>

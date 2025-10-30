@@ -11,6 +11,15 @@
 .logo img {
   margin-bottom: 2.5rem;
   height: 2.25rem;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+[data-theme="dark"] .logo img {
+  filter: invert(1) brightness(0.9);
+}
+
+.logo:hover img {
+  transform: scale(1.05);
 }
 
 .footerText {

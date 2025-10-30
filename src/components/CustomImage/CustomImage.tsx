@@ -6,12 +6,16 @@ interface CustomImageProps {
   src: string;
   alt?: string;
   isActive?: boolean;
+  width?: number;
+  height?: number;
 }
 
 const CustomImage: React.FC<CustomImageProps> = ({
   src,
   alt = '',
   isActive = false,
+  width,
+  height,
 }) => {
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +39,14 @@ const CustomImage: React.FC<CustomImageProps> = ({
         ref={imageRef}
         className={`${styles.imageContainer} ${isActive ? styles.active : ''}`}
       >
-        <img src={src} alt={alt} className={styles.image} />
+        <img
+          src={src}
+          alt={alt}
+          className={styles.image}
+          width={width}
+          height={height}
+          loading="eager"
+        />
       </div>
     </div>
   );
