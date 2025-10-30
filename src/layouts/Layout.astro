@@ -10,20 +10,27 @@ import CustomCursor from "@components/CustomCursor/CustomCursor";
 import Footer from "@components/Footer/Footer";
 import ThemeToggle from "@components/ThemeToggle/ThemeToggle";
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
   description?: string;
   image?: string;
   article?: boolean;
   showNavbar?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
   title,
   description = "Nicolás di Rago - Full-stack Web Developer",
-  image = "/images/social-image.jpg",
+  image = "/main.webp",
   article = false,
   showNavbar = true,
+  breadcrumbs = [],
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasdirago.com');
@@ -35,6 +42,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Theme initialization script - prevents flash -->
     <script is:inline>
@@ -65,13 +73,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
       description={description}
       image={image}
       article={article}
+      breadcrumbs={breadcrumbs}
     />
 
     <ViewTransitions />
 
-    <!-- Preload fonts for better performance -->
+    <!-- Performance Hints -->
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href={image} as="image" type="image/webp" />
 
     <!-- Load fonts from @fontsource instead if installed, otherwise use Google Fonts -->
     <link

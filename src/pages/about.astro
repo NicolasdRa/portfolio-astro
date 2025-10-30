@@ -3,7 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import CustomLink from '../components/CustomLink/CustomLink';
 ---
 
-<Layout title="About" showNavbar={true}>
+<Layout
+	title="About Nicolás di Rago"
+	description="Learn more about Nicolás di Rago, a Berlin-based full-stack web developer at Nuuk GmbH. creating high-performance web applications with React, Next, Solid TypeScript, and Node.js."
+	breadcrumbs={[
+		{ name: 'Home', url: '/' },
+		{ name: 'About', url: '/about' }
+	]}
+	showNavbar={true}>
 	<main class="about-page">
 		<div class="container">
 			<h1>a detailed about page is coming soon...</h1>

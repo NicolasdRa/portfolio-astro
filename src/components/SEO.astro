@@ -1,4 +1,9 @@
 ---
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
@@ -7,11 +12,12 @@ interface Props {
   article?: boolean;
   publishedTime?: string;
   author?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
   title = 'Nicolás di Rago - Full-stack Web Developer',
-  description = 'Full-stack web developer specializing in React, TypeScript, Node.js, and modern web technologies. Creating innovative digital solutions with a focus on performance and user experience.',
+  description = 'Berlin-based full-stack web developer specializing in React, TypeScript, and Node.js. Creating high-performance web applications with exceptional UX. Available for freelance projects.',
   keywords = [
     'react developer',
     'typescript',
@@ -22,16 +28,22 @@ const {
     'backend developer',
     'node.js',
     'portfolio',
-    'nicolás di rago'
+    'nicolás di rago',
+    'berlin web developer',
+    'frontend developer berlin',
+    'full-stack developer germany',
+    'react developer berlin',
+    'freelance developer berlin'
   ],
-  image = '/main.jpg',
+  image = '/main.webp',
   article = false,
   publishedTime,
-  author = 'Nicolás di Rago'
+  author = 'Nicolás di Rago',
+  breadcrumbs = []
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://www.nicolasdirago.com';
-const siteTitle = 'Nicolás di Rago - Full-stack Web developer';
+const siteUrl = Astro.site?.toString() || 'https://nicolasdirago.dev';
+const siteTitle = 'Nicolás di Rago - Full-stack Web Developer';
 const twitterUsername = '@nicolasdiRago';
 
 // Format the page title
@@ -57,6 +69,9 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
 <meta property="og:title" content={formattedTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={absoluteImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${title} - Portfolio preview`} />
 <meta property="og:site_name" content={siteTitle} />
 <meta property="og:locale" content="en_US" />
 
@@ -66,13 +81,14 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
 )}
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={currentUrl} />
-<meta property="twitter:title" content={formattedTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={absoluteImageUrl} />
-<meta property="twitter:creator" content={twitterUsername} />
-<meta property="twitter:site" content={twitterUsername} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={currentUrl} />
+<meta name="twitter:title" content={formattedTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteImageUrl} />
+<meta name="twitter:image:alt" content={`${title} - Portfolio preview`} />
+<meta name="twitter:creator" content={twitterUsername} />
+<meta name="twitter:site" content={twitterUsername} />
 
 <!-- Additional SEO -->
 <meta name="robots" content="index, follow" />
@@ -84,28 +100,94 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
 
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-1.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-2.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-3.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon-3.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
 <!-- JSON-LD Structured Data -->
-<script type="application/ld+json" set:html={JSON.stringify({
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
   "@context": "https://schema.org",
-  "@type": article ? "Article" : "WebSite",
-  "name": siteTitle,
-  "description": description,
-  "url": currentUrl,
-  "image": absoluteImageUrl,
-  "author": {
-    "@type": "Person",
-    "name": author,
-    "url": siteUrl
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": author,
-    "url": siteUrl
-  },
-  ...(article && publishedTime ? { "datePublished": publishedTime } : {})
+  "@graph": [
+    // WebSite schema
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      "url": siteUrl,
+      "name": siteTitle,
+      "description": description,
+      "publisher": {
+        "@id": `${siteUrl}#person`
+      },
+      "inLanguage": "en-US"
+    },
+    // WebPage schema
+    {
+      "@type": "WebPage",
+      "@id": `${currentUrl}#webpage`,
+      "url": currentUrl,
+      "name": formattedTitle,
+      "isPartOf": {
+        "@id": `${siteUrl}#website`
+      },
+      "about": {
+        "@id": `${siteUrl}#person`
+      },
+      "description": description,
+      "image": absoluteImageUrl,
+      "inLanguage": "en-US",
+      ...(article && publishedTime ? {
+        "datePublished": publishedTime,
+        "dateModified": publishedTime
+      } : {})
+    },
+    // Person/Developer schema
+    {
+      "@type": ["Person", "ProfilePage"],
+      "@id": `${siteUrl}#person`,
+      "name": author,
+      "url": siteUrl,
+      "image": absoluteImageUrl,
+      "jobTitle": "Full-stack Web Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Nuuk GmbH"
+      },
+      "knowsAbout": [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "Web Development",
+        "Frontend Development",
+        "Backend Development",
+        "Full-stack Development"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Berlin",
+        "addressCountry": "DE"
+      },
+      "sameAs": [
+        "https://github.com/NicolasdRa",
+        "https://www.linkedin.com/in/nicol%C3%A1s-di-rago-tango-code",
+        "https://x.com/nicolsdi_rago2"
+      ],
+      "email": "mailto:nicolasdidrago@gmail.com"
+    }
+  ]
 })} />
+
+<!-- Breadcrumb Schema (if breadcrumbs provided) -->
+{breadcrumbs.length > 0 && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": `${siteUrl}${item.url}`
+    }))
+  })} />
+)}

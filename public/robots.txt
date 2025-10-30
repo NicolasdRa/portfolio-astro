@@ -1,0 +1,15 @@
+# robots.txt for nicolasdirago.dev
+# Allow all crawlers access to all content
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://nicolasdirago.dev/sitemap-index.xml
+
+# Crawl-delay for aggressive bots (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

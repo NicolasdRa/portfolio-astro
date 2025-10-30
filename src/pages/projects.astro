@@ -4,7 +4,14 @@ import ProjectList from '../components/ProjectList/ProjectList';
 import CustomLink from '../components/CustomLink/CustomLink';
 ---
 
-<Layout title="Projects" showNavbar={true}>
+<Layout
+	title="Projects Portfolio"
+	description="Explore full-stack web development projects by Nicolás di Rago featuring NestJS backends, React/Next.js frontends, SolidStart applications, and enterprise solutions built at Nuuk GmbH. Real-world implementations with modern tech stacks."
+	breadcrumbs={[
+		{ name: 'Home', url: '/' },
+		{ name: 'Projects', url: '/projects' }
+	]}
+	showNavbar={true}>
 	<main class="projects-page">
 		<div class="content">
 			<h1>more projects</h1>

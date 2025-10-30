@@ -68,7 +68,7 @@ const HeroSection: React.FC = () => {
           <div className={styles.details}>
             <div className={styles.description}>
               senior <span>frontend engineer</span> with backend capabilities.
-              building apps at{" "}
+              building web apps at{" "}
               <a
                 href="https://nuuk.de"
                 target="_blank"
