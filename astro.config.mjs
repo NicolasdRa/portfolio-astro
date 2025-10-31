@@ -34,9 +34,4 @@ export default defineConfig({
       chunkSizeWarningLimit: 1000,
     },
   },
-  experimental: {
-    // Enables automatic responsive image generation
-    // This creates optimized images for different viewport sizes
-    responsiveImages: true,
-  },
 });
