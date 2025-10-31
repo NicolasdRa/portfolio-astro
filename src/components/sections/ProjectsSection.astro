@@ -1,0 +1,168 @@
+---
+import ProjectList from '../ProjectList.astro';
+import CustomLink from "../CustomLink.astro";
+---
+
+<section id="projects" class="projects-container section-fade">
+  <div class="projects-content">
+    <div class="projects-title-container">
+      <h2 class="projects-title">
+        <div class="title-line" />
+        <span>03. </span>projects
+      </h2>
+      <h3 class="projects-subtitle">things i've built, things I'm working on</h3>
+    </div>
+    <ProjectList featured={true} />
+    <div class="projects-btn-container">
+      <CustomLink url="/projects" type="internal" text="more projects" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem 5rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .projects-content {
+    display: flex;
+    flex-direction: column;
+    width: 65vw;
+  }
+
+  .projects-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    width: 45%;
+  }
+
+  .projects-title {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--color-primary-4);
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 7px;
+    position: relative;
+    margin-bottom: 0.625rem;
+    text-align: right;
+  }
+
+  .projects-title span {
+    margin-right: 0.5rem;
+  }
+
+  .projects-subtitle {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+    text-align: right;
+    align-self: flex-end;
+  }
+
+  .projects-btn-container {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    position: relative;
+    width: min-content;
+  }
+
+  @media screen and (max-width: 960px) {
+    .projects-container {
+      padding: 8rem 1.5rem 5rem;
+    }
+
+    .projects-content {
+      width: 80vw;
+      align-items: center;
+    }
+
+    .projects-title-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .projects-container {
+      padding: 8rem 2rem 5rem;
+    }
+
+    .projects-subtitle {
+      font-size: 1.5rem;
+      text-align: left;
+    }
+
+    .projects-content {
+      width: 85vw;
+      align-items: center;
+    }
+
+    .projects-title-container {
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .projects-btn-container {
+      margin: 2.5rem 0 0 0;
+      align-self: center;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .projects-subtitle {
+      font-size: 1.25rem;
+    }
+
+    .projects-title {
+      font-size: 0.875rem;
+    }
+  }
+</style>
+
+<script>
+  function initSectionFade() {
+    const section = document.querySelector('#projects.section-fade') as HTMLElement;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px',
+      }
+    );
+
+    observer.observe(section);
+  }
+
+  // Initialize on page load
+  initSectionFade();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initSectionFade();
+  });
+</script>

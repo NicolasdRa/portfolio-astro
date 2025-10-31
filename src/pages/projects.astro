@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProjectList from '../components/ProjectList/ProjectList';
-import CustomLink from '../components/CustomLink/CustomLink';
+import ProjectList from '../components/ProjectList.astro';
+import CustomLink from "../components/CustomLink.astro";
 ---
 
 <Layout
@@ -15,8 +15,8 @@ import CustomLink from '../components/CustomLink/CustomLink';
 	<main class="projects-page">
 		<div class="content">
 			<h1>more projects</h1>
-			<ProjectList featured={false} client:load />
-			<CustomLink url="/" text="back home" type="internal" client:load />
+			<ProjectList featured={false} />
+			<CustomLink url="/" text="back home" type="internal" />
 		</div>
 	</main>
 </Layout>

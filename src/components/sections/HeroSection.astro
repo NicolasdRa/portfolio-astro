@@ -1,0 +1,390 @@
+---
+import CustomLink from "../CustomLink.astro";
+import bici from "../../assets/images/hero/bici.webp";
+import { Image } from "astro:assets";
+
+const name = ["nicolás", "di", "rago"];
+---
+
+<section id="hero" class="hero-container">
+  <div class="hero-content">
+    <!-- Image Gallery - Only on desktop, server-rendered with client-side interaction -->
+    <div class="hero-media">
+      <div class="hero-image-wrapper">
+        <div class="hero-image-container">
+          <Image
+            src={bici}
+            alt="nicolás di rago"
+            width={360}
+            height={360}
+            loading="eager"
+            fetchpriority="high"
+            class="hero-image"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Title and Details - Server rendered, always visible -->
+    <div class="hero-title">
+      {name.map((item, index) => (
+        <div class={`hero-title${index + 1}`}>
+          <div class="hero-text">
+            <span
+              class="hero-animated-item"
+              data-hero-name={index}
+            >
+              {item}
+            </span>
+          </div>
+        </div>
+      ))}
+
+      <div class="hero-details">
+        <div class="hero-description">
+          senior <span>frontend engineer</span> with backend capabilities.
+          building web apps at{" "}
+          <a
+            href="https://nuuk.de"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>nuuk gmbh</span></a>. based in berlin.
+        </div>
+        <CustomLink url="#contact" type="internal" text="get in touch" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Critical CSS to prevent FOUC - inlined for immediate application */
+  .hero-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .hero-title {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "title2 title1"
+      "title3 details";
+    place-content: center;
+    width: 100%;
+    max-width: 800px;
+    font-family: var(--font-tertiary);
+    font-size: 6.875rem;
+    font-weight: 300;
+    color: var(--color-gray-1);
+    position: relative;
+    cursor: none;
+    transition: color 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+
+
+  .hero-text {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .hero-title1 {
+    grid-area: title1;
+    color: var(--color-gray-3);
+    justify-self: flex-start;
+    align-self: flex-end;
+    margin: 0rem 0rem 0.625rem 0.5rem;
+    font-weight: lighter;
+    z-index: 3;
+    line-height: 0.9;
+  }
+
+  .hero-title2 {
+    grid-area: title2;
+    justify-self: flex-end;
+    align-self: flex-end;
+    font-size: 9.375rem;
+    margin: 0rem 0rem 0.625rem 0rem;
+    z-index: 2;
+    line-height: 0.9;
+  }
+
+  .hero-title3 {
+    grid-area: title3;
+    text-transform: capitalize;
+    justify-self: flex-end;
+    align-self: flex-start;
+    font-size: 9.375rem;
+    margin: -2.1875rem 0rem 0rem 0rem;
+    z-index: 1;
+    line-height: 0.9;
+  }
+
+  .hero-details {
+    grid-area: details;
+    font-family: var(--font-primary);
+    font-size: 0.9375rem;
+    font-weight: normal;
+    justify-self: flex-start;
+    margin: -0.625rem 0 0 0.9375rem;
+    width: 100%;
+    max-width: 280px;
+    line-height: 1.5;
+    transition: color 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+
+  /* Change details text to match nicolás gray when image is active */
+  .hero-title.image-active .hero-details,
+  .hero-title.image-active .hero-details a {
+    color: var(--color-gray-3);
+  }
+
+  /* Keep red spans red */
+  .hero-title.image-active .hero-details span {
+    color: var(--color-primary-3);
+  }
+
+  .hero-description {
+    background-color: transparent;
+    padding: 1rem 0;
+    position: relative;
+  }
+
+  .hero-description::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -0.625rem;
+    right: -0.625rem;
+    bottom: 0;
+    background: var(--color-background);
+    opacity: 0.98;
+    z-index: -1;
+    border-radius: 2px;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Enhanced contrast for description background in both themes */
+  [data-theme="light"] .hero-description::before {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="dark"] .hero-description::before {
+    background: rgba(0, 0, 0, 0.85);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-details span {
+    font-weight: bold;
+    text-transform: none;
+    color: var(--color-primary-3);
+  }
+
+  .hero-description a {
+    text-decoration: none;
+    color: inherit;
+    display: inline;
+  }
+
+  .hero-description a span {
+    display: inline;
+  }
+
+  @media only screen and (max-width: 960px) {
+    .hero-container {
+      padding: 0 1.5rem;
+    }
+
+    .hero-title {
+      font-size: 5.5rem;
+    }
+
+    .hero-title1 {
+      font-size: 5rem;
+      margin: 0rem 0rem 0.625rem -2rem;
+    }
+
+    .hero-title2,
+    .hero-title3 {
+      font-size: 7.5rem;
+    }
+
+    .hero-details {
+      margin: -1.875rem 0 0 0.625rem;
+      max-width: 350px;
+    }
+
+    .hero-description {
+      margin: 1.25rem 0;
+      padding: 0;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .hero-container {
+      padding: 0 1.25rem;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .hero-title {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      grid-template-areas:
+        "title1 title1"
+        "title2 title3"
+        "details details";
+      width: 100%;
+      line-height: 1;
+    }
+
+    .hero-title2,
+    .hero-title3 {
+      font-size: 4.5rem
+      line-height: 1;
+    }
+
+    .hero-title1 {
+      margin: 0rem 0rem -1rem 9rem;
+      font-size: 3.5rem;
+      line-height: 1;
+    }
+
+    .hero-title2 {
+      margin: 0rem 0rem .5rem 0rem;
+    }
+
+    .hero-title3 {
+      margin: 0rem 2rem .5rem 0rem;
+    }
+
+    .hero-details {
+      font-size: 0.9375rem;
+      justify-self: flex-start;
+      align-self: flex-start;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: none;
+      line-height: 1.5;
+    }
+
+    .hero-description {
+      margin: 1.25rem 0;
+      padding: 0;
+    }
+  }
+
+ 
+  /* Hero Image Styles */
+  .hero-media {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-image-wrapper {
+    position: relative;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67),
+                visibility 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    will-change: opacity, visibility;
+  }
+
+  .hero-image-wrapper.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero-image-container {
+    width: 360px;
+    height: 360px;
+    pointer-events: none;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%);
+    aspect-ratio: 1 / 1;
+    border-radius: 2px;
+  }
+
+  @media only screen and (max-width: 960px) {
+    .hero-media {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initHeroInteraction() {
+    // Find only "di" and "rago" elements (index 1 and 2)
+    const diElement = document.querySelector('[data-hero-name="1"]');
+    const ragoElement = document.querySelector('[data-hero-name="2"]');
+    const imageWrapper = document.querySelector('.hero-image-wrapper') as HTMLElement;
+    const heroTitle = document.querySelector('.hero-title') as HTMLElement;
+
+    if (!diElement || !ragoElement || !imageWrapper || !heroTitle) return;
+
+    // Get cursor store functions from window (set by CustomCursor component)
+    const setCursorType = (window as any).__cursorStore__?.setCursorType;
+
+    // Add event listeners only to "di" and "rago"
+    [diElement, ragoElement].forEach((element) => {
+      element.addEventListener('mouseenter', () => {
+        imageWrapper.classList.add('active');
+        heroTitle.classList.add('image-active');
+        if (setCursorType) {
+          setCursorType('hover-name');
+        }
+      });
+
+      element.addEventListener('mouseleave', () => {
+        imageWrapper.classList.remove('active');
+        heroTitle.classList.remove('image-active');
+        if (setCursorType) {
+          setCursorType('default');
+        }
+      });
+    });
+  }
+
+  // Initialize on page load
+  initHeroInteraction();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initHeroInteraction();
+  });
+</script>

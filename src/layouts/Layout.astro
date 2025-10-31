@@ -1,13 +1,13 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import SEO from "../components/SEO.astro";
 import "../styles/global.css";
 
-// Import React components
-import Navbar from "@components/NavBar/NavBar";
-import SocialLinks from "@components/SocialLinks/SocialLinks";
+// Import components
+import Navbar from "@components/NavBar.astro";
+import SocialLinks from "@components/SocialLinks.astro";
 import CustomCursor from "@components/CustomCursor/CustomCursor";
-import Footer from "@components/Footer/Footer";
+import Footer from "@components/Footer.astro";
 import ThemeToggle from "@components/ThemeToggle/ThemeToggle";
 
 interface BreadcrumbItem {
@@ -76,7 +76,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
       breadcrumbs={breadcrumbs}
     />
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Performance Hints -->
     <!-- Prefetch critical navigation pages -->
@@ -100,10 +100,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <CustomCursor client:only="react" transition:persist />
 
     <!-- Navigation - Conditionally rendered based on page -->
-    {showNavbar && <Navbar client:only="react" />}
+    {showNavbar && <Navbar />}
 
     <!-- Social Links - Fixed position -->
-    <SocialLinks client:only="react" transition:persist />
+    <SocialLinks transition:persist />
 
     <!-- Theme Toggle - Fixed position -->
     <ThemeToggle client:only="react" transition:persist />
@@ -114,43 +114,40 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     </main>
 
     <!-- Footer -->
-    <Footer client:only="react" transition:persist />
+    <Footer transition:persist />
 
     <!-- Global theme toggle script -->
-    <script>
-      // Make theme utilities available globally
-      window.toggleTheme = function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('portfolio-theme-mode', newTheme);
+    <script is:inline>
+      // Only initialize once
+      if (!window.__themeInitialized) {
+        window.__themeInitialized = true;
 
-        // Dispatch custom event for components to react to theme change
-        window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
-      };
+        // Make theme utilities available globally
+        window.toggleTheme = function() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('portfolio-theme-mode', newTheme);
 
-      window.getTheme = function() {
-        return document.documentElement.getAttribute('data-theme') || 'light';
-      };
+          // Dispatch custom event for components to react to theme change
+          window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+        };
 
-      // Handle theme persistence during View Transitions
-      document.addEventListener('astro:before-swap', (ev) => {
-        // Get current theme before swap
-        const currentTheme = document.documentElement.getAttribute('data-theme');
+        window.getTheme = function() {
+          return document.documentElement.getAttribute('data-theme') || 'light';
+        };
 
-        // Set theme on new document
-        ev.newDocument.documentElement.setAttribute('data-theme', currentTheme);
-      });
+        // Handle theme persistence during View Transitions
+        document.addEventListener('astro:before-swap', (ev) => {
+          // Get current theme before swap
+          const currentTheme = document.documentElement.getAttribute('data-theme');
 
-      // Ensure theme is applied after page load
-      document.addEventListener('astro:page-load', () => {
-        const THEME_KEY = 'portfolio-theme-mode';
-        const storedTheme = localStorage.getItem(THEME_KEY);
-
-        if (storedTheme) {
-          document.documentElement.setAttribute('data-theme', storedTheme);
-        }
-      });
+          // Set theme on new document
+          if (ev.newDocument && currentTheme) {
+            ev.newDocument.documentElement.setAttribute('data-theme', currentTheme);
+          }
+        });
+      }
     </script>
   </body>
 </html>

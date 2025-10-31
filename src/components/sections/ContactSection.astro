@@ -1,0 +1,447 @@
+---
+---
+
+<section id="contact" class="contact-container section-fade">
+  <div class="contact-content">
+    <div class="contact-titles">
+      <div class="contact-title-container">
+        <h2 class="contact-title">
+          <div class="title-line" />
+          <span>04. </span>contact
+        </h2>
+      </div>
+      <h3>drop a line</h3>
+    </div>
+
+    <form
+      class="contact-form"
+      name="contact-portfolio"
+      method="post"
+      netlify-honeypot="bot-field"
+      data-netlify="true"
+      action="/success"
+      data-contact-form
+    >
+      <input type="hidden" name="bot-field" />
+      <input type="hidden" name="form-name" value="contact-portfolio" />
+      <div class="contact-form-group">
+        <div class="contact-field-wrapper">
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="name"
+            autocomplete="name"
+            class="contact-form-control"
+            data-field="name"
+          />
+          <span class="contact-error-message" data-error="name"></span>
+        </div>
+
+        <div class="contact-field-wrapper">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email"
+            autocomplete="email"
+            class="contact-form-control"
+            data-field="email"
+          />
+          <span class="contact-error-message" data-error="email"></span>
+        </div>
+
+        <div class="contact-field-wrapper">
+          <textarea
+            rows="5"
+            id="message"
+            name="message"
+            placeholder="message"
+            class="contact-form-control"
+            data-field="message"
+          ></textarea>
+          <span class="contact-error-message" data-error="message"></span>
+        </div>
+      </div>
+      <div class="contact-submit-wrapper">
+        <button type="submit" class="contact-submit-button">
+          submit
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  function initContactForm() {
+    const form = document.querySelector('[data-contact-form]') as HTMLFormElement;
+    if (!form) return;
+
+    const fields = {
+      name: form.querySelector('[data-field="name"]') as HTMLInputElement,
+      email: form.querySelector('[data-field="email"]') as HTMLInputElement,
+      message: form.querySelector('[data-field="message"]') as HTMLTextAreaElement,
+    };
+
+    const errorElements = {
+      name: form.querySelector('[data-error="name"]') as HTMLSpanElement,
+      email: form.querySelector('[data-error="email"]') as HTMLSpanElement,
+      message: form.querySelector('[data-error="message"]') as HTMLSpanElement,
+    };
+
+    const showError = (field: keyof typeof fields, message: string) => {
+      fields[field].classList.add('error');
+      errorElements[field].textContent = message;
+    };
+
+    const clearError = (field: keyof typeof fields) => {
+      fields[field].classList.remove('error');
+      errorElements[field].textContent = '';
+    };
+
+    const validateForm = (): boolean => {
+      let isValid = true;
+
+      // Clear all errors first
+      Object.keys(fields).forEach((key) => clearError(key as keyof typeof fields));
+
+      // Validate name
+      if (!fields.name.value.trim()) {
+        showError('name', 'please enter your name');
+        isValid = false;
+      }
+
+      // Validate email
+      if (!fields.email.value.trim()) {
+        showError('email', 'please enter your email');
+        isValid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.value)) {
+        showError('email', 'please enter a valid email address');
+        isValid = false;
+      }
+
+      // Validate message
+      if (!fields.message.value.trim()) {
+        showError('message', 'please enter a message');
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+    // Clear error when user starts typing
+    Object.keys(fields).forEach((key) => {
+      const field = fields[key as keyof typeof fields];
+      field.addEventListener('input', () => {
+        clearError(key as keyof typeof fields);
+      });
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', (e) => {
+      if (!validateForm()) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Initialize on page load
+  initContactForm();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initContactForm();
+  });
+
+  function initSectionFade() {
+    const section = document.querySelector('#contact.section-fade') as HTMLElement;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px',
+      }
+    );
+
+    observer.observe(section);
+  }
+
+  // Initialize section fade
+  initSectionFade();
+
+  // Re-initialize section fade on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initSectionFade();
+  });
+</script>
+
+<style>
+  .contact-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .contact-container h3 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-container p {
+    margin-top: 0.625rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .contact-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .contact-titles {
+    width: 34%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 1.875rem;
+    text-align: right;
+  }
+
+  .contact-title {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--color-primary-4);
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 7px;
+    position: relative;
+    margin-bottom: 0.625rem;
+    text-align: right;
+  }
+
+  .contact-title span {
+    margin-right: 0.3125rem;
+  }
+
+  .contact-form {
+    width: 55%;
+  }
+
+  .contact-form-group {
+    margin-top: 6.25rem;
+    margin-bottom: 3.125rem;
+  }
+
+  .contact-field-wrapper {
+    position: relative;
+    margin-bottom: 0.625rem;
+  }
+
+  .contact-form-control {
+    display: block;
+    width: 100%;
+    max-width: 35rem;
+    padding: 0.625rem 0;
+    border: none;
+    border-bottom: 2px solid var(--color-gray-4);
+    margin-bottom: 0.3125rem;
+    outline: none;
+    text-transform: lowercase;
+    background: transparent;
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .contact-form-control::placeholder {
+    font-family: var(--font-primary);
+    text-transform: lowercase;
+    color: var(--color-text-secondary);
+    transition: color 0.3s ease;
+  }
+
+  .contact-form-control:focus {
+    border-bottom-color: var(--color-primary-3);
+  }
+
+  .contact-form-control:focus::placeholder {
+    color: var(--color-gray-3);
+  }
+
+  .contact-form-control.error {
+    border-bottom-color: var(--color-primary-3);
+  }
+
+  .contact-error-message {
+    display: block;
+    color: var(--color-primary-3);
+    font-size: 0.75rem;
+    min-height: 1.25rem;
+    margin-top: 0.3125rem;
+    margin-bottom: 0.625rem;
+    text-transform: lowercase;
+    font-family: var(--font-primary);
+  }
+
+  /* Reserve space for error message even when empty */
+  .contact-field-wrapper::after {
+    content: '';
+    display: block;
+    min-height: 1.25rem;
+    margin-top: 0.3125rem;
+    margin-bottom: 0.625rem;
+  }
+
+  /* Hide the spacer when error message is present */
+  .contact-field-wrapper:has(.contact-error-message)::after {
+    display: none;
+  }
+
+  .contact-submit-wrapper {
+    display: inline-block;
+    position: relative;
+    width: max-content;
+  }
+
+  .contact-submit-button {
+    display: inline-block;
+    padding: 0.875rem 1.25rem;
+    background: var(--color-gray-1);
+    border: 1px solid var(--color-gray-1);
+    color: var(--color-gray-4);
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    text-transform: lowercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    will-change: transform;
+  }
+
+  .contact-submit-button:hover {
+    background-color: var(--color-background);
+    color: var(--color-gray-1);
+    transform: translateY(-2px);
+  }
+
+  .contact-submit-button:active {
+    color: var(--color-primary-3);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary-3);
+    transform: translateY(1px);
+    transition: transform 125ms;
+  }
+
+  @media only screen and (min-width: 961px) and (max-width: 1400px) {
+    .contact-titles {
+      width: 30%;
+      margin: 0 1.25rem;
+    }
+
+    .contact-form {
+      width: 70%;
+    }
+
+    .contact-form-control {
+      max-width: 45rem;
+    }
+  }
+
+  @media only screen and (max-width: 960px) {
+    .contact-container {
+      padding: 8rem 1.5rem 5rem;
+    }
+
+    .contact-titles {
+      width: 25%;
+      margin: 0 0.9375rem;
+    }
+
+    .contact-form {
+      width: 75%;
+    }
+
+    .contact-form-control {
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .contact-container {
+      width: 100%;
+    }
+
+    .contact-titles {
+      width: 30%;
+      margin: 0 0.9375rem;
+    }
+
+    .contact-form {
+      width: 70%;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .contact-container {
+      padding: 8rem 2rem 5rem;
+    }
+
+    .contact-container h3 {
+      font-size: 1.5625rem;
+      text-align: left;
+    }
+
+    .contact-content {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100vw;
+      margin: 0 auto;
+    }
+
+    .contact-titles {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 1.875rem 0 0 0;
+      text-align: left;
+    }
+
+    .contact-title {
+      margin-bottom: 0.3125rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .contact-form-group {
+      margin: 1.25rem 0;
+    }
+  }
+</style>

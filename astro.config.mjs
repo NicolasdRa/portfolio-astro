@@ -21,16 +21,6 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    css: {
-      modules: {
-        // Generate class names with component name prefix
-        // Example: CustomLink_wrapper__a1b2c3
-        generateScopedName: '[name]_[local]__[hash:base64:5]',
-        // Alternative patterns:
-        // '[local]_[hash:base64:5]' - just local name + hash
-        // '[folder]_[name]_[local]__[hash:base64:5]' - includes folder name
-      },
-    },
     build: {
       cssCodeSplit: true,
       assetsInlineLimit: 0,

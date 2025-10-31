@@ -1,0 +1,164 @@
+---
+import socialLinks from "../constants/social_links";
+import logo from "../assets/svg/logo.svg";
+import Icon from "./Icon.astro";
+---
+
+<footer class="footer">
+  <ul class="social-links">
+    {socialLinks.map((link) => (
+      <li class="social-link">
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={link.name}
+        >
+          <Icon name={link.icon} class="social-icon" />
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="logo">
+    <a
+      href="#hero"
+      aria-label="Back to top"
+      data-cursor-hover="hover"
+    >
+      <img
+        src={logo.src}
+        alt="web dev"
+        loading="lazy"
+      />
+    </a>
+  </div>
+  <h4 class="copyright">
+    designed & built by <span> nicolás di rago</span>
+  </h4>
+  <h4 class="copyright">
+    copyright &copy; {new Date().getFullYear()}
+  </h4>
+</footer>
+
+<style>
+  .footer {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1.171875rem;
+    text-align: center;
+  }
+
+  .logo img {
+    margin-bottom: 0.976562rem;
+    height: 0.878906rem;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    filter: none;
+  }
+
+  :global([data-theme="dark"]) .logo img {
+    filter: invert(1) brightness(0.9);
+  }
+
+  .logo:hover img {
+    transform: scale(1.05);
+  }
+
+  .social-links {
+    margin: 1.171875rem auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .social-link {
+    margin-right: 1.171875rem;
+    transition: var(--transition-base);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .social-link a {
+    height: 0.875rem;
+    color: var(--color-gray-2);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-link a :global(.social-icon) {
+    width: 0.875rem;
+    height: 0.875rem;
+    display: block;
+  }
+
+  .social-link:hover {
+    color: var(--color-primary-3);
+    transform: translateY(-2px);
+    transition: var(--transition-fast);
+  }
+
+  .social-link:last-child {
+    margin-right: 0;
+  }
+
+  .footer .social-link {
+    color: var(--color-gray-3);
+  }
+
+  .footer .social-link:hover {
+    color: var(--color-primary-3);
+  }
+
+  h4.copyright {
+    font-size: 0.875rem;
+    color: var(--color-gray-3);
+  }
+
+  .copyright span {
+    color: var(--color-primary-3);
+  }
+
+  @media only screen and (min-width: 800px) {
+    .social-links {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .logo {
+      display: none;
+    }
+
+    .footer {
+      padding-bottom: 1rem;
+    }
+  }
+</style>
+
+<script>
+  function initFooterLinks() {
+    const logoLink = document.querySelector('[data-cursor-hover="hover"]');
+    const setCursorType = (window as any).__cursorStore__?.setCursorType;
+
+    if (!setCursorType || !logoLink) return;
+
+    logoLink.addEventListener('mouseenter', () => {
+      setCursorType('hover');
+    });
+
+    logoLink.addEventListener('mouseleave', () => {
+      setCursorType('default');
+    });
+  }
+
+  // Initialize on page load
+  initFooterLinks();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initFooterLinks();
+  });
+</script>

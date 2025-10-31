@@ -1,0 +1,283 @@
+---
+import CustomLink from "../CustomLink.astro";
+import jobs from '../../constants/jobs';
+---
+
+<section id="work" class="work-container section-fade">
+  <div class="work-content">
+    <div class="work-titles">
+      <div class="work-title-container">
+        <h2 class="work-title">
+          <div class="title-line" />
+          <span>02. </span>work
+        </h2>
+      </div>
+      <h3>where I've worked</h3>
+    </div>
+    <div class="work-text">
+      {jobs.map((job) => {
+        const { id, company, position, startDate, endDate, tasks } = job;
+
+        return (
+          <div  class="work-experience-block">
+            <h4>{company}</h4>
+            <h5>
+              <span class="work-date">
+                {startDate} - {endDate}
+                <span class="work-position"> - {position}</span>
+              </span>
+            </h5>
+
+            {tasks.map((task) => (
+              <p>{task}</p>
+            ))}
+          </div>
+        );
+      })}
+
+      <div class="work-btn-container">
+        <CustomLink
+          type="link"
+          url="/cv-nicolasdirago.pdf"
+          text="download cv"
+          download
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem 5rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .work-container h3 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+  }
+
+  .work-container h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .work-container h5 {
+    font-family: var(--font-primary);
+    margin-bottom: 1rem;
+  }
+
+  .work-date {
+    font-size: 1rem;
+  }
+
+  .work-position {
+    text-transform: capitalize;
+    margin-left: 0.625rem;
+  }
+
+  .work-container p {
+    margin-top: 0.875rem;
+    margin-bottom: 0;
+  }
+
+  .work-content {
+    display: flex;
+    flex-direction: row;
+    width: 60vw;
+  }
+
+  .work-titles {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 3.75rem;
+    text-align: right;
+  }
+
+  .work-text {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-experience-block {
+    margin-top: 2.5rem;
+    margin-bottom: 6.5rem;
+  }
+
+  .work-experience-block:first-child {
+    margin-top: 0;
+  }
+
+  .work-experience-block:last-of-type {
+    margin-bottom: 2.5rem;
+  }
+
+  .work-title-container {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    width: 50%;
+  }
+
+  .work-title span {
+    margin-right: 0.3125rem;
+  }
+
+  .work-btn-container {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    width: min-content;
+  }
+
+  .work-title {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--color-primary-3);
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 7px;
+    position: relative;
+    margin-bottom: 0.625rem;
+    text-align: right;
+  }
+
+  @media screen and (max-width: 960px) {
+    .work-container {
+      padding: 8rem 1.5rem 5rem;
+    }
+
+    .work-content {
+      width: 100%;
+    }
+
+    .work-titles {
+      width: 25%;
+      margin: 0 2.5rem;
+    }
+
+    .work-text {
+      width: 75%;
+    }
+
+    .work-container p {
+      font-size: 0.875rem;
+      line-height: 1.8;
+    }
+
+    .work-experience-block {
+      margin: 2.5rem 0 3.75rem 0;
+    }
+
+    .work-experience-block:first-child {
+      margin-top: 0;
+    }
+
+    .work-experience-block:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .work-container {
+      padding: 8rem 2rem 5rem;
+    }
+
+    .work-container h3 {
+      font-size: 1.5625rem;
+      text-align: left;
+    }
+
+    .work-container h4 {
+      font-size: 1.25rem;
+    }
+
+    .work-container h5 {
+      font-size: 0.875rem;
+    }
+
+    .work-experience-block {
+      margin: 2.5rem 0;
+    }
+
+    .work-experience-block:first-child {
+      margin-top: 0;
+    }
+
+    .work-content {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .work-title-container {
+      justify-content: flex-start;
+      width: 50%;
+    }
+
+    .work-title {
+      margin-bottom: 0.3125rem;
+    }
+
+    .work-titles {
+      width: 100%;
+      align-items: flex-start;
+      margin: 0 0 1.25rem 0;
+      text-align: left;
+    }
+
+    .work-text {
+      width: 100%;
+    }
+
+    .work-btn-container {
+      margin: 0 0 1.25rem 0;
+      align-self: center;
+    }
+  }
+</style>
+
+<script>
+  function initSectionFade() {
+    const section = document.querySelector('#work.section-fade') as HTMLElement;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px',
+      }
+    );
+
+    observer.observe(section);
+  }
+
+  // Initialize on page load
+  initSectionFade();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initSectionFade();
+  });
+</script>

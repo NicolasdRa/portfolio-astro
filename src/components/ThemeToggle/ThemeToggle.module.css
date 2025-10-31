@@ -1,7 +1,7 @@
 .container {
   position: fixed;
-  bottom: 3rem;
-  right: 3rem;
+  bottom: 1.875rem;
+  right: 1.875rem;
   z-index: 200;
   opacity: 0;
 }
@@ -11,10 +11,10 @@
   border: none;
   color: var(--color-gray-2);
   font-family: var(--font-primary);
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   letter-spacing: 0.05em;
-  padding: 0.5rem 1rem;
+  padding: 0.3125rem 0.625rem;
   transition: color 0.3s ease, transform 0.3s ease;
   text-transform: lowercase;
   cursor: none;

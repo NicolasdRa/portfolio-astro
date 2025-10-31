@@ -1,0 +1,282 @@
+---
+import logo from "../assets/svg/logo.svg";
+import pageLinks from "../constants/links";
+import Sidebar from "./Sidebar.astro";
+
+// Menu icon SVG
+const menuIcon = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>`;
+---
+
+<header class="container" data-navbar-container>
+  <nav class="navbar" data-navbar>
+    <div class="nav-logo">
+      <a
+        href="/"
+        class="nav-links"
+        data-cursor-hover="hover"
+      >
+        <img
+          src={logo.src ?? ""}
+          alt="web dev"
+          loading="eager"
+        />
+      </a>
+    </div>
+    <button
+      type="button"
+      class="toggle-btn"
+      data-sidebar-toggle
+      data-cursor-hover="hover"
+      aria-label="Open menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="menu-icon" set:html={menuIcon} />
+    </button>
+    <ul class="nav-links">
+      {pageLinks.map((link: { id: number; url: string; text: string }) => (
+        <li
+          data-cursor-hover="hover"
+        >
+          <a href={link.url}>
+            <span class="link-number">0{link.id - 1}. </span>
+            {link.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <Sidebar />
+</header>
+
+<style>
+  .container {
+    opacity: 0;
+    width: 100%;
+  }
+
+  .navbar {
+    font-family: var(--font-primary);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: flex;
+    height: 5rem;
+    cursor: none;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-background);
+    backdrop-filter: blur(5px);
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 0 3.75rem 0 3.125rem;
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .navbar {
+      padding: 3.125rem 2.5rem;
+      justify-content: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .navbar {
+      padding: 0 1.875rem;
+    }
+  }
+
+  .navbar.scrolled-down {
+    top: -100px;
+    backdrop-filter: blur(5px);
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  .nav-logo img {
+    height: 1rem;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    filter: none;
+  }
+
+  :global([data-theme="dark"]) .nav-logo img {
+    filter: invert(1) brightness(0.9);
+  }
+
+  .nav-logo:hover img {
+    transform: scale(1.05);
+  }
+
+  .toggle-btn {
+    background: transparent;
+    border-color: transparent;
+    border: none;
+    color: var(--color-gray-2);
+    cursor: none;
+    transition: color 0.3s ease;
+    font-size: 1.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3125rem;
+  }
+
+  .toggle-btn :global(.menu-icon) {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+
+  .toggle-btn:hover {
+    color: var(--color-primary-3);
+  }
+
+  @media screen and (max-width: 1024px) {
+    .toggle-btn {
+      font-size: 1.875rem;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .toggle-btn {
+      font-size: 1.875rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .toggle-btn {
+      display: none;
+    }
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .nav-links {
+      display: flex;
+      cursor: none;
+      justify-content: flex-end;
+    }
+  }
+
+  .nav-links li {
+    color: var(--color-gray-2);
+    margin-right: 3.125rem;
+    padding: 0.3125rem 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    transition: transform 450ms ease-out, color 0.3s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    position: relative;
+  }
+
+  .nav-links li a {
+    position: relative;
+    color: inherit;
+  }
+
+  .nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: -0.1875rem;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-primary-3);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links li:hover {
+    color: var(--color-primary-3);
+    transform: translateY(-2px);
+    cursor: none;
+    transition: transform 125ms, color 0.15s ease;
+  }
+
+  .nav-links li:hover a::after {
+    width: 100%;
+  }
+
+  .link-number {
+    color: var(--color-primary-3);
+    font-size: 1.125rem;
+  }
+</style>
+
+<script>
+  function initNavbar() {
+    const container = document.querySelector('[data-navbar-container]') as HTMLElement;
+    const navbar = document.querySelector('[data-navbar]') as HTMLElement;
+    const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+    const cursorHoverElements = document.querySelectorAll('[data-cursor-hover="hover"]');
+
+    if (!container || !navbar) return;
+
+    const setCursorType = (window as any).__cursorStore__?.setCursorType;
+
+    // Fade in animation
+    setTimeout(() => {
+      container.style.transition = 'opacity 300ms linear';
+      container.style.opacity = '1';
+    }, 100);
+
+    // Scroll behavior
+    let prevScroll = window.pageYOffset;
+    let sidebarOpen = false;
+
+    const handleScroll = () => {
+      const currentScroll = window.pageYOffset;
+
+      if (prevScroll < currentScroll && currentScroll > 50) {
+        navbar.classList.add('scrolled-down');
+      } else if (prevScroll > currentScroll) {
+        navbar.classList.remove('scrolled-down');
+      }
+
+      prevScroll = currentScroll;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Sidebar toggle
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', () => {
+        sidebarOpen = !sidebarOpen;
+        window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { isOpen: sidebarOpen } }));
+      });
+    }
+
+    // Cursor interactions
+    if (setCursorType) {
+      cursorHoverElements.forEach((element) => {
+        element.addEventListener('mouseenter', () => {
+          setCursorType('hover');
+        });
+
+        element.addEventListener('mouseleave', () => {
+          setCursorType('default');
+        });
+      });
+    }
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }
+
+  // Initialize on page load
+  const cleanup = initNavbar();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    if (cleanup) cleanup();
+    initNavbar();
+  });
+
+  // Cleanup before page unload
+  document.addEventListener('astro:before-preparation', () => {
+    if (cleanup) cleanup();
+  });
+</script>

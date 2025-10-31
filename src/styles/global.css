@@ -97,7 +97,8 @@
 
 @font-face {
   font-family: "Source Code Pro";
-  src: local("Source Code Pro"),
+  src:
+    local("Source Code Pro"),
     url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 900;
   font-style: normal;
@@ -106,7 +107,8 @@
 
 @font-face {
   font-family: "Source Code Pro";
-  src: local("Source Code Pro Italic"),
+  src:
+    local("Source Code Pro Italic"),
     url("/fonts/SourceCodePro-Italic-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 900;
   font-style: italic;
@@ -115,7 +117,8 @@
 
 @font-face {
   font-family: "Space Grotesk";
-  src: local("Space Grotesk"),
+  src:
+    local("Space Grotesk"),
     url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 700;
   font-style: normal;
@@ -124,7 +127,8 @@
 
 @font-face {
   font-family: "Oswald";
-  src: local("Oswald"),
+  src:
+    local("Oswald"),
     url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
   font-weight: 200 700;
   font-style: normal;
@@ -147,7 +151,6 @@
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px */
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -156,7 +159,7 @@ html {
 
 body {
   font-family: var(--font-primary);
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
   letter-spacing: 0.02em;
@@ -171,43 +174,48 @@ body {
    Typography
    ============================================ */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-secondary);
   font-weight: 600;
   line-height: 1.2;
   color: var(--color-text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.9375rem;
   transition: var(--transition-base);
 }
 
 h1 {
-  font-size: clamp(3.2rem, 5vw, 5.6rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
 }
 
 h2 {
-  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 600;
 }
 
 h3 {
-  font-size: clamp(2rem, 3vw, 3.2rem);
+  font-size: clamp(1.25rem, 3vw, 2rem);
 }
 
 h4 {
-  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
 }
 
 h5 {
-  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-size: clamp(1rem, 2vw, 1.25rem);
 }
 
 h6 {
-  font-size: 1.6rem;
+  font-size: 1rem;
 }
 
 p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.9375rem;
   color: var(--color-text-primary);
   transition: var(--transition-base);
 }
@@ -303,7 +311,11 @@ em {
     cursor: none !important;
   }
 
-  a, button, input, textarea, select {
+  a,
+  button,
+  input,
+  textarea,
+  select {
     cursor: none !important;
   }
 }
@@ -337,12 +349,7 @@ em {
   border: 0 !important;
 }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
+/* Container class removed - use component-scoped styles instead */
 
 /* ============================================
    Animations
@@ -357,6 +364,30 @@ em {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section fade animation classes */
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes scaleUp {
@@ -394,7 +425,8 @@ em {
 
 /* CSS Particle Animation (lightweight alternative) */
 @keyframes particle-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0) scale(0);
     opacity: 0;
   }
@@ -409,24 +441,6 @@ em {
     opacity: 0;
     transform: translateY(-150px) translateX(50px) scale(0.8);
   }
-}
-
-.particles-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.particle {
-  position: absolute;
-  background: var(--color-gray-3);
-  border-radius: 50%;
-  animation: particle-float 6s infinite ease-in-out;
 }
 
 /* ============================================
@@ -448,29 +462,5 @@ em {
     * {
       cursor: auto !important;
     }
-  }
-}
-
-/* ============================================
-   Responsive Base Styles
-   ============================================ */
-
-@media (max-width: 768px) {
-  html {
-    font-size: 60%;
-  }
-
-  .container {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  html {
-    font-size: 58%;
-  }
-
-  .container {
-    padding: 0 1rem;
   }
 }

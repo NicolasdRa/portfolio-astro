@@ -1,28 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroSection from '../components/Sections/HeroSection/HeroSection';
-import AboutSection from '../components/Sections/AboutSection/AboutSection';
-import WorkSection from '../components/Sections/WorkSection/WorkSection';
-import ProjectsSection from '../components/Sections/ProjectsSection/ProjectsSection';
-import ContactSection from '../components/Sections/ContactSection/ContactSection';
+import HeroSection from '../components/Sections/HeroSection.astro';
+import AboutSection from '../components/Sections/AboutSection.astro';
+import WorkSection from '../components/Sections/WorkSection.astro';
+import ProjectsSection from '../components/Sections/ProjectsSection.astro';
+import ContactSection from '../components/Sections/ContactSection.astro';
 ---
 
 <Layout
 	title="Nicolás di Rago - Full-stack Web Developer"
 	description="Berlin-based full-stack web developer at Nuuk GmbH specializing in React, Next.js, NestJS, and TypeScript. Building production-ready web applications with modern frameworks like Solid.js, Astro, and cutting-edge technologies."
 	showNavbar={true}>
-	<!-- Hero Section - Load immediately (above the fold) -->
-	<HeroSection client:only="react" />
+	<!-- Hero Section - Server rendered, interactive image on desktop only -->
+	<HeroSection />
 
-	<!-- About Section - Lazy load when visible -->
-	<AboutSection client:only="react" />
+	<!-- About Section - Server rendered -->
+	<AboutSection />
 
-	<!-- Work Section - Lazy load when visible -->
-	<WorkSection client:only="react" />
+	<!-- Work Section - Server rendered -->
+	<WorkSection />
 
-	<!-- Projects Section - Lazy load when visible -->
-	<ProjectsSection client:only="react" />
+	<!-- Projects Section - Server rendered -->
+	<ProjectsSection />
 
-	<!-- Contact Section - Lazy load when visible -->
-	<ContactSection client:only="react" />
+	<!-- Contact Section - Server rendered -->
+	<ContactSection />
 </Layout>

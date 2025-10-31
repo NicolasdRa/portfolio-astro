@@ -1,0 +1,92 @@
+---
+import ProjectItem from './ProjectItem.astro';
+import projectsData from '../constants/projects';
+
+interface Props {
+  featured: boolean;
+}
+
+const { featured } = Astro.props;
+
+const projects = projectsData;
+const data = featured ? projects.filter((project) => project.featured === true) : projects;
+---
+
+<div class="list" data-projects-list>
+  {data.map((project, index) => (
+    <div  data-project-item={index}>
+      <ProjectItem project={project} />
+    </div>
+  ))}
+</div>
+
+<script>
+  function initProjectAnimations() {
+    const isDesktop = window.matchMedia('(min-width: 800px)').matches;
+    if (!isDesktop) return;
+
+    const listContainer = document.querySelector('[data-projects-list]') as HTMLElement;
+    const projectItems = document.querySelectorAll('[data-project-item]');
+
+    if (!listContainer || !projectItems.length) return;
+
+    // Set initial opacity for container
+    listContainer.style.opacity = '0';
+
+    // Animate container first
+    const containerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            listContainer.style.transition = 'opacity 500ms ease-out';
+            listContainer.style.opacity = '1';
+            containerObserver.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px 0px 0px 0px',
+      }
+    );
+
+    containerObserver.observe(listContainer);
+
+    // Animate individual project items with stagger
+    const animatedItems = new Set<number>();
+
+    projectItems.forEach((item, index) => {
+      const element = item as HTMLElement;
+      element.style.opacity = '0';
+
+      const itemObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !animatedItems.has(index)) {
+              setTimeout(() => {
+                element.style.transition = 'opacity 500ms ease-out';
+                element.style.opacity = '1';
+                animatedItems.add(index);
+              }, index * 100); // Stagger by 100ms
+              itemObserver.disconnect();
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '50px 0px 0px 0px',
+        }
+      );
+
+      itemObserver.observe(element);
+    });
+  }
+
+  // Initialize on page load
+  initProjectAnimations();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initProjectAnimations();
+  });
+</script>

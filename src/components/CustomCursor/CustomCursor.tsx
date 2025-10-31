@@ -18,7 +18,25 @@ const CustomCursor = () => {
   });
 
   const type = useUiStore((state) => state.cursorType);
-  console.log("🚀 ~ CustomCursor ~ type:", type);
+  const setCursorType = useUiStore((state) => state.setCursorType);
+
+  // Expose cursor store to window for Astro components
+  useEffect(() => {
+    (window as any).__cursorStore__ = { setCursorType };
+  }, [setCursorType]);
+
+  // Listen for cursor change events from Astro components
+  useEffect(() => {
+    const handleCursorChange = (e: CustomEvent<{ type: string }>) => {
+      setCursorType(e.detail.type as any);
+    };
+
+    window.addEventListener('cursor-change', handleCursorChange as EventListener);
+
+    return () => {
+      window.removeEventListener('cursor-change', handleCursorChange as EventListener);
+    };
+  }, [setCursorType]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
