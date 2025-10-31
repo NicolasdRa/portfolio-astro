@@ -11,18 +11,18 @@ import ContactSection from '../components/Sections/ContactSection/ContactSection
 	title="Nicolás di Rago - Full-stack Web Developer"
 	description="Berlin-based full-stack web developer at Nuuk GmbH specializing in React, Next.js, NestJS, and TypeScript. Building production-ready web applications with modern frameworks like Solid.js, Astro, and cutting-edge technologies."
 	showNavbar={true}>
-	<!-- Hero Section -->
+	<!-- Hero Section - Load immediately (above the fold) -->
 	<HeroSection client:only="react" />
 
-	<!-- About Section -->
-	<AboutSection client:only="react" />
+	<!-- About Section - Lazy load when visible -->
+	<AboutSection client:visible />
 
-	<!-- Work Section -->
-	<WorkSection client:only="react" />
+	<!-- Work Section - Lazy load when visible -->
+	<WorkSection client:visible />
 
-	<!-- Projects Section -->
-	<ProjectsSection client:only="react" />
+	<!-- Projects Section - Lazy load when visible -->
+	<ProjectsSection client:visible />
 
-	<!-- Contact Section -->
-	<ContactSection client:only="react" />
+	<!-- Contact Section - Lazy load when visible -->
+	<ContactSection client:visible />
 </Layout>
