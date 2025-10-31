@@ -1,16 +1,12 @@
----
-// Pure Astro theme toggle - no React needed
----
-
-<div class="theme-toggle-container" data-theme-toggle-container>
+<div class="theme-toggle-container">
   <button
+    id="themeToggle"
     class="theme-toggle-button"
-    data-theme-toggle-button
     data-cursor-hover="hover"
     aria-label="Toggle theme"
     title="Toggle theme"
   >
-    <span data-theme-text>light</span>
+    <span id="themeText">light</span>
   </button>
 </div>
 
@@ -83,53 +79,49 @@
 </style>
 
 <script>
-  function initThemeToggle() {
-    const button = document.querySelector('[data-theme-toggle-button]') as HTMLButtonElement;
-    const themeText = document.querySelector('[data-theme-text]') as HTMLSpanElement;
+  const button = document.getElementById('themeToggle');
+  const themeText = document.getElementById('themeText');
 
-    if (!button || !themeText) return;
-
-    // Update button text based on current theme
-    function updateButtonText() {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  function updateButtonText() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    if (themeText) {
       themeText.textContent = currentTheme === 'light' ? 'dark' : 'light';
     }
-
-    // Initialize button text
-    updateButtonText();
-
-    // Handle toggle click
-    button.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-      // Update DOM and localStorage
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('portfolio-theme-mode', newTheme);
-
-      // Update button text
-      updateButtonText();
-
-      // Dispatch event for other components
-      window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
-    });
-
-    // Cursor hover integration
-    const setCursorType = (window as any).__cursorStore__?.setCursorType;
-    if (setCursorType) {
-      button.addEventListener('mouseenter', () => setCursorType('hover'));
-      button.addEventListener('mouseleave', () => setCursorType('default'));
-    }
-
-    // Listen for external theme changes
-    window.addEventListener('theme-changed', updateButtonText as EventListener);
   }
 
-  // Initialize on page load
-  initThemeToggle();
+  function handleToggleClick() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    // Update DOM and localStorage
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('portfolio-theme-mode', newTheme);
+
+    // Update button text
+    updateButtonText();
+
+    // Dispatch event for other components
+    window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+  }
+
+  // Initialize button text
+  updateButtonText();
+
+  // Handle toggle click
+  button?.addEventListener('click', handleToggleClick);
+
+  // Cursor hover integration
+  const setCursorType = (window as any).__cursorStore__?.setCursorType;
+  if (setCursorType && button) {
+    button.addEventListener('mouseenter', () => setCursorType('hover'));
+    button.addEventListener('mouseleave', () => setCursorType('default'));
+  }
+
+  // Listen for external theme changes
+  window.addEventListener('theme-changed', updateButtonText as EventListener);
 
   // Re-initialize on Astro view transitions
   document.addEventListener('astro:page-load', () => {
-    initThemeToggle();
+    updateButtonText();
   });
 </script>
