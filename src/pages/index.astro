@@ -15,14 +15,14 @@ import ContactSection from '../components/Sections/ContactSection/ContactSection
 	<HeroSection client:only="react" />
 
 	<!-- About Section - Lazy load when visible -->
-	<AboutSection client:visible />
+	<AboutSection client:only="react" />
 
 	<!-- Work Section - Lazy load when visible -->
-	<WorkSection client:visible />
+	<WorkSection client:only="react" />
 
 	<!-- Projects Section - Lazy load when visible -->
-	<ProjectsSection client:visible />
+	<ProjectsSection client:only="react" />
 
 	<!-- Contact Section - Lazy load when visible -->
-	<ContactSection client:visible />
+	<ContactSection client:only="react" />
 </Layout>

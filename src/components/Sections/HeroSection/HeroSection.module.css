@@ -129,10 +129,12 @@
   transform: translate(20%, 18%);
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   opacity: 0;
+  visibility: hidden;
   max-width: 400px;
   max-height: 500px;
   width: 30vw;
   height: 40vh;
+  overflow: hidden;
 }
 
 [data-theme='light'] .imageWrapper {
@@ -141,11 +143,13 @@
 
 .active {
   opacity: 1;
+  visibility: visible;
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
 
 .inactive {
   opacity: 0;
+  visibility: hidden;
 }
 
 @media only screen and (max-width: 960px) {

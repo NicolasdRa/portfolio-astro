@@ -20,9 +20,8 @@ const HeroSection: React.FC = () => {
 
     animate(element, {
       opacity: [0, 1],
-      translateY: [30, 0],
-      duration: 800,
-      delay: 200,
+      duration: 600,
+      delay: 100,
       ease: "outQuad",
     });
   }, []);
@@ -32,13 +31,16 @@ const HeroSection: React.FC = () => {
       <div className={styles.content}>
         {/* Image Gallery */}
         <div className={styles.media}>
-          <div className={`${styles.imageWrapper} ${activeIndex >= 0 ? styles.active : styles.inactive}`}>
+          <div
+            className={`${styles.imageWrapper} ${activeIndex >= 0 ? styles.active : styles.inactive}`}
+          >
             <CustomImage
               isActive={activeIndex >= 0}
               src={bici.src}
               alt="nicolás di rago"
               width={960}
               height={960}
+              fetchPriority="high"
             />
           </div>
         </div>

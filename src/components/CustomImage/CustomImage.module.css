@@ -10,11 +10,13 @@
   pointer-events: none;
   will-change: transform, opacity;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .imageContainer.active {
   opacity: 1;
+  visibility: visible;
 }
 
 .image {

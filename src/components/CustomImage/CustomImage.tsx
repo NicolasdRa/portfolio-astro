@@ -8,6 +8,7 @@ interface CustomImageProps {
   isActive?: boolean;
   width?: number;
   height?: number;
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
 const CustomImage: React.FC<CustomImageProps> = ({
@@ -16,6 +17,7 @@ const CustomImage: React.FC<CustomImageProps> = ({
   isActive = false,
   width,
   height,
+  fetchPriority = 'auto',
 }) => {
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +48,7 @@ const CustomImage: React.FC<CustomImageProps> = ({
           width={width}
           height={height}
           loading="eager"
+          fetchPriority={fetchPriority}
         />
       </div>
     </div>
