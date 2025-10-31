@@ -110,7 +110,7 @@
     url("/fonts/SourceCodePro-Italic-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 900;
   font-style: italic;
-  font-display: swap;
+  font-display: optional; /* Changed from 'swap' to 'optional' - only load if already cached */
 }
 
 @font-face {

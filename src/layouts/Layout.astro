@@ -86,7 +86,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <!-- Preload critical assets -->
     <link rel="preload" href={image} as="image" type="image/webp" />
 
-    <!-- Preload critical fonts for better performance -->
+    <!-- Preload only critical above-the-fold fonts -->
+    <!-- Source Code Pro: body text, navbar, hero description -->
+    <!-- Space Grotesk: all headings (h1-h6) -->
+    <!-- Oswald: hero title "nicolás di rago" -->
+    <!-- Note: Italic variant NOT preloaded - only used below fold in tech stacks and <em> tags -->
     <link rel="preload" href="/fonts/SourceCodePro-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/fonts/SpaceGrotesk-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/fonts/Oswald-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
