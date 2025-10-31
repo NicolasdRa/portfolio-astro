@@ -6,7 +6,7 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const publicDir = join(__dirname, 'public');
+const publicDir = join(__dirname, '../../public');
 const jpgPath = join(publicDir, 'main.jpg');
 const webpPath = join(publicDir, 'main.webp');
 
