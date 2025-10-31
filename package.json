@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "nicolas-di-rago-portfolio",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -12,21 +12,16 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.1.0",
     "@astrojs/react": "^4.2.1",
     "@astrojs/sitemap": "^3.6.0",
-    "@tailwindcss/vite": "^4.0.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@types/uuid": "^10.0.0",
     "animejs": "^4.2.2",
     "astro": "^5.4.1",
     "astro-feather": "^1.0.0",
     "clsx": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.9",
-    "uuid": "^13.0.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -44,7 +39,6 @@
     "jsdom": "^27.0.1",
     "prettier": "^3.5.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.11",
     "prettier-stylelint": "^0.4.2",
     "vitest": "^4.0.3"
   }
