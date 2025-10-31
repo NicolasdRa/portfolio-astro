@@ -1,0 +1,135 @@
+---
+// Pure Astro theme toggle - no React needed
+---
+
+<div class="theme-toggle-container" data-theme-toggle-container>
+  <button
+    class="theme-toggle-button"
+    data-theme-toggle-button
+    data-cursor-hover="hover"
+    aria-label="Toggle theme"
+    title="Toggle theme"
+  >
+    <span data-theme-text>light</span>
+  </button>
+</div>
+
+<style>
+  .theme-toggle-container {
+    position: fixed;
+    bottom: 1.875rem;
+    right: 1.875rem;
+    z-index: 200;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+    animation-delay: 0.1s;
+  }
+
+  .theme-toggle-button {
+    background: none;
+    border: none;
+    color: var(--color-gray-2);
+    font-family: var(--font-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.3125rem 0.625rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-transform: lowercase;
+    cursor: none;
+    position: relative;
+    will-change: transform;
+  }
+
+  .theme-toggle-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-primary-3);
+    transition: width 0.3s ease;
+  }
+
+  .theme-toggle-button:hover {
+    color: var(--color-primary-3);
+    transform: translateX(-2px);
+  }
+
+  .theme-toggle-button:hover::after {
+    width: 100%;
+  }
+
+  .theme-toggle-button:active {
+    transform: translateX(0);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Hide on mobile/tablet - only show on desktop */
+  @media (max-width: 1024px) {
+    .theme-toggle-container {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initThemeToggle() {
+    const button = document.querySelector('[data-theme-toggle-button]') as HTMLButtonElement;
+    const themeText = document.querySelector('[data-theme-text]') as HTMLSpanElement;
+
+    if (!button || !themeText) return;
+
+    // Update button text based on current theme
+    function updateButtonText() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      themeText.textContent = currentTheme === 'light' ? 'dark' : 'light';
+    }
+
+    // Initialize button text
+    updateButtonText();
+
+    // Handle toggle click
+    button.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+      // Update DOM and localStorage
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('portfolio-theme-mode', newTheme);
+
+      // Update button text
+      updateButtonText();
+
+      // Dispatch event for other components
+      window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+    });
+
+    // Cursor hover integration
+    const setCursorType = (window as any).__cursorStore__?.setCursorType;
+    if (setCursorType) {
+      button.addEventListener('mouseenter', () => setCursorType('hover'));
+      button.addEventListener('mouseleave', () => setCursorType('default'));
+    }
+
+    // Listen for external theme changes
+    window.addEventListener('theme-changed', updateButtonText as EventListener);
+  }
+
+  // Initialize on page load
+  initThemeToggle();
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener('astro:page-load', () => {
+    initThemeToggle();
+  });
+</script>
