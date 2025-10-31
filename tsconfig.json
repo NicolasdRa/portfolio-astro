@@ -7,7 +7,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.astro"
-  ],
+, "src/lib/optimize-og-image.mjs", "src/lib/generate-icons.mjs"  ],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "target": "ESNext",
