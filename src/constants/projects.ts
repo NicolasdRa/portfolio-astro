@@ -1,6 +1,6 @@
-import energeniousGUI from "../assets/images/projects/energeniousGui.webp";
-import energeniousAdmin from "../assets/images/projects/energeniousAdmin2.webp";
-import placeholderImage from "../assets/images/projects/image.webp";
+import placeholderImage from "@assets/images/projects/placeholder.webp";
+import energeniousGUI from "@assets/images/projects/energeniousGui.webp";
+import energeniousAdmin from "@assets/images/projects/energeniousAdmin2.webp";
 
 const data = [
   // Personal Projects - Complex & In Development
