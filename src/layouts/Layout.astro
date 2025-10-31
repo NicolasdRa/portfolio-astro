@@ -94,8 +94,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <link rel="preload" href="/fonts/Oswald-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
   </head>
   <body>
-    <!-- Custom Cursor - Always visible on desktop -->
-    <CustomCursor client:only="react" transition:persist />
+    <!-- Custom Cursor - Lazy loaded on desktop only -->
+    <CustomCursor client:media="(min-width: 768px)" transition:persist />
 
     <!-- Navigation - Conditionally rendered based on page -->
     {showNavbar && <Navbar />}
