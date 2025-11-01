@@ -7,8 +7,8 @@ import Icon from './Icon.astro';
 const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>`;
 ---
 
-<div class="wrapper" data-sidebar-wrapper>
-  <aside class="sidebar" data-sidebar>
+<div class="wrapper" data-sidebar-wrapper aria-hidden="true">
+  <aside class="sidebar" data-sidebar aria-hidden="true" inert>
     <button
       class="close-btn"
       data-sidebar-close
@@ -300,6 +300,11 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
       wrapper.classList.remove('show');
       sidebar.classList.remove('show');
       document.body.style.overflow = 'unset';
+
+      // Hide from screen readers and keyboard
+      wrapper.setAttribute('aria-hidden', 'true');
+      sidebar.setAttribute('aria-hidden', 'true');
+      sidebar.setAttribute('inert', '');
     };
 
     // Close button handler
@@ -320,6 +325,11 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
         wrapper.classList.add('show');
         sidebar.classList.add('show');
         document.body.style.overflow = 'hidden';
+
+        // Make accessible to screen readers and keyboard
+        wrapper.setAttribute('aria-hidden', 'false');
+        sidebar.setAttribute('aria-hidden', 'false');
+        sidebar.removeAttribute('inert');
       } else {
         closeSidebar();
       }
