@@ -85,13 +85,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <link rel="preload" href={image} as="image" type="image/webp" />
 
     <!-- Preload only critical above-the-fold fonts -->
-    <!-- Source Code Pro: body text, navbar, hero description -->
-    <!-- Space Grotesk: all headings (h1-h6) -->
-    <!-- Oswald: hero title "nicolás di rago" -->
-    <!-- Note: Italic variant NOT preloaded - only used below fold in tech stacks and <em> tags -->
-    <link rel="preload" href="/fonts/SourceCodePro-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preload" href="/fonts/SpaceGrotesk-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <!-- Oswald: hero title "nicolás di rago" - MOST CRITICAL for LCP -->
+    <!-- Source Code Pro: navbar and hero description text -->
+    <!-- Note: Space Grotesk and Italic variants NOT preloaded - not critical for initial render -->
     <link rel="preload" href="/fonts/Oswald-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/SourceCodePro-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
   </head>
   <body>
     <!-- Custom Cursor - Lazy loaded on desktop only -->

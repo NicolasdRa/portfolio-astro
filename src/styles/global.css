@@ -120,7 +120,7 @@
     url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 700;
   font-style: normal;
-  font-display: swap;
+  font-display: optional; /* Not preloaded, not critical for LCP - use optional */
 }
 
 @font-face {
