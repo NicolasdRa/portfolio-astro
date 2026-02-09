@@ -19,7 +19,7 @@ const data = [
     id: 2,
     company: 'supertemplates UG',
     position: 'co-founder & co-owner, frontend developer, team lead, trainer',
-    startDate: 'November 2021',
+    startDate: 'November 2022',
     endDate: 'May 2025',
     tasks: [
       'Co-founded agency providing HTML email template solutions for NGOs.',
