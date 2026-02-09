@@ -6,6 +6,7 @@ const data = [
     startDate: 'June 2023',
     endDate: 'present',
     tasks: [
+      'Architected and built website app with audio streaming and audio player integration for major German radio station, frontend, cms and DB (Solidstart, Payload Cms, Postgres).',
       'Built political data access platform with interactive mapping (Astro, React 19, NestJS).',
       'Developed AI-powered Contentful apps for editorial automation (OpenAI API).',
       'Maintained and enhanced digital newspaper for major German publisher (Next.js, TypeScript).',
