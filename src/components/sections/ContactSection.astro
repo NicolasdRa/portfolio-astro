@@ -26,41 +26,50 @@
       <input type="hidden" name="form-name" value="contact-portfolio" />
       <div class="contact-form-group">
         <div class="contact-field-wrapper">
+          <label for="name" class="visually-hidden">Name</label>
           <input
             type="text"
             id="name"
             name="name"
             placeholder="name"
             autocomplete="name"
+            required
+            aria-describedby="name-error"
             class="contact-form-control"
             data-field="name"
           />
-          <span class="contact-error-message" data-error="name"></span>
+          <span id="name-error" class="contact-error-message" data-error="name" role="alert"></span>
         </div>
 
         <div class="contact-field-wrapper">
+          <label for="email" class="visually-hidden">Email</label>
           <input
             type="email"
             id="email"
             name="email"
             placeholder="email"
             autocomplete="email"
+            required
+            aria-describedby="email-error"
             class="contact-form-control"
             data-field="email"
           />
-          <span class="contact-error-message" data-error="email"></span>
+          <span id="email-error" class="contact-error-message" data-error="email" role="alert"></span>
         </div>
 
         <div class="contact-field-wrapper">
+          <label for="message" class="visually-hidden">Message</label>
           <textarea
             rows="5"
             id="message"
             name="message"
             placeholder="message"
+            required
+            aria-describedby="message-error"
             class="contact-form-control"
             data-field="message"
           ></textarea>
-          <span class="contact-error-message" data-error="message"></span>
+          <span id="message-error" class="contact-error-message" data-error="message" role="alert"></span>
         </div>
       </div>
       <div class="contact-submit-wrapper">
@@ -91,11 +100,13 @@
 
     const showError = (field: keyof typeof fields, message: string) => {
       fields[field].classList.add('error');
+      fields[field].setAttribute('aria-invalid', 'true');
       errorElements[field].textContent = message;
     };
 
     const clearError = (field: keyof typeof fields) => {
       fields[field].classList.remove('error');
+      fields[field].removeAttribute('aria-invalid');
       errorElements[field].textContent = '';
     };
 
@@ -265,7 +276,6 @@
     border: none;
     border-bottom: 2px solid var(--color-gray-4);
     margin-bottom: 0.3125rem;
-    outline: none;
     text-transform: lowercase;
     background: transparent;
     color: var(--color-text-primary);
