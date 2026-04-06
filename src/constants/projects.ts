@@ -1,4 +1,5 @@
 import placeholderImage from "@assets/images/projects/placeholder.webp";
+import bakewindImage from "@assets/images/projects/bakewind.webp";
 import energeniousGUI from "@assets/images/projects/energeniousGui.webp";
 import energeniousAdmin from "@assets/images/projects/energeniousAdmin2.webp";
 
@@ -29,10 +30,10 @@ const data = [
       { name: "Vite" },
       { name: "Jest" },
     ],
-    web: "",
+    web: "https://bakewind.com",
     github: "https://github.com/NicolasdRa/bakewind",
     slug: "bakewind",
-    image: placeholderImage,
+    image: bakewindImage,
     tag: "In Development",
   },
 
