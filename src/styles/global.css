@@ -97,6 +97,7 @@
   font-family: "Source Code Pro";
   src:
     local("Source Code Pro"),
+    url("/fonts/SourceCodePro-VariableFont_wght.woff2") format("woff2"),
     url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 900;
   font-style: normal;
@@ -107,30 +108,33 @@
   font-family: "Source Code Pro";
   src:
     local("Source Code Pro Italic"),
+    url("/fonts/SourceCodePro-Italic-VariableFont_wght.woff2") format("woff2"),
     url("/fonts/SourceCodePro-Italic-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 900;
   font-style: italic;
-  font-display: optional; /* Changed from 'swap' to 'optional' - only load if already cached */
+  font-display: optional;
 }
 
 @font-face {
   font-family: "Space Grotesk";
   src:
     local("Space Grotesk"),
+    url("/fonts/SpaceGrotesk-VariableFont_wght.woff2") format("woff2"),
     url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 700;
   font-style: normal;
-  font-display: optional; /* Not preloaded, not critical for LCP - use optional */
+  font-display: optional;
 }
 
 @font-face {
   font-family: "Oswald";
   src:
     local("Oswald"),
+    url("/fonts/Oswald-VariableFont_wght.woff2") format("woff2"),
     url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
   font-weight: 200 700;
   font-style: normal;
-  font-display: optional; /* Use optional for LCP optimization - prevents FOUT delay */
+  font-display: optional;
 }
 
 /* ============================================
