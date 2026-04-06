@@ -12,13 +12,13 @@ import Layout from "@layouts/Layout.astro";
 		{ name: 'Projects', url: '/projects' }
 	]}
 	showNavbar={true}>
-	<main class="projects-page">
+	<div class="projects-page">
 		<div class="content">
 			<h1>more projects</h1>
 			<ProjectList featured={false} />
 			<CustomLink url="/" text="back home" type="internal" />
 		</div>
-	</main>
+	</div>
 </Layout>
 
 <style>

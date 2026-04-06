@@ -27,17 +27,17 @@ import Icon from "./Icon.astro";
     >
       <img
         src={logo.src}
-        alt="web dev"
+        alt=""
         loading="lazy"
       />
     </a>
   </div>
-  <h4 class="copyright">
+  <p class="copyright">
     designed & built by <span> nicolás di rago</span>
-  </h4>
-  <h4 class="copyright">
+  </p>
+  <p class="copyright">
     copyright &copy; {new Date().getFullYear()}
-  </h4>
+  </p>
 </footer>
 
 <style>
@@ -112,7 +112,7 @@ import Icon from "./Icon.astro";
     color: var(--color-primary-3);
   }
 
-  h4.copyright {
+  p.copyright {
     font-size: 0.875rem;
     color: var(--color-gray-2);
   }

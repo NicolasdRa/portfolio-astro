@@ -110,7 +110,7 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <div>
+    <div aria-hidden="true">
       <div className={styles.mainCursor} ref={mainCursorRef}>
         <div className={styles.mainCursorBackground} />
       </div>

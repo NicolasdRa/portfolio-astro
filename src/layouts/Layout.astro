@@ -92,6 +92,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <link rel="preload" href="/fonts/SourceCodePro-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
   </head>
   <body>
+    <a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+
     <!-- Custom Cursor - Lazy loaded on desktop only -->
     <CustomCursor client:media="(min-width: 768px)" transition:persist />
 
@@ -105,7 +107,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
     <ThemeToggle transition:persist />
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
       <slot />
     </main>
 

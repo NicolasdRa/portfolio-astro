@@ -26,7 +26,8 @@ const name = ["nicolás", "di", "rago"];
     </div>
 
     <!-- Title and Details - Server rendered, always visible -->
-    <div class="hero-title">
+    <h1 class="visually-hidden">Nicolás di Rago — Full-stack Web Developer</h1>
+    <div class="hero-title" role="presentation">
       {name.map((item, index) => (
         <div class={`hero-title${index + 1}`}>
           <div class="hero-text">
