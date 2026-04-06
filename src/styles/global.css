@@ -4,12 +4,12 @@
 
 :root {
   /* Light Theme Colors (Default) */
-  --color-primary-0: #ffebec;
-  --color-primary-1: #e88b91;
-  --color-primary-2: #e25862;
-  --color-primary-3: #d94048;
-  --color-primary-4: #b8353d;
-  --color-primary-5: #8f2a30;
+  --color-primary-0: #e0f5f2;
+  --color-primary-1: #7ec8be;
+  --color-primary-2: #3aab9e;
+  --color-primary-3: #2A9D8F;
+  --color-primary-4: #218f82;
+  --color-primary-5: #1a7a6e;
 
   --color-background: #fafafa;
   --color-foreground: #111111;
@@ -19,14 +19,14 @@
   /* Grays for light theme */
   --color-gray-1: #262626;
   --color-gray-2: #515151;
-  --color-gray-3: #7d7d7d;
+  --color-gray-3: #767676;
   --color-gray-4: #a8a8a8;
   --color-gray-5: #d4d4d4;
 
   /* Semantic colors */
   --color-text-primary: #111111;
   --color-text-secondary: #515151;
-  --color-text-muted: #7d7d7d;
+  --color-text-muted: #767676;
 
   /* Typography */
   --font-primary: "Source Code Pro", monospace;
@@ -53,12 +53,12 @@
 
 [data-theme="dark"] {
   /* Dark Theme Colors */
-  --color-primary-0: #2a1315;
-  --color-primary-1: #d08085;
-  --color-primary-2: #c55a61;
-  --color-primary-3: #b84550;
-  --color-primary-4: #9e3a43;
-  --color-primary-5: #7d2e35;
+  --color-primary-0: #0f2623;
+  --color-primary-1: #4ECDC4;
+  --color-primary-2: #3DBDAE;
+  --color-primary-3: #36b5a6;
+  --color-primary-4: #238a7e;
+  --color-primary-5: #1c6e64;
 
   --color-background: #0a0a0a;
   --color-foreground: #f0f0f0;
@@ -148,16 +148,7 @@
   box-sizing: inherit;
 }
 
-/* Keyboard focus styles for accessibility */
-*:focus {
-  outline: none;
-}
-
-*:focus-visible {
-  outline: 2px solid var(--color-primary-3);
-  outline-offset: 2px;
-  border-radius: var(--border-radius);
-}
+/* Focus styles moved to consolidated section below */
 
 html {
   scroll-behavior: smooth;
@@ -168,7 +159,7 @@ html {
 
 body {
   font-family: var(--font-primary);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
   letter-spacing: 0.02em;
@@ -297,14 +288,9 @@ em {
    ============================================ */
 
 *:focus-visible {
-  outline: 2px solid var(--color-primary-1);
+  outline: 2px solid var(--color-primary-3);
   outline-offset: 2px;
-  border-radius: 2px;
-}
-
-*:focus {
-  outline: 2px solid var(--color-primary-1);
-  outline-offset: 2px;
+  border-radius: var(--border-radius);
 }
 
 *:focus:not(:focus-visible) {
@@ -344,6 +330,26 @@ em {
   .title-line {
     display: none;
   }
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  width: auto !important;
+  height: auto !important;
+  clip: auto !important;
+  white-space: normal !important;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-primary-3);
+  color: #fff;
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  overflow: visible !important;
 }
 
 .visually-hidden {
