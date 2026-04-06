@@ -2,7 +2,7 @@
 
 [build]
   # Build command
-  command = "npm run build"
+  command = "pnpm run build"
 
   # Directory with the built site
   publish = "dist"
