@@ -84,8 +84,12 @@
 
   function updateButtonText() {
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
     if (themeText) {
-      themeText.textContent = currentTheme === 'light' ? 'dark' : 'light';
+      themeText.textContent = nextTheme;
+    }
+    if (button) {
+      button.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
     }
   }
 

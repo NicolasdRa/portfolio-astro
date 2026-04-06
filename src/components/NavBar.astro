@@ -8,7 +8,7 @@ const menuIcon = `<path stroke="currentColor" stroke-linecap="round" stroke-line
 ---
 
 <header class="container" data-navbar-container>
-  <nav class="navbar" data-navbar>
+  <nav class="navbar" data-navbar aria-label="Primary navigation">
     <div class="nav-logo">
       <a
         href="/"
@@ -17,7 +17,7 @@ const menuIcon = `<path stroke="currentColor" stroke-linecap="round" stroke-line
       >
         <img
           src={logo.src ?? ""}
-          alt="web dev"
+          alt="Nicolás di Rago — home"
           loading="eager"
         />
       </a>
@@ -28,6 +28,8 @@ const menuIcon = `<path stroke="currentColor" stroke-linecap="round" stroke-line
       data-sidebar-toggle
       data-cursor-hover="hover"
       aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="sidebar"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="menu-icon" set:html={menuIcon} />
     </button>
@@ -244,6 +246,8 @@ const menuIcon = `<path stroke="currentColor" stroke-linecap="round" stroke-line
     if (sidebarToggle) {
       sidebarToggle.addEventListener('click', () => {
         sidebarOpen = !sidebarOpen;
+        sidebarToggle.setAttribute('aria-expanded', String(sidebarOpen));
+        sidebarToggle.setAttribute('aria-label', sidebarOpen ? 'Close menu' : 'Open menu');
         window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { isOpen: sidebarOpen } }));
       });
     }

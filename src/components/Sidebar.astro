@@ -8,7 +8,7 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
 ---
 
 <div class="wrapper" data-sidebar-wrapper aria-hidden="true">
-  <aside class="sidebar" data-sidebar aria-hidden="true" inert>
+  <aside id="sidebar" class="sidebar" data-sidebar aria-label="Mobile navigation" aria-hidden="true" inert>
     <button
       class="close-btn"
       data-sidebar-close
@@ -35,6 +35,7 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
       <button
         class="theme-toggle-button"
         data-theme-toggle
+        aria-label="Toggle color theme"
       >
         <span data-theme-text>light</span> mode
       </button>
@@ -295,8 +296,12 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
       });
     }
 
+    const sidebarToggle = document.querySelector('[data-sidebar-toggle]') as HTMLElement | null;
+    let sidebarIsOpen = false;
+
     // Close sidebar
     const closeSidebar = () => {
+      sidebarIsOpen = false;
       wrapper.classList.remove('show');
       sidebar.classList.remove('show');
       document.body.style.overflow = 'unset';
@@ -305,11 +310,36 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
       wrapper.setAttribute('aria-hidden', 'true');
       sidebar.setAttribute('aria-hidden', 'true');
       sidebar.setAttribute('inert', '');
+
+      // Update hamburger button state
+      if (sidebarToggle) {
+        sidebarToggle.setAttribute('aria-expanded', 'false');
+        sidebarToggle.setAttribute('aria-label', 'Open menu');
+      }
+    };
+
+    // Open sidebar
+    const openSidebar = () => {
+      sidebarIsOpen = true;
+      wrapper.classList.add('show');
+      sidebar.classList.add('show');
+      document.body.style.overflow = 'hidden';
+
+      // Make accessible to screen readers and keyboard
+      wrapper.setAttribute('aria-hidden', 'false');
+      sidebar.setAttribute('aria-hidden', 'false');
+      sidebar.removeAttribute('inert');
+
+      // Move focus into sidebar
+      closeBtn?.focus();
     };
 
     // Close button handler
     if (closeBtn) {
-      closeBtn.addEventListener('click', closeSidebar);
+      closeBtn.addEventListener('click', () => {
+        closeSidebar();
+        sidebarToggle?.focus();
+      });
     }
 
     // Close on link click
@@ -317,19 +347,41 @@ const closeIcon = `<path fill="none" stroke="currentColor" stroke-linecap="round
       link.addEventListener('click', closeSidebar);
     });
 
+    // Escape key closes sidebar
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebarIsOpen) {
+        closeSidebar();
+        sidebarToggle?.focus();
+      }
+    });
+
+    // Focus trap — keep Tab within sidebar while open
+    sidebar.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !sidebarIsOpen) return;
+
+      const focusable = sidebar.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
     // Listen for sidebar open event from Navbar
     window.addEventListener('sidebar-toggle', ((e: CustomEvent) => {
       const isOpen = e.detail.isOpen;
 
       if (isOpen) {
-        wrapper.classList.add('show');
-        sidebar.classList.add('show');
-        document.body.style.overflow = 'hidden';
-
-        // Make accessible to screen readers and keyboard
-        wrapper.setAttribute('aria-hidden', 'false');
-        sidebar.setAttribute('aria-hidden', 'false');
-        sidebar.removeAttribute('inert');
+        openSidebar();
       } else {
         closeSidebar();
       }
