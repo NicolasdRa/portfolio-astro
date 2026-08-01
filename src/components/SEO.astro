@@ -51,7 +51,7 @@ const twitterUsername = '@nicolasdiRago';
 const formattedTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 
 // Ensure image URL is absolute
-const absoluteImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const absoluteImageUrl = new URL(image, siteUrl).toString();
 
 // Current page URL
 const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();

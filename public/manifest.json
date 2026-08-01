@@ -1,11 +1,11 @@
 {
   "name": "Nicolás di Rago Portfolio",
   "short_name": "NdR Portfolio",
-  "description": "Full-stack web developer portfolio showcasing React, TypeScript, and Node.js projects",
+  "description": "Berlin-based frontend engineer — shipping production web apps front to back",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FAFAFA",
-  "theme_color": "#2A9D8F",
+  "background_color": "#0c0b0a",
+  "theme_color": "#0c0b0a",
   "orientation": "portrait-primary",
   "icons": [
     {
