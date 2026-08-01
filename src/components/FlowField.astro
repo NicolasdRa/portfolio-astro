@@ -84,11 +84,17 @@
       ctx!.fillRect(0, 0, W, H);
     }
     resize();
+    // Debounced: mobile browsers fire resize while the address bar
+    // collapses during scroll, and each resize() wipes the trails.
+    let resizeTimer: ReturnType<typeof setTimeout>;
     addEventListener("resize", () => {
-      resize();
-      // resizing the canvas wipes it — redraw the one-shot pattern for
-      // reduced-motion users, who have no animation loop to repaint it
-      if (reduce) staticPass();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        resize();
+        // resizing the canvas wipes it — redraw the one-shot pattern for
+        // reduced-motion users, who have no animation loop to repaint it
+        if (reduce) staticPass();
+      }, 150);
     });
 
     const N = Math.min(300, Math.floor(innerWidth / 5));
