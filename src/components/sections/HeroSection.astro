@@ -9,8 +9,9 @@
     </div>
     <h1 class="hn">i build<br />web apps,<br /><span class="a">front&nbsp;to&nbsp;back.</span></h1>
     <p class="lede">
-      I'm <b>Nicolás di Rago</b>. Five years making web apps at <b>nuuk gmbh</b> in Berlin — frontend-led,
-      and at home in the backend.
+      I'm <b>Nicolás di Rago</b>, currently making web apps at
+      <a href="https://nuuk.de" target="_blank" rel="noreferrer" data-h><b>nuuk gmbh</b></a> in Berlin —
+      frontend-led, and at home in the backend.
     </p>
     <div class="cta">
       <a class="go" href="#contact" data-h>Get in touch →</a>
@@ -64,6 +65,19 @@
   .hero .lede b {
     color: var(--ink);
     font-weight: 500;
+  }
+
+  .hero .lede a {
+    border-bottom: 1px solid var(--line);
+    transition: border-color 0.2s;
+  }
+
+  .hero .lede a:hover {
+    border-color: var(--acc);
+  }
+
+  .hero .lede a:hover b {
+    color: var(--acc);
   }
 
   .hero .cta {
