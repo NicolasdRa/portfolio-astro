@@ -45,7 +45,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.nico
     <script is:inline>
       (function() {
         const THEME_KEY = 'portfolio-theme-mode';
-        const storedTheme = localStorage.getItem(THEME_KEY);
+        // try/catch: localStorage throws in Safari private browsing
+        let storedTheme = null;
+        try {
+          storedTheme = localStorage.getItem(THEME_KEY);
+        } catch {}
         let theme = 'light';
 
         if (storedTheme === 'dark' || storedTheme === 'light') {
@@ -60,7 +64,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.nico
 
         // Store the detected theme if it wasn't already stored
         if (!storedTheme) {
-          localStorage.setItem(THEME_KEY, theme);
+          try {
+            localStorage.setItem(THEME_KEY, theme);
+          } catch {}
         }
       })();
     </script>
@@ -105,7 +111,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.nico
           const currentTheme = document.documentElement.getAttribute('data-theme');
           const newTheme = currentTheme === 'light' ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', newTheme);
-          localStorage.setItem('portfolio-theme-mode', newTheme);
+          // try/catch: localStorage throws in Safari private browsing
+          try {
+            localStorage.setItem('portfolio-theme-mode', newTheme);
+          } catch {}
 
           // Dispatch custom event for components to react to theme change
           window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));

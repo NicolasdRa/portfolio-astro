@@ -1,0 +1,298 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2]:
+    - /url: "#main-content"
+  - banner:
+    - navigation "Primary navigation" [ref=e3]:
+      - link "Nicolás di Rago — home" [ref=e5]:
+        - /url: /
+        - img "Nicolás di Rago — home" [ref=e6]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "01. about" [ref=e9]:
+            - /url: "#about"
+        - listitem [ref=e10]:
+          - link "02. work" [ref=e11]:
+            - /url: "#work"
+        - listitem [ref=e12]:
+          - link "03. projects" [ref=e13]:
+            - /url: "#projects"
+        - listitem [ref=e14]:
+          - link "04. contact" [ref=e15]:
+            - /url: "#contact"
+  - navigation "Social links" [ref=e16]:
+    - generic [ref=e17]:
+      - link "CV" [ref=e18]:
+        - /url: /cv-nicolasdirago.pdf
+      - link "Github" [ref=e20]:
+        - /url: https://github.com/NicolasdRa
+        - img [ref=e21]
+      - link "Codersrank" [ref=e23]:
+        - /url: https://profile.codersrank.io/user/nicolasdra/
+        - img [ref=e24]
+      - link "Linkedin" [ref=e26]:
+        - /url: https://www.linkedin.com/in/nicol%C3%A1s-di-rago-tango-code/
+        - img [ref=e27]
+      - link "Xing" [ref=e29]:
+        - /url: https://www.xing.com/profile/Nicolas_diRago/cv
+        - img [ref=e30]
+  - button "Switch to dark mode" [ref=e33]: dark
+  - main [ref=e34]:
+    - generic [ref=e36]:
+      - heading "Nicolás di Rago — Full-stack Web Developer" [level=1] [ref=e37]
+      - generic [ref=e40]: nicolás
+      - generic [ref=e43]: di
+      - generic [ref=e46]: rago
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - text: senior frontend engineer with backend capabilities. building web apps at
+          - link "nuuk gmbh" [ref=e49]:
+            - /url: https://nuuk.de
+          - text: . based in berlin.
+        - link "get in touch" [ref=e51]:
+          - /url: "#contact"
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - heading "01. about" [level=2] [ref=e56]:
+          - generic [ref=e58]: "01."
+          - text: about
+        - heading "profile, skills & stack" [level=3] [ref=e59]
+      - generic [ref=e60]:
+        - paragraph [ref=e61]: "i make things for the web from concept to production, translate ideas into pixel-perfect interfaces backed by performant systems. five years with startups and agencies, shipping from AI-powered content platforms to connected TV applications. focused on modern web technologies with emphasis on typescript, react and next js. core stack:"
+        - generic [ref=e63]:
+          - paragraph [ref=e64]: TypeScript
+          - paragraph [ref=e65]: JavaScript (ES6+)
+          - paragraph [ref=e66]: React
+          - paragraph [ref=e67]: Next.js
+          - paragraph [ref=e68]: Astro
+          - paragraph [ref=e69]: Solid.js
+          - paragraph [ref=e70]: SolidStart
+          - paragraph [ref=e71]: Gatsby
+          - paragraph [ref=e72]: NestJS
+          - paragraph [ref=e73]: Express.js
+          - paragraph [ref=e74]: Fastify
+          - paragraph [ref=e75]: Node.js
+          - paragraph [ref=e76]: PostgreSQL
+          - paragraph [ref=e77]: MySQL
+          - paragraph [ref=e78]: MongoDB
+          - paragraph [ref=e79]: Drizzle ORM
+          - paragraph [ref=e80]: Prisma
+          - paragraph [ref=e81]: GraphQL
+          - paragraph [ref=e82]: tRPC
+          - paragraph [ref=e83]: REST API
+          - paragraph [ref=e84]: Tailwind CSS
+          - paragraph [ref=e85]: Styled Components
+          - paragraph [ref=e86]: Emotion
+          - paragraph [ref=e87]: Material-UI
+          - paragraph [ref=e88]: Radix UI
+          - paragraph [ref=e89]: shadcn/ui
+          - paragraph [ref=e90]: Payload CMS
+          - paragraph [ref=e91]: Zustand
+          - paragraph [ref=e92]: Redux
+          - paragraph [ref=e93]: React Router
+          - paragraph [ref=e94]: TanStack Query
+          - paragraph [ref=e95]: Capacitor
+          - paragraph [ref=e96]: Android TV
+          - paragraph [ref=e97]: WebOS
+          - paragraph [ref=e98]: Tizen
+          - paragraph [ref=e99]: AWS S3
+          - paragraph [ref=e100]: Docker
+          - paragraph [ref=e101]: GitHub Actions
+          - paragraph [ref=e102]: Playwright
+          - paragraph [ref=e103]: Jest
+          - paragraph [ref=e104]: Vitest
+          - paragraph [ref=e105]: OpenAI API
+          - paragraph [ref=e106]: ...
+        - button "view more" [ref=e107]
+    - generic [ref=e109]:
+      - generic [ref=e110]:
+        - heading "02. work" [level=2] [ref=e112]:
+          - generic [ref=e114]: "02."
+          - text: work
+        - heading "where I've worked" [level=3] [ref=e115]
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - heading "Nuuk GmbH" [level=4] [ref=e118]
+          - heading "June 2023 - present - senior frontend engineer / fullstack developer" [level=5] [ref=e119]:
+            - generic [ref=e120]: June 2023 - present - senior frontend engineer / fullstack developer
+          - paragraph [ref=e121]: Architected and built website app with audio streaming and audio player integration for major German radio station, frontend, cms and DB (Solidstart, Payload Cms, Postgres).
+          - paragraph [ref=e122]: Built political data access platform with interactive mapping (Astro, React 19, NestJS).
+          - paragraph [ref=e123]: Developed AI-powered Contentful apps for editorial automation (OpenAI API).
+          - paragraph [ref=e124]: Maintained and enhanced digital newspaper for major German publisher (Next.js, TypeScript).
+          - paragraph [ref=e125]: Shipped 9 cross-platform radio streaming apps for smart TVs (FireTV, WebOS, Android TV, Tizen).
+          - paragraph [ref=e126]: Created event discovery frontend platform with CMS integration for Germany's largest cultural event.
+          - paragraph [ref=e127]: Frontend architecture with pixel-perfect TypeScript implementation.
+        - generic [ref=e128]:
+          - heading "supertemplates UG" [level=4] [ref=e129]
+          - heading "November 2022 - May 2025 - co-founder & co-owner, frontend developer, team lead, trainer" [level=5] [ref=e130]:
+            - generic [ref=e131]: November 2022 - May 2025 - co-founder & co-owner, frontend developer, team lead, trainer
+          - paragraph [ref=e132]: Co-founded agency providing HTML email template solutions for NGOs.
+          - paragraph [ref=e133]: Established development workflows and quality standards.
+          - paragraph [ref=e134]: Led team of developers, conducted training programs.
+          - paragraph [ref=e135]: Built company website and technical infrastructure.
+          - paragraph [ref=e136]: Delivered responsive email templates solutions compatible with (90+ clients & devices).
+        - generic [ref=e137]:
+          - heading "civilisten gmbH" [level=4] [ref=e138]
+          - heading "April 2021 - November 2022 - HTML email templates developer" [level=5] [ref=e139]:
+            - generic [ref=e140]: April 2021 - November 2022 - HTML email templates developer
+          - paragraph [ref=e141]: Delivered responsive email templates solutions compatible with (90+ clients & devices).
+        - generic [ref=e142]:
+          - heading "EO technologies" [level=4] [ref=e143]
+          - heading "February 2021 - April 2021 - frontend developer" [level=5] [ref=e144]:
+            - generic [ref=e145]: February 2021 - April 2021 - frontend developer
+          - paragraph [ref=e146]: Redesigned UI elements & user flows for various products.
+        - generic [ref=e147]:
+          - heading "energenious gmbH" [level=4] [ref=e148]
+          - heading "November 2020 - December 2021 - frontend developer" [level=5] [ref=e149]:
+            - generic [ref=e150]: November 2020 - December 2021 - frontend developer
+          - paragraph [ref=e151]: Built login & account management system with SSO integration (React, Redux, Material UI).
+          - paragraph [ref=e152]: Developed data grid component for complex spreadsheet operations.
+          - paragraph [ref=e153]: Redesigned flagship MicrogridCreator product UI/UX.
+          - paragraph [ref=e154]: Delivered responsive company website (WordPress).
+        - link "download cv" [ref=e157]:
+          - /url: /cv-nicolasdirago.pdf
+    - generic [ref=e159]:
+      - generic [ref=e160]:
+        - heading "03. projects" [level=2] [ref=e161]:
+          - generic [ref=e163]: "03."
+          - text: projects
+        - heading "things i've built, things I'm working on" [level=3] [ref=e164]
+      - generic [ref=e165]:
+        - generic [ref=e168]:
+          - img "BakeWind" [ref=e170]
+          - generic [ref=e171]:
+            - generic [ref=e172]: featured
+            - heading "BakeWind" [level=4] [ref=e173]
+            - heading "Complete bakery management SaaS platform (In Development)" [level=5] [ref=e174]
+            - paragraph [ref=e175]: "Full-stack bakery management SaaS platform with three distinct applications: NestJS backend API, SolidStart SSR marketing website, and Solid.js admin dashboard SPA. Backend built with NestJS 11, Fastify adapter, PostgreSQL with Drizzle ORM, JWT authentication with Passport, Swagger API documentation, WebSocket support with Socket.io, Stripe payment integration, and comprehensive Jest testing with contract tests. Marketing website developed with SolidStart SSR for SEO optimization and Tailwind CSS v4. Admin dashboard built as client-side SPA with Solid.js, @solidjs/router, real-time updates via WebSockets, cookie-based authentication, and Vite build system. Features include orders management, inventory tracking, production planning, recipe management, customer management, and business analytics."
+            - generic [ref=e176]:
+              - generic [ref=e177]: NestJS 11
+              - generic [ref=e178]: Solid.js
+              - generic [ref=e179]: SolidStart
+              - generic [ref=e180]: TypeScript
+              - generic [ref=e181]: PostgreSQL
+              - generic [ref=e182]: Drizzle ORM
+              - generic [ref=e183]: Fastify
+              - generic [ref=e184]: JWT
+              - generic [ref=e185]: Passport
+              - generic [ref=e186]: WebSocket
+              - generic [ref=e187]: Socket.io
+              - generic [ref=e188]: Stripe
+              - generic [ref=e189]: Swagger
+              - generic [ref=e190]: Tailwind CSS v4
+              - generic [ref=e191]: Vite
+              - generic [ref=e192]: Jest
+            - generic [ref=e193]:
+              - link "View BakeWind on Github" [ref=e194]:
+                - /url: https://github.com/NicolasdRa/bakewind
+                - img [ref=e195]
+              - link "Visit BakeWind website" [ref=e197]:
+                - /url: https://bakewind.com
+                - img [ref=e198]
+        - generic [ref=e202]:
+          - img "Swellnomads" [ref=e204]
+          - generic [ref=e205]:
+            - generic [ref=e206]: featured
+            - heading "Swellnomads" [level=4] [ref=e207]
+            - heading "Travel and digital nomad lifestyle platform (In Development)" [level=5] [ref=e208]
+            - paragraph [ref=e209]: Modern full-stack platform for travel enthusiasts and digital nomads to connect, share experiences, and discover destinations. Backend API built with NestJS 11 using Drizzle ORM and PostgreSQL database, featuring comprehensive Swagger API documentation. Frontend developed with Next.js 15, React 19, TypeScript, Tailwind CSS, and strict ESLint code quality tools. Currently in active development showcasing cutting-edge full-stack architecture with latest React and Next.js features, modern state management, and comprehensive testing with Jest.
+            - generic [ref=e210]:
+              - generic [ref=e211]: Next.js 15
+              - generic [ref=e212]: React 19
+              - generic [ref=e213]: NestJS
+              - generic [ref=e214]: PostgreSQL
+              - generic [ref=e215]: Drizzle ORM
+              - generic [ref=e216]: TypeScript
+              - generic [ref=e217]: Tailwind CSS
+              - generic [ref=e218]: Swagger
+              - generic [ref=e219]: Jest
+            - link "View Swellnomads on Github" [ref=e221]:
+              - /url: https://github.com/NicolasdRa/swellnomads_front
+              - img [ref=e222]
+        - generic [ref=e226]:
+          - img "School Management System Backend" [ref=e228]
+          - generic [ref=e229]:
+            - generic [ref=e230]: featured
+            - heading "School Management System Backend" [level=4] [ref=e231]
+            - heading "Production NestJS API for educational institutions (In Development)" [level=5] [ref=e232]
+            - paragraph [ref=e233]: Production-ready backend API for school management system deployed on Hetzner Cloud with automated CI/CD via GitHub Actions. Built with NestJS and PostgreSQL using Drizzle ORM for type-safe database operations. Features comprehensive JWT authentication with refresh token rotation, extensive audit logging system across multiple database tables, rate limiting with throttler guards, bcrypt password hashing, and enterprise-grade security measures. Includes Swagger API documentation, Zod validation, systemd service management, Nginx reverse proxy configuration, and database security with SSH tunnels.
+            - generic [ref=e234]:
+              - generic [ref=e235]: NestJS
+              - generic [ref=e236]: TypeScript
+              - generic [ref=e237]: PostgreSQL
+              - generic [ref=e238]: Drizzle ORM
+              - generic [ref=e239]: JWT
+              - generic [ref=e240]: Swagger
+              - generic [ref=e241]: Zod
+              - generic [ref=e242]: bcrypt
+              - generic [ref=e243]: GitHub Actions
+              - generic [ref=e244]: Hetzner Cloud
+              - generic [ref=e245]: Nginx
+            - link "View School Management System Backend on Github" [ref=e247]:
+              - /url: https://github.com/NicolasdRa/school-admin-back
+              - img [ref=e248]
+        - generic [ref=e252]:
+          - img "Micogrid Creator - Energenious" [ref=e254]
+          - generic [ref=e255]:
+            - generic [ref=e256]: featured
+            - heading "Micogrid Creator - Energenious" [level=4] [ref=e257]
+            - heading "UX-UI re-design, energenious flagship product" [level=5] [ref=e258]
+            - paragraph [ref=e259]: Re-designed of the company's flagship product's UI and UX
+            - generic [ref=e261]: Figma
+        - generic [ref=e264]:
+          - img "Account management app - Energenious" [ref=e266]
+          - generic [ref=e267]:
+            - generic [ref=e268]: featured
+            - heading "Account management app - Energenious" [level=4] [ref=e269]
+            - heading "User portal, login and account management app" [level=5] [ref=e270]
+            - paragraph [ref=e271]: Design and implementation of user portal with login/signup functionality, SSO for all products, account management functionalities. Developed in React.js, Redux and Material UI.
+            - generic [ref=e272]:
+              - generic [ref=e273]: React.js
+              - generic [ref=e274]: Redux.js
+              - generic [ref=e275]: Material-UI
+              - generic [ref=e276]: Figma
+      - link "more projects" [ref=e279]:
+        - /url: /projects
+    - generic [ref=e281]:
+      - generic [ref=e282]:
+        - heading "04. contact" [level=2] [ref=e284]:
+          - generic [ref=e286]: "04."
+          - text: contact
+        - heading "drop a line" [level=3] [ref=e287]
+      - generic [ref=e288]:
+        - generic [ref=e289]:
+          - generic [ref=e290]:
+            - generic [ref=e291]: Name
+            - textbox "Name" [ref=e292]:
+              - /placeholder: name
+            - alert [ref=e293]
+          - generic [ref=e294]:
+            - generic [ref=e295]: Email
+            - textbox "Email" [ref=e296]:
+              - /placeholder: email
+            - alert [ref=e297]
+          - generic [ref=e298]:
+            - generic [ref=e299]: Message
+            - textbox "Message" [ref=e300]:
+              - /placeholder: message
+            - alert [ref=e301]
+        - button "submit" [ref=e303]
+  - contentinfo [ref=e304]:
+    - link "Back to top" [ref=e306]:
+      - /url: "#hero"
+    - paragraph [ref=e307]: designed & built by nicolás di rago
+    - paragraph [ref=e308]: copyright © 2026
+  - generic [ref=e310]:
+    - button "Menu" [ref=e311]:
+      - img [ref=e313]
+      - generic: Menu
+    - button "Inspect" [ref=e317]:
+      - img [ref=e319]
+      - generic: Inspect
+    - button "Audit" [ref=e321]:
+      - generic [ref=e322]:
+        - img [ref=e323]
+        - img [ref=e326]
+      - generic: Audit
+    - button "Settings" [ref=e329]:
+      - img [ref=e331]
+      - generic: Settings
