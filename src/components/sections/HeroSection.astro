@@ -28,7 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 130px 0 80px;
+    padding: 110px 0 70px;
   }
 
   .hero .top-line {
@@ -45,7 +45,9 @@
   }
 
   .hn {
-    font-size: clamp(46px, 10.5vw, 132px);
+    /* capped so the three-line headline + lede + CTAs fit above the fold
+       on Mac viewports (~790px effective height on a 1440x900 screen) */
+    font-size: clamp(42px, 8.5vw, 106px);
     font-weight: 600;
     line-height: 0.92;
     letter-spacing: -0.035em;
