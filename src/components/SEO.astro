@@ -178,7 +178,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
       "email": "mailto:ndr@nuuk.de"
     }
   ]
-})} />
+}).replace(/</g, "\\u003c")} />
 
 <!-- Breadcrumb Schema (if breadcrumbs provided) -->
 {breadcrumbs.length > 0 && (
@@ -191,5 +191,5 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
       "name": item.name,
       "item": `${siteUrl}${item.url}`
     }))
-  })} />
+  }).replace(/</g, "\\u003c")} />
 )}
