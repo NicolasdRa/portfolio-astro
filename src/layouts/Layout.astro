@@ -1,11 +1,10 @@
 ---
+import FlowField from "@components/FlowField.astro";
+import Cursor from "@components/Cursor.astro";
+import Rail from "@components/Rail.astro";
 import Navbar from "@components/NavBar.astro";
-import SocialLinks from "@components/SocialLinks.astro";
-import CustomCursor from "@components/CustomCursor/CustomCursor";
 import Footer from "@components/Footer.astro";
-import ThemeToggle from "@components/ThemeToggle.astro";
 import SEO from "@components/SEO.astro";
-import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 interface BreadcrumbItem {
@@ -24,14 +23,14 @@ interface Props {
 
 const {
   title,
-  description = "Nicolás di Rago - Full-stack Web Developer",
+  description = "Nicolás di Rago — Frontend Engineer",
   image = "/main.webp",
   article = false,
   showNavbar = true,
   breadcrumbs = [],
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasdirago.com');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.nicolasdirago.dev');
 ---
 
 <!doctype html>
@@ -74,45 +73,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
       breadcrumbs={breadcrumbs}
     />
 
-    <ClientRouter />
-
-    <!-- Performance Hints -->
-    <!-- Prefetch critical navigation pages -->
-    <link rel="prefetch" href="/about" />
-    <link rel="prefetch" href="/projects" />
-
-    <!-- Preload critical assets -->
-    <link rel="preload" href={image} as="image" type="image/webp" />
-
     <!-- Preload only critical above-the-fold fonts -->
-    <!-- Oswald: hero title "nicolás di rago" - MOST CRITICAL for LCP -->
-    <!-- Source Code Pro: navbar and hero description text -->
-    <!-- Note: Space Grotesk and Italic variants NOT preloaded - not critical for initial render -->
-    <link rel="preload" href="/fonts/Oswald-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/SourceCodePro-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/SpaceGrotesk-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 
-    <!-- Custom Cursor - Lazy loaded on desktop only -->
-    <CustomCursor client:media="(min-width: 768px)" transition:persist />
+    <FlowField />
+    <Cursor />
+    <Rail />
 
-    <!-- Navigation - Conditionally rendered based on page -->
-    {showNavbar && <Navbar />}
+    <div class="content">
+      {showNavbar && <Navbar />}
 
-    <!-- Social Links - Fixed position -->
-    <SocialLinks transition:persist />
+      <main id="main-content">
+        <slot />
+      </main>
 
-    <!-- Theme Toggle - Fixed position -->
-    <ThemeToggle transition:persist />
-
-    <!-- Main Content -->
-    <main id="main-content">
-      <slot />
-    </main>
-
-    <!-- Footer -->
-    <Footer transition:persist />
+      <Footer />
+    </div>
 
     <!-- Global theme toggle script -->
     <script is:inline>
@@ -134,18 +114,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nicolasd
         window.getTheme = function() {
           return document.documentElement.getAttribute('data-theme') || 'light';
         };
-
-        // Handle theme persistence during View Transitions
-        document.addEventListener('astro:before-swap', (ev) => {
-          // Get current theme before swap
-          const currentTheme = document.documentElement.getAttribute('data-theme');
-
-          // Set theme on new document
-          if (ev.newDocument && currentTheme) {
-            ev.newDocument.documentElement.setAttribute('data-theme', currentTheme);
-          }
-        });
       }
     </script>
   </body>
 </html>
+
+<style>
+  .content {
+    position: relative;
+    z-index: 3;
+  }
+</style>

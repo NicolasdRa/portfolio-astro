@@ -5,25 +5,58 @@ import HeroSection from '@components/sections/HeroSection.astro';
 import ProjectsSection from '@components/sections/ProjectsSection.astro';
 import WorkSection from '@components/sections/WorkSection.astro';
 import Layout from '../layouts/Layout.astro';
-
 ---
 
 <Layout
-	title="Nicolás di Rago - Full-stack Web Developer"
-	description="Berlin-based full-stack web developer at Nuuk GmbH specializing in React, Next.js, NestJS, and TypeScript. Building production-ready web applications with modern frameworks like Solid.js, Astro, and cutting-edge technologies."
+	title="Nicolás di Rago — Frontend Engineer"
+	description="Berlin-based frontend engineer at Nuuk GmbH — backend-capable, five years shipping production web apps front to back."
 	showNavbar={true}>
-	<!-- Hero Section - Server rendered, interactive image on desktop only -->
 	<HeroSection />
 
-	<!-- About Section - Server rendered -->
+	<div class="wrap">
+		<section class="haiku">
+			<div class="ln">— between the front and the back</div>
+			<div class="ku">
+				<b>pixels on the glass,</b><br />and underneath, quiet code<br /><span class="a">holding up the light.</span>
+			</div>
+		</section>
+	</div>
+
 	<AboutSection />
-
-	<!-- Work Section - Server rendered -->
 	<WorkSection />
-
-	<!-- Projects Section - Server rendered -->
 	<ProjectsSection />
-
-	<!-- Contact Section - Server rendered -->
 	<ContactSection />
 </Layout>
+
+<style>
+	.haiku {
+		padding: 64px 0 44px;
+	}
+
+	.haiku .ln {
+		font-family: var(--font-mono);
+		font-style: italic;
+		font-size: 12px;
+		letter-spacing: 0.06em;
+		color: var(--faint);
+		margin-bottom: 26px;
+	}
+
+	.haiku .ku {
+		font-weight: 300;
+		font-size: clamp(23px, 3.6vw, 36px);
+		line-height: 1.55;
+		letter-spacing: -0.01em;
+		color: var(--dim);
+		max-width: 22ch;
+	}
+
+	.haiku .ku b {
+		color: var(--ink);
+		font-weight: 400;
+	}
+
+	.haiku .ku .a {
+		color: var(--acc);
+	}
+</style>

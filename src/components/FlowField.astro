@@ -1,0 +1,214 @@
+---
+---
+
+<canvas id="field"></canvas>
+<div class="vig"></div>
+<div class="grain"></div>
+
+<style>
+  #field {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .vig {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+      150% 120% at 50% 0%,
+      transparent 46%,
+      color-mix(in srgb, var(--bg) 72%, transparent) 100%
+    );
+    transition: background 0.5s ease;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  :global([data-theme="light"]) .grain {
+    opacity: 0.25;
+    mix-blend-mode: multiply;
+  }
+</style>
+
+<script>
+  // ---- recessive flow-field: fine particles tracing a slow vector field, leaving soft trails ----
+  // dark mode = pale ink glowing in the dark; light mode = dark ink drawn on paper
+  const THEMES = {
+    dark: { fill: "12,11,10", ink: "233,227,212", acc: "200,241,74" },
+    light: { fill: "245,241,230", ink: "33,30,24", acc: "92,122,30" },
+  };
+
+  let theme: "dark" | "light" =
+    document.documentElement.dataset.theme === "light" ? "light" : "dark";
+
+  function col() {
+    return THEMES[theme];
+  }
+
+  const cv = document.getElementById("field") as HTMLCanvasElement | null;
+  const ctx = cv?.getContext("2d");
+
+  if (cv && ctx) {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let W: number, H: number, dpr: number;
+    const parts: Array<{
+      x: number;
+      y: number;
+      life: number;
+      age: number;
+      acc: boolean;
+      ink: boolean;
+      w: number;
+    }> = [];
+    const mouse = { x: -9999, y: -9999 };
+    let burst = 0;
+
+    function resize() {
+      dpr = Math.min(devicePixelRatio, 2);
+      W = cv!.width = innerWidth * dpr;
+      H = cv!.height = innerHeight * dpr;
+      cv!.style.width = innerWidth + "px";
+      cv!.style.height = innerHeight + "px";
+      ctx!.fillStyle = "rgb(" + col().fill + ")";
+      ctx!.fillRect(0, 0, W, H);
+    }
+    resize();
+    addEventListener("resize", () => {
+      resize();
+      // resizing the canvas wipes it — redraw the one-shot pattern for
+      // reduced-motion users, who have no animation loop to repaint it
+      if (reduce) staticPass();
+    });
+
+    const N = Math.min(300, Math.floor(innerWidth / 5));
+
+    function seed(p: (typeof parts)[number], fresh: boolean) {
+      p.x = Math.random() * W;
+      p.y = Math.random() * H;
+      p.life = 180 + Math.random() * 520;
+      p.age = fresh ? Math.random() * p.life : 0;
+      p.acc = Math.random() < 0.05;
+      p.ink = !p.acc && Math.random() < 0.16;
+      p.w = p.ink ? 1.6 + Math.random() * 1.9 : 0.45 + Math.random() * 0.55;
+    }
+
+    for (let i = 0; i < N; i++) {
+      const p = {} as (typeof parts)[number];
+      seed(p, true);
+      parts.push(p);
+    }
+
+    let t = 0;
+    // layered field ~ pseudo-curl for organic, non-repeating flow
+    function angle(x: number, y: number) {
+      const s = 0.0015;
+      const n =
+        Math.sin(x * s + t) +
+        Math.cos(y * s * 0.9 - t * 0.75) +
+        0.5 * Math.sin((x + y) * s * 0.5 + t * 1.2);
+      return n * Math.PI;
+    }
+
+    function step() {
+      t += 0.0014;
+      burst *= 0.95;
+      // slow fade → long, silky ink trails that never fully clear
+      ctx!.fillStyle = "rgba(" + col().fill + ",0.05)";
+      ctx!.fillRect(0, 0, W, H);
+      const mx = mouse.x * dpr,
+        my = mouse.y * dpr,
+        R = (190 + burst * 90) * dpr;
+      ctx!.lineCap = "round";
+      for (const p of parts) {
+        let a = angle(p.x, p.y),
+          sp = 0.45 * dpr;
+        const dx = p.x - mx,
+          dy = p.y - my,
+          d2 = dx * dx + dy * dy;
+        let near = false;
+        if (d2 < R * R) {
+          const d = Math.sqrt(d2) || 1,
+            inf = 1 - d / R;
+          a += inf * (1.0 + burst);
+          sp += inf * (0.65 + burst * 0.5) * dpr;
+          near = inf > 0.25;
+        }
+        const nx = p.x + Math.cos(a) * sp,
+          ny = p.y + Math.sin(a) * sp;
+        if (p.acc) ctx!.strokeStyle = "rgba(" + col().acc + "," + (near ? 0.16 : 0.06) + ")";
+        else if (p.ink) ctx!.strokeStyle = "rgba(" + col().ink + "," + (near ? 0.05 : 0.028) + ")";
+        else ctx!.strokeStyle = "rgba(" + col().ink + "," + (near ? 0.13 : 0.05) + ")";
+        ctx!.lineWidth = dpr * p.w;
+        ctx!.beginPath();
+        ctx!.moveTo(p.x, p.y);
+        ctx!.lineTo(nx, ny);
+        ctx!.stroke();
+        p.x = nx;
+        p.y = ny;
+        p.age++;
+        if (p.x < -8 || p.x > W + 8 || p.y < -8 || p.y > H + 8 || p.age > p.life) seed(p, false);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function staticPass() {
+      // used when prefers-reduced-motion: draw once, re-run on theme change
+      ctx!.fillStyle = "rgb(" + col().fill + ")";
+      ctx!.fillRect(0, 0, W, H);
+      for (let k = 0; k < 120; k++) {
+        t += 0.02;
+        for (const p of parts) {
+          const a = angle(p.x, p.y);
+          const nx = p.x + Math.cos(a) * 0.5 * dpr,
+            ny = p.y + Math.sin(a) * 0.5 * dpr;
+          ctx!.strokeStyle = "rgba(" + col().ink + ",0.05)";
+          ctx!.lineWidth = dpr * 0.5;
+          ctx!.beginPath();
+          ctx!.moveTo(p.x, p.y);
+          ctx!.lineTo(nx, ny);
+          ctx!.stroke();
+          p.x = nx;
+          p.y = ny;
+        }
+      }
+    }
+
+    addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    addEventListener("mousedown", () => {
+      burst = 1;
+    });
+
+    if (reduce) {
+      staticPass();
+    } else {
+      step();
+    }
+
+    // Repaint when the theme flips (dark <-> light), driven by the anti-FOUC
+    // script's `data-theme` attribute on <html>.
+    const themeObserver = new MutationObserver(() => {
+      theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      if (reduce) {
+        staticPass();
+      } else {
+        ctx!.fillStyle = "rgb(" + col().fill + ")";
+        ctx!.fillRect(0, 0, W, H);
+      }
+    });
+    themeObserver.observe(document.documentElement, { attributeFilter: ["data-theme"] });
+  }
+</script>

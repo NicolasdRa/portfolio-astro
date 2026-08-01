@@ -1,119 +1,34 @@
 /* ============================================
-   CSS Variables Theme System
+   Design tokens — dark-first, editorial
    ============================================ */
 
 :root {
-  /* Light Theme Colors (Default) */
-  --color-primary-0: #e0f5f2;
-  --color-primary-1: #7ec8be;
-  --color-primary-2: #3aab9e;
-  --color-primary-3: #2A9D8F;
-  --color-primary-4: #218f82;
-  --color-primary-5: #1a7a6e;
+  --bg: #0c0b0a;
+  --ink: #f2efe6;
+  --dim: #807d74;
+  --faint: #4a4841;
+  --acc: #c8f14a;
+  --line: #1f1e1c;
 
-  --color-background: #fafafa;
-  --color-foreground: #111111;
-  --color-card: #ffffff;
-  --color-border: #d4d4d4;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
-  /* Grays for light theme */
-  --color-gray-1: #262626;
-  --color-gray-2: #515151;
-  --color-gray-3: #767676;
-  --color-gray-4: #a8a8a8;
-  --color-gray-5: #d4d4d4;
-
-  /* Semantic colors */
-  --color-text-primary: #111111;
-  --color-text-secondary: #515151;
-  --color-text-muted: #767676;
-
-  /* Typography */
-  --font-primary: "Source Code Pro", monospace;
-  --font-secondary: "Space Grotesk", sans-serif;
-  --font-tertiary: "Oswald", sans-serif;
-
-  /* Spacing & Sizing */
-  --border-radius: 2px;
   --transition-base: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   --transition-fast: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  --transition-slow: all 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
-
-  /* Shadows for light theme */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
-
-  /* Custom cursor colors */
-  --cursor-main: var(--color-primary-3);
-  --cursor-secondary: var(--color-primary-2);
-  --cursor-blend-mode: normal;
 }
 
-[data-theme="dark"] {
-  /* Dark Theme Colors */
-  --color-primary-0: #0f2623;
-  --color-primary-1: #4ECDC4;
-  --color-primary-2: #3DBDAE;
-  --color-primary-3: #36b5a6;
-  --color-primary-4: #238a7e;
-  --color-primary-5: #1c6e64;
-
-  --color-background: #0a0a0a;
-  --color-foreground: #f0f0f0;
-  --color-card: #141414;
-  --color-border: #2a2a2a;
-
-  /* Grays for dark theme - inverted */
-  --color-gray-1: #f0f0f0;
-  --color-gray-2: #b0b0b0;
-  --color-gray-3: #9a9a9a;
-  --color-gray-4: #505050;
-  --color-gray-5: #2a2a2a;
-
-  /* Semantic colors */
-  --color-text-primary: #f0f0f0;
-  --color-text-secondary: #b0b0b0;
-  --color-text-muted: #9a9a9a;
-
-  /* Shadows for dark theme */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.5);
-
-  /* Custom cursor colors for dark theme */
-  --cursor-main: var(--color-primary-2);
-  --cursor-secondary: var(--color-primary-1);
-  --cursor-blend-mode: difference;
+[data-theme="light"] {
+  --bg: #f5f1e6;
+  --ink: #211e18;
+  --dim: #726d60;
+  --faint: #cdc6b2;
+  --acc: #5c7a1e;
+  --line: #e2dcc8;
 }
 
 /* ============================================
    Font Definitions
    ============================================ */
-
-@font-face {
-  font-family: "Source Code Pro";
-  src:
-    local("Source Code Pro"),
-    url("/fonts/SourceCodePro-VariableFont_wght.woff2") format("woff2"),
-    url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Source Code Pro";
-  src:
-    local("Source Code Pro Italic"),
-    url("/fonts/SourceCodePro-Italic-VariableFont_wght.woff2") format("woff2"),
-    url("/fonts/SourceCodePro-Italic-VariableFont_wght.ttf") format("truetype");
-  font-weight: 300 900;
-  font-style: italic;
-  font-display: optional;
-}
 
 @font-face {
   font-family: "Space Grotesk";
@@ -123,18 +38,23 @@
     url("/fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype");
   font-weight: 300 700;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "Oswald";
-  src:
-    local("Oswald"),
-    url("/fonts/Oswald-VariableFont_wght.woff2") format("woff2"),
-    url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
-  font-weight: 200 700;
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-VariableFont_wght.woff2") format("woff2");
+  font-weight: 400 500;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
 }
 
 /* ============================================
@@ -152,8 +72,6 @@
   box-sizing: inherit;
 }
 
-/* Focus styles moved to consolidated section below */
-
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -161,15 +79,20 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
-  letter-spacing: 0.02em;
-  color: var(--color-text-primary);
-  background-color: var(--color-background);
-  transition: var(--transition-base);
+  color: var(--ink);
+  background-color: var(--bg);
+  transition: background 0.5s ease, color 0.5s ease;
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -181,73 +104,17 @@ body {
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-secondary);
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--color-text-primary);
-  margin-bottom: 0.9375rem;
-  transition: var(--transition-base);
-}
-
-h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-}
-
-h2 {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 600;
-}
-
-h3 {
-  font-size: clamp(1.25rem, 3vw, 2rem);
-}
-
-h4 {
-  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-}
-
-h5 {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-}
-
-h6 {
-  font-size: 1rem;
+.big {
+  text-shadow: 0 2px 44px color-mix(in srgb, var(--bg) 80%, transparent);
 }
 
 p {
-  margin-bottom: 0.9375rem;
-  color: var(--color-text-primary);
-  transition: var(--transition-base);
+  color: var(--ink);
 }
 
 a {
-  color: currentColor;
+  color: inherit;
   text-decoration: none;
-  display: block;
-  position: relative;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  a:hover {
-    cursor: none;
-  }
-}
-
-button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  button:hover {
-    cursor: none;
-  }
 }
 
 strong {
@@ -256,6 +123,71 @@ strong {
 
 em {
   font-style: italic;
+}
+
+::selection {
+  background: var(--acc);
+  color: var(--bg);
+}
+
+/* ============================================
+   Shared layout utilities (ported from mockup)
+   ============================================ */
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 46px;
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 0 24px;
+  }
+}
+
+.lbl {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.acc {
+  color: var(--acc);
+}
+
+section {
+  padding: 96px 0;
+}
+
+.shead {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 46px;
+}
+
+.shead .n {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--acc);
+}
+
+.shead h2 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  font-weight: 400;
+}
+
+.shead .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
 }
 
 /* ============================================
@@ -268,23 +200,23 @@ em {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: var(--bg);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gray-3);
+  background: var(--faint);
   border-radius: 4px;
   transition: var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-2);
+  background: var(--dim);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-gray-3) var(--color-background);
+  scrollbar-color: var(--faint) var(--bg);
 }
 
 /* ============================================
@@ -292,9 +224,8 @@ em {
    ============================================ */
 
 *:focus-visible {
-  outline: 2px solid var(--color-primary-3);
+  outline: 2px solid var(--acc);
   outline-offset: 2px;
-  border-radius: var(--border-radius);
 }
 
 *:focus:not(:focus-visible) {
@@ -305,16 +236,11 @@ em {
    Custom Cursor Support
    ============================================ */
 
+/* .has-cursor is added by Cursor.astro's script — the native cursor is only
+   hidden once the replacement is actually running (JS on, fine pointer,
+   no reduced-motion preference). */
 @media (hover: hover) and (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
-
-  a,
-  button,
-  input,
-  textarea,
-  select {
+  .has-cursor * {
     cursor: none !important;
   }
 }
@@ -322,19 +248,6 @@ em {
 /* ============================================
    Utility Classes
    ============================================ */
-
-.title-line {
-  margin-right: 1rem;
-  width: 90px;
-  height: 9px;
-  border-bottom: 1px solid var(--color-gray-3);
-}
-
-@media only screen and (max-width: 600px) {
-  .title-line {
-    display: none;
-  }
-}
 
 .skip-link:focus {
   position: fixed;
@@ -346,13 +259,12 @@ em {
   clip: auto !important;
   white-space: normal !important;
   padding: 0.75rem 1.25rem;
-  background: var(--color-primary-3);
-  color: #fff;
-  font-family: var(--font-primary);
+  background: var(--acc);
+  color: var(--bg);
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: var(--border-radius);
   overflow: visible !important;
 }
 
@@ -366,100 +278,6 @@ em {
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
-}
-
-/* Container class removed - use component-scoped styles instead */
-
-/* ============================================
-   Animations
-   ============================================ */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Section fade animation classes */
-.section-fade {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.section-fade.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes scaleUp {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* CSS Particle Animation (lightweight alternative) */
-@keyframes particle-float {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0) scale(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.4;
-    transform: scale(0.4);
-  }
-  50% {
-    opacity: 0.2;
-  }
-  90% {
-    opacity: 0;
-    transform: translateY(-150px) translateX(50px) scale(0.8);
-  }
 }
 
 /* ============================================

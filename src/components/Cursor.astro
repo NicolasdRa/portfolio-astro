@@ -1,0 +1,109 @@
+---
+---
+
+<div class="cur" id="cur"></div>
+<div class="cdot" id="cdot"></div>
+
+<style>
+  .cur {
+    position: fixed;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--acc);
+    border-radius: 50%;
+    z-index: 999;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.22s, height 0.22s, background 0.22s, opacity 0.22s;
+    mix-blend-mode: difference;
+    opacity: 0.7;
+  }
+
+  .cur.big {
+    width: 58px;
+    height: 58px;
+    background: var(--acc);
+    opacity: 1;
+  }
+
+  .cdot {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: var(--acc);
+    border-radius: 50%;
+    z-index: 999;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (pointer: coarse) {
+    .cur,
+    .cdot {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cur,
+    .cdot {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const cur = document.getElementById("cur");
+  const cdot = document.getElementById("cdot");
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (cur && cdot && finePointer && !reducedMotion) {
+    // Gates the global `cursor: none` rule: if this script never runs,
+    // visitors keep the native cursor.
+    document.documentElement.classList.add("has-cursor");
+
+    let cx = 0,
+      cy = 0,
+      tx = 0,
+      ty = 0;
+
+    addEventListener("mousemove", (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      cdot.style.left = tx + "px";
+      cdot.style.top = ty + "px";
+    });
+
+    (function loop() {
+      cx += (tx - cx) * 0.2;
+      cy += (ty - cy) * 0.2;
+      cur.style.left = cx + "px";
+      cur.style.top = cy + "px";
+      requestAnimationFrame(loop);
+    })();
+
+    // Hover growth via event delegation, so newly-rendered [data-h]
+    // elements (e.g. inside the mobile nav overlay) work automatically.
+    const isHoverTarget = (target: EventTarget | null): Element | null => {
+      if (!(target instanceof Element)) return null;
+      return target.closest("[data-h]");
+    };
+
+    document.addEventListener("mouseover", (e) => {
+      const el = isHoverTarget(e.target);
+      const related = e.relatedTarget;
+      if (el && !(related instanceof Element && el.contains(related))) {
+        cur.classList.add("big");
+      }
+    });
+
+    document.addEventListener("mouseout", (e) => {
+      const el = isHoverTarget(e.target);
+      const related = e.relatedTarget;
+      if (el && !(related instanceof Element && el.contains(related))) {
+        cur.classList.remove("big");
+      }
+    });
+  }
+</script>

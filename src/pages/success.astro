@@ -1,13 +1,13 @@
 ---
-import CustomLink from "@components/CustomLink.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
-<Layout title="Success" showNavbar={false}>
+<Layout title="Message sent" showNavbar={false}>
 	<main class="success-page">
 		<div class="container">
+			<span class="lbl">// sent</span>
 			<h1>your message has been received</h1>
-			<CustomLink url="/" text="back home" type="internal" />
+			<a class="back" href="/" data-h>back home →</a>
 		</div>
 	</main>
 </Layout>
@@ -19,43 +19,34 @@ import Layout from "@layouts/Layout.astro";
 		text-align: center;
 		min-height: 100vh;
 		margin: 0 5vw;
-		animation: fadeIn 0.8s ease-out;
-		background-color: var(--color-background);
-		color: var(--color-text);
-	}
-
-	h1 {
-		font-family: var(--font-secondary);
-		font-size: 4rem;
-		font-weight: lighter;
-		margin-bottom: 5rem;
-		color: var(--color-gray-1);
 	}
 
 	.container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		gap: 22px;
 	}
 
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
+	h1 {
+		font-family: var(--font-sans);
+		font-size: clamp(2rem, 5.5vw, 3.5rem);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		max-width: 20ch;
 	}
 
-	@media (max-width: 768px) {
-		h1 {
-			font-size: 3rem;
-		}
+	.back {
+		font-family: var(--font-mono);
+		font-size: 13.5px;
+		color: var(--acc);
+		border-bottom: 1px solid var(--acc);
+		padding-bottom: 4px;
 	}
 
 	@media (max-width: 480px) {
 		h1 {
-			font-size: 2.5rem;
+			font-size: 2rem;
 		}
 	}
 </style>

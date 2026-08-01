@@ -1,320 +1,95 @@
 ---
-import about from '../../constants/about';
+import about from "../../constants/about";
 
-const { text, stack } = about;
+const { paragraphs, stack } = about;
 ---
 
-<section id="about" class="about-container section-fade">
-  <div class="about-content">
-    <div class="about-titles">
-      <div class="about-title-container">
-        <h2 class="about-title">
-          <div class="title-line" />
-          <span>01. </span>about
-        </h2>
+<div class="wrap">
+  <section id="about">
+    <div class="shead"><span class="n">01</span><h2>About</h2><span class="rule"></span></div>
+    <div class="about-lead">design and engineering —<br /><span class="a">no handoff</span> in between.</div>
+    <div class="about-grid">
+      <div>
+        {paragraphs.map((p) => <p set:html={p} />)}
       </div>
-      <h3>profile, skills & stack</h3>
+      <dl class="stack">
+        {stack.map((row) => (
+          <div class="srow">
+            <dt>{row.label}</dt>
+            <dd>{row.items}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
-
-    <div class="about-text">
-      <p class="about-profile">{text}</p>
-
-      <div class="about-stack-wrapper" data-stack-expander>
-        <div class="about-stack-grid">
-          {stack.map((item) => (
-            <p class="about-stack-item">{item}</p>
-          ))}
-        </div>
-        <div class="about-stack-fade"></div>
-      </div>
-
-      <button class="about-view-all-btn" data-stack-toggle type="button">
-        <span data-show-more>view more</span>
-        <span data-show-less style="display: none;">show less</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-<script>
-  function initStackExpander() {
-    const wrapper = document.querySelector('[data-stack-expander]') as HTMLElement;
-    const button = document.querySelector('[data-stack-toggle]') as HTMLButtonElement;
-    const fade = wrapper?.querySelector('.about-stack-fade') as HTMLElement;
-    const showMore = button?.querySelector('[data-show-more]') as HTMLElement;
-    const showLess = button?.querySelector('[data-show-less]') as HTMLElement;
-
-    if (!wrapper || !button || !fade) return;
-
-    let isExpanded = false;
-
-    const getCollapsedHeight = () => {
-      const width = window.innerWidth;
-      if (width <= 600) return 180;
-      if (width <= 768) return 200;
-      if (width <= 960) return 180;
-      return 120;
-    };
-
-    // Set initial height
-    wrapper.style.maxHeight = `${getCollapsedHeight()}px`;
-
-    button.addEventListener('click', () => {
-      isExpanded = !isExpanded;
-
-      if (isExpanded) {
-        wrapper.style.maxHeight = '2000px';
-        fade.style.opacity = '0';
-        showMore.style.display = 'none';
-        showLess.style.display = 'inline';
-      } else {
-        wrapper.style.maxHeight = `${getCollapsedHeight()}px`;
-        fade.style.opacity = '1';
-        showMore.style.display = 'inline';
-        showLess.style.display = 'none';
-      }
-    });
-  }
-
-  function initSectionFade() {
-    const section = document.querySelector('#about.section-fade') as HTMLElement;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px',
-      }
-    );
-
-    observer.observe(section);
-  }
-
-  // Initialize on page load
-  initStackExpander();
-  initSectionFade();
-
-  // Re-initialize on Astro view transitions
-  document.addEventListener('astro:page-load', () => {
-    initStackExpander();
-    initSectionFade();
-  });
-</script>
+  </section>
+</div>
 
 <style>
-  .about-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 8rem 2rem 5rem;
-    scroll-margin-top: 5rem;
+  .about-lead {
+    font-size: clamp(26px, 4.4vw, 44px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.14;
+    max-width: 16ch;
+    margin-bottom: 44px;
   }
 
-  .about-container h3 {
-    font-size: 1.875rem;
-    font-weight: bold;
-    margin-bottom: 1.25rem;
+  .about-lead .a {
+    color: var(--acc);
   }
 
-  .about-content {
-    display: flex;
-    flex-direction: row;
-    width: 60vw;
-  }
-
-  .about-titles {
-    width: 35%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 0 3.75rem;
-    text-align: right;
-  }
-
-  .about-title-container {
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    width: 50%;
-  }
-
-  .about-title {
-    display: flex;
-    justify-content: flex-end;
-    color: var(--color-primary-3);
-    text-transform: uppercase;
-    font-size: 1rem;
-    font-weight: 600;
-    padding-top: 7px;
-    position: relative;
-    margin-bottom: 0.625rem;
-    text-align: right;
-  }
-
-  .about-title span {
-    margin-right: 0.3125rem;
-  }
-
-  .about-text {
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .about-profile {
-    text-transform: lowercase;
-    margin-bottom: 1.875rem;
-  }
-
-  @media screen and (max-width: 960px) {
-    .about-container {
-      padding: 8rem 1.5rem 5rem;
-    }
-
-    .about-content {
-      width: 100%;
-    }
-
-    .about-titles {
-      width: 25%;
-      margin: 0 2.5rem;
-    }
-
-    .about-text {
-      width: 75%;
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    .about-container {
-      padding: 8rem 2rem 5rem;
-    }
-
-    .about-container h3 {
-      font-size: 1.5625rem;
-      text-align: left;
-    }
-
-    .about-content {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .about-title-container {
-      justify-content: flex-start;
-      width: 50%;
-    }
-
-    .about-title {
-      margin-bottom: 0.3125rem;
-    }
-
-    .about-titles {
-      width: 100%;
-      align-items: flex-start;
-      margin: 0 0 1.25rem 0;
-      text-align: left;
-    }
-
-    .about-text {
-      width: 100%;
-    }
-  }
-
-  .about-stack-wrapper {
-    position: relative;
-    max-height: 120px;
-    overflow: hidden;
-    margin-bottom: 1.25rem;
-    transition: max-height 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-  }
-
-  .about-stack-wrapper.expanded {
-    max-height: 2000px;
-  }
-
-  .about-stack-grid {
+  .about-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 0.625rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
   }
 
-  .about-stack-item {
-    font-family: var(--font-primary);
-    font-size: 0.875rem;
-    font-style: italic;
-    color: var(--color-text-secondary);
-    margin-bottom: 0.3125rem;
-    transition: color 0.3s ease;
+  .about-grid p {
+    color: var(--dim);
+    font-size: 16px;
+    margin-bottom: 16px;
   }
 
-  .about-stack-item:hover {
-    color: var(--color-primary-3);
+  .about-grid p :global(b) {
+    color: var(--ink);
+    font-weight: 500;
   }
 
-  .about-stack-fade {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      var(--color-background) 100%
-    );
-    pointer-events: none;
-    transition: opacity 0.5s ease;
+  .stack {
+    display: grid;
+    gap: 0;
   }
 
-  .about-view-all-btn {
-    background: transparent;
-    border: none;
-    color: var(--color-primary-3);
-    padding: 0;
-    font-family: var(--font-primary);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    text-transform: lowercase;
-    align-self: flex-start;
+  .stack .srow {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
   }
 
-  .about-view-all-btn:hover {
-    opacity: 0.7;
+  .stack .srow:last-child {
+    border-bottom: 1px solid var(--line);
   }
 
-  @media screen and (max-width: 960px) {
-    .about-stack-wrapper {
-      max-height: 180px;
-    }
+  .stack dt {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acc);
   }
 
-  @media screen and (max-width: 768px) {
-    .about-stack-wrapper {
-      max-height: 200px;
-    }
+  .stack dd {
+    font-size: 15.5px;
+    color: var(--ink);
   }
 
-  @media screen and (max-width: 600px) {
-    .about-stack-wrapper {
-      max-height: 180px;
-    }
-
-    .about-stack-grid {
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  @media (max-width: 760px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
   }
 </style>

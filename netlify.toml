@@ -11,6 +11,20 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Canonical host is www (Netlify primary domain) — apex auto-301s to www.
+# Do NOT add a www→apex force redirect here: it would loop against that automatic redirect.
+
+# Single-page site — old routes redirect to their hash anchor
+[[redirects]]
+  from = "/projects"
+  to = "/#projects"
+  status = 301
+
+[[redirects]]
+  from = "/about"
+  to = "/#about"
+  status = 301
+
 # Redirect rules for Netlify Forms
 [[redirects]]
   from = "/success"

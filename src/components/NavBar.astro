@@ -1,287 +1,332 @@
 ---
-import logo from "../assets/svg/logo.svg";
-import pageLinks from "../constants/links";
-import Sidebar from "./Sidebar.astro";
-
-// Menu icon SVG
-const menuIcon = `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>`;
+import links from "../constants/links";
 ---
 
-<header class="container" data-navbar-container>
-  <nav class="navbar" data-navbar aria-label="Primary navigation">
-    <div class="nav-logo">
-      <a
-        href="/"
-        class="nav-links"
-        data-cursor-hover="hover"
-      >
-        <img
-          src={logo.src ?? ""}
-          alt="Nicolás di Rago — home"
-          loading="eager"
-        />
-      </a>
+<nav>
+  <div class="nrow">
+    <div class="brand" data-h><span class="sq"></span>di rago</div>
+    <div class="nlinks">
+      {links.map((link) => <a href={link.url} data-h>{link.text}</a>)}
+      <button
+        type="button"
+        class="ttoggle"
+        id="tbtn"
+        data-theme-toggle
+        data-h
+        aria-label="Switch color theme"
+      ></button>
     </div>
     <button
       type="button"
-      class="toggle-btn"
-      data-sidebar-toggle
-      data-cursor-hover="hover"
+      class="burger"
+      data-mob-open
+      data-h
       aria-label="Open menu"
       aria-expanded="false"
-      aria-controls="sidebar"
+      aria-controls="mobnav"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="menu-icon" set:html={menuIcon} />
+      <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links">
-      {pageLinks.map((link: { id: number; url: string; text: string }) => (
-        <li
-          data-cursor-hover="hover"
-        >
-          <a href={link.url}>
-            <span class="link-number">0{link.id - 1}. </span>
-            {link.text}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-  <Sidebar />
-</header>
+  </div>
+</nav>
+
+<div class="mobnav" id="mobnav" aria-hidden="true" inert>
+  <button type="button" class="mobclose" data-mob-close data-h aria-label="Close menu">&times;</button>
+  {links.map((link, index) => (
+    <a href={link.url} data-mob-link data-h><span>0{index + 1}</span>{link.text}</a>
+  ))}
+  <button type="button" class="ttoggle" id="tbtn2" data-theme-toggle data-h aria-label="Switch color theme">
+    <span class="ic"></span><span class="tx">switch to light</span>
+  </button>
+</div>
+
+<noscript>
+  <style is:inline>
+    /* Without JS the burger and theme toggle are dead — hide them and show
+       the plain anchor links at every width instead. */
+    .burger {
+      display: none !important;
+    }
+    .nlinks {
+      display: flex !important;
+      gap: 16px;
+    }
+    .nlinks .ttoggle {
+      display: none !important;
+    }
+  </style>
+</noscript>
 
 <style>
-  .container {
-    opacity: 0;
-    width: 100%;
-  }
-
-  .navbar {
-    font-family: var(--font-primary);
+  nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 200;
+    z-index: 50;
+    padding: 22px 0;
+  }
+
+  .nrow {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 46px;
     display: flex;
-    height: 5rem;
-    cursor: none;
-    align-items: center;
     justify-content: space-between;
-    background: var(--color-background);
-    backdrop-filter: blur(5px);
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-    padding: 0 7.5rem 0 3.125rem;
-    box-sizing: border-box;
+    align-items: center;
   }
 
-  @media screen and (max-width: 1024px) {
-    .navbar {
-      padding: 3.125rem 2.5rem;
-      justify-content: flex-end;
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    .navbar {
-      padding: 0 1.875rem;
-    }
-  }
-
-  .navbar.scrolled-down {
-    top: -100px;
-    backdrop-filter: blur(5px);
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  }
-
-  .nav-logo img {
-    height: 1rem;
-    transition: filter 0.3s ease, transform 0.3s ease;
-    filter: none;
-  }
-
-  :global([data-theme="dark"]) .nav-logo img {
-    filter: invert(1) brightness(0.9);
-  }
-
-  .nav-logo:hover img {
-    transform: scale(1.05);
-  }
-
-  .toggle-btn {
-    background: transparent;
-    border-color: transparent;
-    border: none;
-    color: var(--color-gray-2);
-    cursor: none;
-    transition: color 0.3s ease;
-    font-size: 1.875rem;
+  .brand {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.3125rem;
+    gap: 10px;
   }
 
-  .toggle-btn :global(.menu-icon) {
-    width: 1.875rem;
-    height: 1.875rem;
+  .brand .sq {
+    width: 8px;
+    height: 8px;
+    background: var(--acc);
   }
 
-  .toggle-btn:hover {
-    color: var(--color-primary-3);
+  .nlinks {
+    display: flex;
+    align-items: center;
+    gap: 28px;
   }
 
-  @media screen and (max-width: 1024px) {
-    .toggle-btn {
-      font-size: 1.875rem;
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    .toggle-btn {
-      font-size: 1.875rem;
-    }
-  }
-
-  @media screen and (min-width: 1024px) {
-    .toggle-btn {
-      display: none;
-    }
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  @media (min-width: 1024px) {
-    .nav-links {
-      display: flex;
-      cursor: none;
-      justify-content: flex-end;
-    }
-  }
-
-  .nav-links li {
-    color: var(--color-gray-2);
-    margin-right: 3.125rem;
-    padding: 0.3125rem 0;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-transform: capitalize;
-    transition: transform 450ms ease-out, color 0.3s ease;
-    will-change: transform;
-    backface-visibility: hidden;
+  .nlinks a {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--dim);
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
     position: relative;
-    list-style: none;
   }
 
-  .nav-links li a {
-    position: relative;
-    color: inherit;
+  .nlinks a:hover {
+    color: var(--ink);
   }
 
-  .nav-links li a::after {
-    content: '';
+  .nlinks a::after {
+    content: "";
     position: absolute;
-    bottom: -0.1875rem;
     left: 0;
-    width: 0;
+    bottom: -5px;
     height: 1px;
-    background: var(--color-primary-3);
-    transition: width 0.3s ease;
+    width: 0;
+    background: var(--acc);
+    transition: width 0.25s;
   }
 
-  .nav-links li:hover {
-    color: var(--color-primary-3);
-    transform: translateY(-2px);
-    cursor: none;
-    transition: transform 125ms, color 0.15s ease;
-  }
-
-  .nav-links li:hover a::after {
+  .nlinks a:hover::after {
     width: 100%;
   }
 
-  .link-number {
-    color: var(--color-primary-3);
-    font-size: 1.125rem;
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 0;
+    padding: 4px;
+  }
+
+  .burger span {
+    width: 24px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: 0.3s;
+  }
+
+  .ttoggle {
+    width: 32px;
+    height: 32px;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--dim);
+    transition: color 0.2s, border-color 0.2s;
+    padding: 0;
+  }
+
+  .ttoggle:hover {
+    color: var(--acc);
+    border-color: var(--acc);
+  }
+
+  .ttoggle :global(svg) {
+    width: 15px;
+    height: 15px;
+    display: block;
+  }
+
+  @media (max-width: 760px) {
+    .nlinks {
+      display: none;
+    }
+
+    .burger {
+      display: flex;
+    }
+  }
+
+  .mobnav {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: color-mix(in srgb, var(--bg) 97%, transparent);
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+    gap: 6px;
+  }
+
+  .mobnav.open {
+    transform: none;
+  }
+
+  .mobnav a {
+    font-size: 40px;
+    font-weight: 600;
+    padding: 12px 0;
+  }
+
+  .mobnav a span {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--acc);
+    margin-right: 14px;
+  }
+
+  .mobclose {
+    position: absolute;
+    top: 26px;
+    right: 30px;
+    font-size: 34px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+  }
+
+  .mobnav .ttoggle {
+    margin-top: 26px;
+    align-self: flex-start;
+    width: auto;
+    height: auto;
+    border-radius: 100px;
+    padding: 9px 16px 9px 12px;
+    gap: 9px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .mobnav .ttoggle :global(svg) {
+    width: 15px;
+    height: 15px;
   }
 </style>
 
 <script>
-  function initNavbar() {
-    const container = document.querySelector('[data-navbar-container]') as HTMLElement;
-    const navbar = document.querySelector('[data-navbar]') as HTMLElement;
-    const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
-    const cursorHoverElements = document.querySelectorAll('[data-cursor-hover="hover"]');
+  const ICON_SUN =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>';
+  const ICON_MOON =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.3A8.5 8.5 0 1 1 9.7 4a7 7 0 0 0 10.3 10.3Z"/></svg>';
 
-    if (!container || !navbar) return;
+  function syncThemeIcons() {
+    const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    // icon shown = the mode a click will switch TO
+    const icon = current === "light" ? ICON_MOON : ICON_SUN;
 
-    const setCursorType = (window as any).__cursorStore__?.setCursorType;
+    const tbtn = document.getElementById("tbtn");
+    if (tbtn) tbtn.innerHTML = icon;
 
-    // Fade in animation
-    setTimeout(() => {
-      container.style.transition = 'opacity 300ms linear';
-      container.style.opacity = '1';
-    }, 100);
-
-    // Scroll behavior
-    let prevScroll = window.pageYOffset;
-    let sidebarOpen = false;
-
-    const handleScroll = () => {
-      const currentScroll = window.pageYOffset;
-
-      if (prevScroll < currentScroll && currentScroll > 50) {
-        navbar.classList.add('scrolled-down');
-      } else if (prevScroll > currentScroll) {
-        navbar.classList.remove('scrolled-down');
-      }
-
-      prevScroll = currentScroll;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Sidebar toggle
-    if (sidebarToggle) {
-      sidebarToggle.addEventListener('click', () => {
-        sidebarOpen = !sidebarOpen;
-        sidebarToggle.setAttribute('aria-expanded', String(sidebarOpen));
-        sidebarToggle.setAttribute('aria-label', sidebarOpen ? 'Close menu' : 'Open menu');
-        window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { isOpen: sidebarOpen } }));
-      });
+    const tbtn2 = document.getElementById("tbtn2");
+    if (tbtn2) {
+      const ic = tbtn2.querySelector(".ic");
+      const tx = tbtn2.querySelector(".tx");
+      if (ic) ic.innerHTML = icon;
+      if (tx) tx.textContent = current === "light" ? "switch to dark" : "switch to light";
     }
-
-    // Cursor interactions
-    if (setCursorType) {
-      cursorHoverElements.forEach((element) => {
-        element.addEventListener('mouseenter', () => {
-          setCursorType('hover');
-        });
-
-        element.addEventListener('mouseleave', () => {
-          setCursorType('default');
-        });
-      });
-    }
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }
 
-  // Initialize on page load
-  const cleanup = initNavbar();
+  syncThemeIcons();
 
-  // Re-initialize on Astro view transitions
-  document.addEventListener('astro:page-load', () => {
-    if (cleanup) cleanup();
-    initNavbar();
+  const themeObserver = new MutationObserver(syncThemeIcons);
+  themeObserver.observe(document.documentElement, { attributeFilter: ["data-theme"] });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => window.toggleTheme?.());
   });
 
-  // Cleanup before page unload
-  document.addEventListener('astro:before-preparation', () => {
-    if (cleanup) cleanup();
-  });
+  function initMobNav() {
+    const mobnav = document.getElementById("mobnav");
+    const openBtn = document.querySelector<HTMLButtonElement>("[data-mob-open]");
+    const closeBtn = document.querySelector<HTMLButtonElement>("[data-mob-close]");
+    const mobLinks = document.querySelectorAll<HTMLAnchorElement>("[data-mob-link]");
+
+    if (!mobnav || !openBtn) return;
+
+    let isOpen = false;
+
+    const openNav = () => {
+      isOpen = true;
+      mobnav.classList.add("open");
+      mobnav.removeAttribute("inert");
+      mobnav.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      openBtn.setAttribute("aria-expanded", "true");
+      closeBtn?.focus();
+    };
+
+    const closeNav = () => {
+      isOpen = false;
+      mobnav.classList.remove("open");
+      mobnav.setAttribute("inert", "");
+      mobnav.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      openBtn.setAttribute("aria-expanded", "false");
+      openBtn.focus();
+    };
+
+    openBtn.addEventListener("click", openNav);
+    closeBtn?.addEventListener("click", closeNav);
+    mobLinks.forEach((link) => link.addEventListener("click", closeNav));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) closeNav();
+    });
+
+    // Focus trap — keep Tab within the overlay while it's open
+    mobnav.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab" || !isOpen) return;
+
+      const focusable = mobnav.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  initMobNav();
 </script>

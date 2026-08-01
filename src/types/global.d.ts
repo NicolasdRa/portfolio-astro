@@ -4,7 +4,4 @@ interface Window {
   __themeInitialized?: boolean;
   toggleTheme?: () => void;
   getTheme?: () => string;
-  __cursorStore__?: {
-    setCursorType: (type: string) => void;
-  };
 }

@@ -16,9 +16,10 @@ interface Props {
 }
 
 const {
-  title = 'Nicolás di Rago - Full-stack Web Developer',
-  description = 'Berlin-based full-stack web developer specializing in React, TypeScript, and Node.js. Creating high-performance web applications with exceptional UX. Available for freelance projects.',
+  title = 'Nicolás di Rago — Frontend Engineer',
+  description = 'Berlin-based frontend engineer at Nuuk GmbH — backend-capable, five years shipping production web apps front to back.',
   keywords = [
+    'frontend engineer',
     'react developer',
     'typescript',
     'javascript',
@@ -42,8 +43,8 @@ const {
   breadcrumbs = []
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString() || 'https://nicolasdirago.dev';
-const siteTitle = 'Nicolás di Rago - Full-stack Web Developer';
+const siteUrl = Astro.site?.toString() || 'https://www.nicolasdirago.dev';
+const siteTitle = 'Nicolás di Rago — Frontend Engineer';
 const twitterUsername = '@nicolasdiRago';
 
 // Format the page title
@@ -96,9 +97,10 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
 <link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- Theme Color -->
-<meta name="theme-color" content="#2A9D8F" />
+<meta name="theme-color" content="#0c0b0a" />
 
 <!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -148,7 +150,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
       "name": author,
       "url": siteUrl,
       "image": absoluteImageUrl,
-      "jobTitle": "Full-stack Web Developer",
+      "jobTitle": "Frontend Engineer",
       "worksFor": {
         "@type": "Organization",
         "name": "Nuuk GmbH"
@@ -173,7 +175,7 @@ const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
         "https://www.linkedin.com/in/nicol%C3%A1s-di-rago-tango-code",
         "https://x.com/nicolsdi_rago2"
       ],
-      "email": "mailto:nicolasdidrago@gmail.com"
+      "email": "mailto:ndr@nuuk.de"
     }
   ]
 })} />

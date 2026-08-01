@@ -24,4 +24,4 @@ pnpm-debug.log*
 .idea/
 
 # playwright
-.playwright-mcp/
+.playwright-mcp/tsconfig.tsbuildinfo
